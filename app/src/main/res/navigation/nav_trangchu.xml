@@ -8,7 +8,7 @@
         android:id="@+id/item_canhan"
         android:name="com.example.appmusicbotnav.fragment.ThuVien"
         android:label="fragment_frag_trangchu"
-        tools:layout="@layout/fragment_frag_trangchu" >
+        tools:layout="@layout/fragment_thuvien" >
         <action
             android:id="@+id/action_thuVien_to_danhSachBaiHatOffline2"
             app:destination="@id/frag_dsbhoff" />
@@ -17,10 +17,10 @@
         android:id="@+id/frag_dsbhoff"
         android:name="com.example.appmusicbotnav.fragment.DanhSachBaiHatOffline"
         android:label="fragment_frg_baihat"
-        tools:layout="@layout/fragment_frg_baihat" />
+        tools:layout="@layout/fragment_baihat" />
     <fragment
         android:id="@+id/item_bxh"
-        android:name="com.example.appmusicbotnav.fragment.bangxehang"
+        android:name="com.example.appmusicbotnav.fragment.BangXepHang"
         android:label="fragment_bangxehang"
-        tools:layout="@layout/fragment_bangxehang" />
+        tools:layout="@layout/fragment_bangxephang" />
 </navigation>

@@ -33,7 +33,7 @@ public class BaiHatAdapter extends ArrayAdapter<BaiHat> implements Filterable {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
         if (listItem == null) {
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.baihat, parent, false);
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.item_baihat, parent, false);
         }
         BaiHat currentSong = songList.get(position);
         TextView tvTitle = listItem.findViewById(R.id.tv_music_name);
