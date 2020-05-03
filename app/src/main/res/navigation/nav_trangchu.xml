@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_trangchu"
+    app:startDestination="@id/item_canhan">
+    <fragment
+        android:id="@+id/item_canhan"
+        android:name="com.example.appmusicbotnav.fragment.ThuVien"
+        android:label="fragment_frag_trangchu"
+        tools:layout="@layout/fragment_frag_trangchu" >
+        <action
+            android:id="@+id/action_thuVien_to_danhSachBaiHatOffline2"
+            app:destination="@id/frag_dsbhoff" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_dsbhoff"
+        android:name="com.example.appmusicbotnav.fragment.DanhSachBaiHatOffline"
+        android:label="fragment_frg_baihat"
+        tools:layout="@layout/fragment_frg_baihat" />
+    <fragment
+        android:id="@+id/item_bxh"
+        android:name="com.example.appmusicbotnav.fragment.bangxehang"
+        android:label="fragment_bangxehang"
+        tools:layout="@layout/fragment_bangxehang" />
+</navigation>

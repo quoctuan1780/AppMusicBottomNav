@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_canhan"
+        android:icon="@drawable/icon_canhan"
+        android:title="@string/item_trangchu" />
+    <item
+        android:id="@+id/item_online"
+        android:icon="@drawable/icon_online"
+        android:title="@string/item_online" />
+    <item
+        android:id="@+id/item_bxh"
+        android:icon="@drawable/icon_bxh"
+        android:title="@string/item_bxh" />
+    <item
+        android:id="@+id/item_ghiam"
+        android:icon="@drawable/icon_ghiam"
+        android:title="@string/item_ghiam" />
+</menu>
