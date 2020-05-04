@@ -13,19 +13,54 @@
         android:layout_height="wrap_content">
     </androidx.appcompat.widget.Toolbar>
 
-    <SearchView
-        android:id="@+id/sv_timkiembaihatoff"
+    <LinearLayout
+        android:id="@+id/ll_timkiembaihat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tb_baihat"
-        android:iconifiedByDefault="false"
-        android:queryHint="Tìm kiếm bài bát...">
-    </SearchView>
+        android:paddingTop="20dp"
+        android:orientation="horizontal">
+        <SearchView
+            android:id="@+id/sv_timkiembaihatoff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:background="@drawable/search"
+            android:queryHint="Tìm kiếm bài bát...">
+        </SearchView>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_sort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/ll_timkiembaihat"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ib_sort"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sort_black_24dp">
+
+        </ImageButton>
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:text="@string/sort"
+            android:gravity="center|center_vertical"
+            android:textSize="14dp"
+            android:fontFamily="sans-serif">
+        </TextView>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lv_danhsachbaihat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sv_timkiembaihatoff">
+        android:paddingTop="10dp"
+        android:layout_below="@id/ll_sort"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
     </ListView>
 </RelativeLayout>

@@ -28,6 +28,22 @@ public class BaiHatAdapter extends ArrayAdapter<BaiHat> implements Filterable {
         this.songList = songList;
     }
 
+    @Override
+    public int getCount() {
+        return songList.size();
+    }
+
+    @Nullable
+    @Override
+    public BaiHat getItem(int position) {
+        return songList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

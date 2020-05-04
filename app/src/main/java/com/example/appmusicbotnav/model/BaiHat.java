@@ -1,10 +1,13 @@
 package com.example.appmusicbotnav.model;
 
-public class BaiHat {
+import java.io.Serializable;
+
+public class BaiHat implements Serializable {
 
     private String tenbaihat;
     private String tencasi;
     private String path;
+    private int thutubai;
 
     public String getPath() {
         return path;
@@ -21,6 +24,13 @@ public class BaiHat {
 
     }
 
+    public BaiHat(String title, String subTitle, int path) {
+        this.tenbaihat = title;
+        this.tencasi = subTitle;
+        this.thutubai = path;
+
+    }
+
     public String getTitle() {
         return tenbaihat;
     }
@@ -32,5 +42,7 @@ public class BaiHat {
     public String getSubTitle() {
         return tencasi;
     }
+
+    public int getFile(){return thutubai;}
 
 }
