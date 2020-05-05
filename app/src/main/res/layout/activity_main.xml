@@ -25,6 +25,7 @@
         app:navGraph="@navigation/nav_trangchu" />
 
     <LinearLayout
+        android:id="@+id/ll_thanhdieukhiennhac_index1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

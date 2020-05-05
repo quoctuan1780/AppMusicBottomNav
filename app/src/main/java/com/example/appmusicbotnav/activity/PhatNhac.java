@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,17 +31,17 @@ public class PhatNhac extends AppCompatActivity {
     ImageView iv_disk;
     private SeekBar skThoigian;
     public static ArrayList<BaiHat> listBaihat;
-    public static int vitribai;
+    public static int vitribai, vitricu = -1, vitrinhac;
     public static MediaPlayer choinhac;
     private Animation animation;
-    private static MediaPlayer choinhaccu;
+    private static MediaPlayer choinhaccu = null;
     private static boolean lap = false, nghengaunhien = false;
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phatnhac);
-
+        Log.i("TAG", "onCreate: ");
         //Lấy dữ liệu từ fragment danh sách bài hát offline qua Activity phát nhạc
         vitribai = getIntent().getIntExtra("vitri", 0);
         listBaihat = (ArrayList<BaiHat>) getIntent().getSerializableExtra("list");
@@ -54,47 +55,44 @@ public class PhatNhac extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         anhxa();
         //Vừa mở bài hát phát nhạc luôn
-        khoitaohatchidinh(vitribai);
-        //Hát sau khi tương tác với các nút
-        baitruocdo();
-        play();
-        baiketiep();
-        thaydoithanhchoinhac();
-        nhannutlaplai();
-        nhannutnghengaunhien();
-        ib_toi_10s.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tangnhaclen10s();
-            }
-        });
-        ib_lui_10s.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                giamnhacxuong10s();
-            }
-        });
+        if(listBaihat != null){
+            khoitaonhaccodieukien();
+            //Hát sau khi tương tác với các nút
+            baitruocdo();
+            play();
+            baiketiep();
+            thaydoithanhchoinhac();
+            nhannutlaplai();
+            nhannutnghengaunhien();
+            ib_toi_10s.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tangnhaclen10s();
+                }
+            });
+            ib_lui_10s.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    giamnhacxuong10s();
+                }
+            });
+        }
     }
 
     @Override
     protected void onStart() {
-        Log.i("check", "Start");
+        Log.i("TAG", "Start");
         if(choinhaccu != null) {
             choinhaccu.stop();
         }
         super.onStart();
     }
 
-    @Override
-    protected void onStop() {
-        Log.i("check", "Stop");
-        choinhaccu = choinhac;
-        super.onStop();
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == android.R.id.home){
+            vitricu = vitribai;
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -114,6 +112,25 @@ public class PhatNhac extends AppCompatActivity {
         ib_phatngaunhien = (ImageButton) findViewById(R.id.ib_nghengaunhien);
         skThoigian = (SeekBar) findViewById(R.id.sk_phatnhac);
         iv_disk = (ImageView) findViewById(R.id.iv_dia_phat_nhac);
+    }
+
+    private void khoitaonhaccodieukien(){
+        if(choinhac != null) {
+            if(choinhac.isPlaying())
+                if(vitricu == vitribai)
+                {
+                    vitrinhac = choinhac.getCurrentPosition();
+                    khoitaohatchidinh(vitribai);
+                    choinhac.seekTo(vitrinhac);
+                }
+                else {
+                    choinhac.stop();
+                    khoitaohatchidinh(vitribai);
+                }
+        }
+        else {
+            khoitaohatchidinh(vitribai);
+        }
     }
 
     private void nhannutnghengaunhien(){
@@ -171,6 +188,7 @@ public class PhatNhac extends AppCompatActivity {
     }
 
     private void khoitaohatchidinh(int vitribai){
+        if(choinhac != null && choinhac.isPlaying()) choinhac.stop();
         choinhac = MediaPlayer.create(PhatNhac.this, listBaihat.get(vitribai).getFile());
         tv_tenbaihat.setText(listBaihat.get(vitribai).getTitle());
         tv_tencasi.setText(listBaihat.get(vitribai).getSubTitle());
@@ -192,16 +210,18 @@ public class PhatNhac extends AppCompatActivity {
         ib_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(choinhac.isPlaying()){
-                    choinhac.pause();
-                    ib_play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                    iv_disk.clearAnimation();
-                }else{
-                    choinhac.start();
-                    ib_play.setImageResource(R.drawable.ic_pause_black_24dp);
-                    tongthoigiannhac();
-                    capnhatthoigiannhac();
-                    iv_disk.startAnimation(animation);
+                if (choinhac != null) {
+                    if (choinhac.isPlaying()) {
+                        choinhac.pause();
+                        ib_play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                        iv_disk.clearAnimation();
+                    } else {
+                        choinhac.start();
+                        ib_play.setImageResource(R.drawable.ic_pause_black_24dp);
+                        tongthoigiannhac();
+                        capnhatthoigiannhac();
+                        iv_disk.startAnimation(animation);
+                    }
                 }
             }
         });
