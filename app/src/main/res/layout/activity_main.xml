@@ -40,9 +40,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="?android:attr/windowBackground"
         android:foreground="?attr/selectableItemBackground"
-        app:itemBackground="@color/bgBottomNavigation"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
+        app:itemBackground="@color/white"
+        app:itemIconTint="@color/bgBottomNavigation"
+        app:itemTextColor="@color/bgBottomNavigation"
         app:menu="@menu/nav_item" />
 
 
