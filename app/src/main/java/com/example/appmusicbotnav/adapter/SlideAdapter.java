@@ -5,14 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
-
-
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.model.Slide;
-
 import java.util.ArrayList;
 
 public class SlideAdapter extends PagerAdapter {

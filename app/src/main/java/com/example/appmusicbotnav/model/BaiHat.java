@@ -1,8 +1,10 @@
 package com.example.appmusicbotnav.model;
 
+import android.widget.Adapter;
+
 import java.io.Serializable;
 
-public class BaiHat implements Serializable {
+public class BaiHat implements Serializable{
 
     private String tenbaihat;
     private String tencasi;

@@ -29,9 +29,9 @@ public class PhatNhac extends AppCompatActivity {
     private ImageButton ib_lui, ib_toi, ib_play, ib_toi_10s, ib_lui_10s, ib_lap, ib_phatngaunhien;
     ImageView iv_disk;
     private SeekBar skThoigian;
-    private ArrayList<BaiHat> listBaihat;
-    private int vitribai;
-    private MediaPlayer choinhac;
+    public static ArrayList<BaiHat> listBaihat;
+    public static int vitribai;
+    public static MediaPlayer choinhac;
     private Animation animation;
     private static MediaPlayer choinhaccu;
     private static boolean lap = false, nghengaunhien = false;
@@ -40,8 +40,11 @@ public class PhatNhac extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phatnhac);
+
+        //Lấy dữ liệu từ fragment danh sách bài hát offline qua Activity phát nhạc
         vitribai = getIntent().getIntExtra("vitri", 0);
         listBaihat = (ArrayList<BaiHat>) getIntent().getSerializableExtra("list");
+        //Khởi tạo đĩa xoay
         animation = AnimationUtils.loadAnimation(this, R.anim.disk_rotate);
         toolbar = (Toolbar) findViewById(R.id.tb_phatnhac);
         toolbar.setTitle("Phát nhạc");
@@ -49,7 +52,6 @@ public class PhatNhac extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         anhxa();
         //Vừa mở bài hát phát nhạc luôn
         khoitaohatchidinh(vitribai);
@@ -58,19 +60,18 @@ public class PhatNhac extends AppCompatActivity {
         play();
         baiketiep();
         thaydoithanhchoinhac();
-        laplai();
+        nhannutlaplai();
         nhannutnghengaunhien();
         ib_toi_10s.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tangnhacnhanh10s();
+                tangnhaclen10s();
             }
         });
-
         ib_lui_10s.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                giamnhacnhanh10s();
+                giamnhacxuong10s();
             }
         });
     }
@@ -136,12 +137,12 @@ public class PhatNhac extends AppCompatActivity {
         khoitaohatchidinh(vitri);
         choinhac.start();
         ib_play.setImageResource(R.drawable.ic_pause_black_24dp);
-        tongthoigian();
+        tongthoigiannhac();
         capnhatthoigiannhac();
         iv_disk.startAnimation(animation);
     }
 
-    private void laplai(){
+    private void nhannutlaplai(){
         ib_lap.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -164,7 +165,7 @@ public class PhatNhac extends AppCompatActivity {
         khoitaonhac();
         choinhac.start();
         ib_play.setImageResource(R.drawable.ic_pause_black_24dp);
-        tongthoigian();
+        tongthoigiannhac();
         capnhatthoigiannhac();
         iv_disk.startAnimation(animation);
     }
@@ -177,7 +178,7 @@ public class PhatNhac extends AppCompatActivity {
         choinhac.start();
         iv_disk.startAnimation(animation);
         capnhatthoigiannhac();
-        tongthoigian();
+        tongthoigiannhac();
         iv_disk.startAnimation(animation);
     }
 
@@ -198,7 +199,7 @@ public class PhatNhac extends AppCompatActivity {
                 }else{
                     choinhac.start();
                     ib_play.setImageResource(R.drawable.ic_pause_black_24dp);
-                    tongthoigian();
+                    tongthoigiannhac();
                     capnhatthoigiannhac();
                     iv_disk.startAnimation(animation);
                 }
@@ -254,7 +255,7 @@ public class PhatNhac extends AppCompatActivity {
         });
     }
 
-    private void tangnhacnhanh10s(){
+    private void tangnhaclen10s(){
         int thoigianhientai = choinhac.getCurrentPosition();
         thoigianhientai += 10000;
         if(thoigianhientai > choinhac.getDuration()){
@@ -277,7 +278,7 @@ public class PhatNhac extends AppCompatActivity {
         choinhac.seekTo(thoigianhientai);
     }
 
-    private void giamnhacnhanh10s(){
+    private void giamnhacxuong10s(){
         int thoigianhientai = choinhac.getCurrentPosition();
         thoigianhientai -= 10000;
         if(thoigianhientai < 0){
@@ -349,7 +350,7 @@ public class PhatNhac extends AppCompatActivity {
         }, 100);
     }
 
-    private void tongthoigian(){
+    private void tongthoigiannhac(){
         SimpleDateFormat dinhdangtg = new SimpleDateFormat("mm:ss");
         tv_tongtgbh.setText(dinhdangtg.format(choinhac.getDuration()));
 
