@@ -116,17 +116,19 @@ public class PhatNhac extends AppCompatActivity {
 
     private void khoitaonhaccodieukien(){
         if(choinhac != null) {
-            if(choinhac.isPlaying())
-                if(vitricu == vitribai)
-                {
+            if(choinhac.isPlaying()) {
+                if (vitricu == vitribai) {
                     vitrinhac = choinhac.getCurrentPosition();
                     khoitaohatchidinh(vitribai);
-                    choinhac.seekTo(vitrinhac);
-                }
-                else {
+                    choinhac.seekTo(vitrinhac + 50);
+                } else {
                     choinhac.stop();
                     khoitaohatchidinh(vitribai);
                 }
+            }else {
+                choinhac.stop();
+                khoitaohatchidinh(vitribai);
+            }
         }
         else {
             khoitaohatchidinh(vitribai);

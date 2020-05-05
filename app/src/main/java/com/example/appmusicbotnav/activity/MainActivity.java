@@ -102,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
                     tv_tenbaihat_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getTitle());
                     tv_tencasi_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getSubTitle());
                     PhatNhac.choinhac.start();
+                    iv_disk_index.startAnimation(diaxoay);
+                    ib_play_main.setImageResource(R.drawable.ic_pause_black_24dp);
                 }
             }
         });
@@ -121,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
                     tv_tenbaihat_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getTitle());
                     tv_tencasi_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getSubTitle());
                     PhatNhac.choinhac.start();
+                    iv_disk_index.startAnimation(diaxoay);
+                    ib_play_main.setImageResource(R.drawable.ic_pause_black_24dp);
                 }
             }
         });
