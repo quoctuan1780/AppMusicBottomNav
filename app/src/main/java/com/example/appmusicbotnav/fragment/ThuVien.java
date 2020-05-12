@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.adapter.SlideAdapter;
@@ -25,6 +26,7 @@ public class ThuVien extends Fragment {
     private Toolbar toolbar;
     private ArrayList<Slide> listQuangcao;
     private ViewPager vpQuangcao;
+    private int soluong = 0;
     public ThuVien() {
         // Required empty public constructor
     }
@@ -33,24 +35,35 @@ public class ThuVien extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_thuvien, container, false);
-        QuangCao();
-        HienThiQuangCao();
+        soluong = DanhSachBaiHatOffline.listTruyen.size();
         setHasOptionsMenu(true);
         toolbar = (Toolbar) view.findViewById(R.id.tb_thuvien);
         toolbar.setTitle("Thư viện");
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        QuangCao();
+        HienThiQuangCao();
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        TextView tv = (TextView) view.findViewById(R.id.tv_sl_baihat) ;
+        tv.setText(soluong+"");
         super.onViewCreated(view, savedInstanceState);
 
         view.findViewById(R.id.ll_baihat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(ThuVien.this)
-                        .navigate(R.id.action_thuVien_to_danhSachBaiHatOffline2);
+                        .navigate(R.id.action_thuvien_to_dsbh);
+            }
+        });
+
+        view.findViewById(R.id.ll_playlist).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(ThuVien.this)
+                        .navigate(R.id.action_thuvien_playlist);
             }
         });
     }

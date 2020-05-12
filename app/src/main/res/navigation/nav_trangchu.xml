@@ -10,8 +10,48 @@
         android:label="fragment_frag_trangchu"
         tools:layout="@layout/fragment_thuvien" >
         <action
-            android:id="@+id/action_thuVien_to_danhSachBaiHatOffline2"
-            app:destination="@id/frag_dsbhoff" />
+            android:id="@+id/action_thuvien_to_dsbh"
+            app:destination="@id/frag_dsbhoff"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_thuvien_playlist"
+            app:destination="@id/frag_playlist"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/item_chonBH_playlist_off"
+        android:name="com.example.appmusicbotnav.fragment.ThemBaiHatVaoPlaylistOff"
+        android:label="item_chonBH_offline"
+        tools:layout="@layout/item_thembaihatvao_playlist">
+        <action
+            android:id="@+id/action_item_chonBH_playlist_off_to_frag_playlist"
+            app:destination="@id/frag_playlist" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_playlist"
+        android:name="com.example.appmusicbotnav.fragment.DanhSachPlayList"
+        android:label="fragment_playlist"
+        tools:layout="@layout/fragment_playlist">
+        <action
+            android:id="@+id/action_playlist_to_chonbhplaylistoff"
+            app:destination="@id/item_chonBH_playlist_off"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_frag_playlist_to_item_canhan2"
+            app:destination="@id/item_canhan"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/frag_dsbhoff"

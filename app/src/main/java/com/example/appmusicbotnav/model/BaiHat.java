@@ -1,7 +1,5 @@
 package com.example.appmusicbotnav.model;
 
-import android.widget.Adapter;
-
 import java.io.Serializable;
 
 public class BaiHat implements Serializable{
@@ -10,7 +8,7 @@ public class BaiHat implements Serializable{
     private String tencasi;
     private String path;
     private int thutubai;
-
+    private boolean checkBox;
     public String getPath() {
         return path;
     }
@@ -33,6 +31,13 @@ public class BaiHat implements Serializable{
 
     }
 
+    public BaiHat(String title, String subTitle, int path, boolean cb) {
+        this.tenbaihat = title;
+        this.tencasi = subTitle;
+        this.thutubai = path;
+        this.checkBox = cb;
+    }
+
     public String getTitle() {
         return tenbaihat;
     }
@@ -46,5 +51,11 @@ public class BaiHat implements Serializable{
     }
 
     public int getFile(){return thutubai;}
+
+    public boolean getChecked(){return checkBox;}
+
+    public void setCheckBox(boolean cb){
+        this.checkBox = cb;
+    }
 
 }

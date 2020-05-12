@@ -98,12 +98,19 @@ public class MainActivity extends AppCompatActivity {
                         PhatNhac.vitribai = 0;
                     }
                     PhatNhac.choinhac.stop();
-                    PhatNhac.choinhac = MediaPlayer.create(getBaseContext(), PhatNhac.listBaihat.get(PhatNhac.vitribai).getFile());
-                    tv_tenbaihat_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getTitle());
-                    tv_tencasi_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getSubTitle());
-                    PhatNhac.choinhac.start();
-                    iv_disk_index.startAnimation(diaxoay);
-                    ib_play_main.setImageResource(R.drawable.ic_pause_black_24dp);
+//                    PhatNhac.choinhac = MediaPlayer.create(getBaseContext(), PhatNhac.listBaihat.get(PhatNhac.vitribai).getFile());
+                    PhatNhac.choinhac = new MediaPlayer();
+                    try{
+                        PhatNhac.choinhac.setDataSource(PhatNhac.listBaihat.get(PhatNhac.vitribai).getPath());
+                        PhatNhac.choinhac.prepare();
+                        tv_tenbaihat_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getTitle());
+                        tv_tencasi_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getSubTitle());
+                        PhatNhac.choinhac.start();
+                        iv_disk_index.startAnimation(diaxoay);
+                        ib_play_main.setImageResource(R.drawable.ic_pause_black_24dp);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -119,12 +126,19 @@ public class MainActivity extends AppCompatActivity {
                         PhatNhac.vitribai = PhatNhac.listBaihat.size() - 1;
                     }
                     PhatNhac.choinhac.stop();
-                    PhatNhac.choinhac = MediaPlayer.create(getBaseContext(), PhatNhac.listBaihat.get(PhatNhac.vitribai).getFile());
-                    tv_tenbaihat_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getTitle());
-                    tv_tencasi_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getSubTitle());
-                    PhatNhac.choinhac.start();
-                    iv_disk_index.startAnimation(diaxoay);
-                    ib_play_main.setImageResource(R.drawable.ic_pause_black_24dp);
+//                    PhatNhac.choinhac = MediaPlayer.create(getBaseContext(), PhatNhac.listBaihat.get(PhatNhac.vitribai).getFile());
+                    PhatNhac.choinhac = new MediaPlayer();
+                    try{
+                        PhatNhac.choinhac.setDataSource(PhatNhac.listBaihat.get(PhatNhac.vitribai).getPath());
+                        PhatNhac.choinhac.prepare();
+                        tv_tenbaihat_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getTitle());
+                        tv_tencasi_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getSubTitle());
+                        PhatNhac.choinhac.start();
+                        iv_disk_index.startAnimation(diaxoay);
+                        ib_play_main.setImageResource(R.drawable.ic_pause_black_24dp);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         });

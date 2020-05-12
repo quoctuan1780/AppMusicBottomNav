@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_xoa_playlist"
+        android:title="Xóa playlist" />
+    <item
+        android:id="@+id/item_sua_playlist"
+        android:title="Sửa playlist" />
+    <item
+        android:id="@+id/item_sua_baihattrong_playlist"
+        android:title="Sửa bài hát trong playlist" />
+</menu>

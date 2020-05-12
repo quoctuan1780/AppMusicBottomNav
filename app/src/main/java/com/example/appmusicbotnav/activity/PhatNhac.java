@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -120,7 +121,7 @@ public class PhatNhac extends AppCompatActivity {
                 if (vitricu == vitribai) {
                     vitrinhac = choinhac.getCurrentPosition();
                     khoitaohatchidinh(vitribai);
-                    choinhac.seekTo(vitrinhac + 50);
+                    choinhac.seekTo(vitrinhac);
                 } else {
                     choinhac.stop();
                     khoitaohatchidinh(vitribai);
@@ -191,21 +192,34 @@ public class PhatNhac extends AppCompatActivity {
 
     private void khoitaohatchidinh(int vitribai){
         if(choinhac != null && choinhac.isPlaying()) choinhac.stop();
-        choinhac = MediaPlayer.create(PhatNhac.this, listBaihat.get(vitribai).getFile());
-        tv_tenbaihat.setText(listBaihat.get(vitribai).getTitle());
-        tv_tencasi.setText(listBaihat.get(vitribai).getSubTitle());
-        ib_play.setImageResource(R.drawable.ic_pause_black_24dp);
-        choinhac.start();
-        iv_disk.startAnimation(animation);
-        capnhatthoigiannhac();
-        tongthoigiannhac();
-        iv_disk.startAnimation(animation);
+//        choinhac = MediaPlayer.create(PhatNhac.this, listBaihat.get(vitribai).getFile());
+        choinhac = new MediaPlayer();
+        try {
+            choinhac.setDataSource(listBaihat.get(vitribai).getPath());
+            choinhac.prepare();
+            tv_tenbaihat.setText(listBaihat.get(vitribai).getTitle());
+            tv_tencasi.setText(listBaihat.get(vitribai).getSubTitle());
+            ib_play.setImageResource(R.drawable.ic_pause_black_24dp);
+            choinhac.start();
+            iv_disk.startAnimation(animation);
+            capnhatthoigiannhac();
+            tongthoigiannhac();
+            iv_disk.startAnimation(animation);
+        }catch(Exception e){
+            Toast.makeText(PhatNhac.this, "Khong the phat duoc nhac", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void khoitaonhac(){
-        choinhac = MediaPlayer.create(PhatNhac.this, listBaihat.get(vitribai).getFile());
-        tv_tenbaihat.setText(listBaihat.get(vitribai).getTitle());
-        tv_tencasi.setText(listBaihat.get(vitribai).getSubTitle());
+        choinhac = new MediaPlayer();
+        try {
+            choinhac.setDataSource(listBaihat.get(vitribai).getPath());
+            choinhac.prepare();
+            tv_tenbaihat.setText(listBaihat.get(vitribai).getTitle());
+            tv_tencasi.setText(listBaihat.get(vitribai).getSubTitle());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void play(){

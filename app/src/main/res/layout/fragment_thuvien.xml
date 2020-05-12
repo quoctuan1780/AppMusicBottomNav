@@ -38,7 +38,8 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vp_quangcao"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"></androidx.viewpager.widget.ViewPager>
+                android:layout_height="100dp">
+            </androidx.viewpager.widget.ViewPager>
         </LinearLayout>
 
         <LinearLayout
@@ -107,6 +108,7 @@
                             android:textColor="@color/black"></TextView>
 
                         <TextView
+                            android:id="@+id/tv_sl_baihat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"

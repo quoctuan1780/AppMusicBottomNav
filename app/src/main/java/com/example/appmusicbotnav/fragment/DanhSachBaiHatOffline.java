@@ -1,15 +1,21 @@
 package com.example.appmusicbotnav.fragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,20 +24,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.activity.PhatNhac;
 import com.example.appmusicbotnav.adapter.BaiHatAdapter;
 import com.example.appmusicbotnav.model.BaiHat;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class DanhSachBaiHatOffline extends Fragment {
     View view;
     Toolbar toolbar;
     ArrayList<BaiHat> listBaihat = new ArrayList<>();
-    ArrayList<BaiHat> listTruyen = new ArrayList<>();
+    public static ArrayList<BaiHat> listTruyen = new ArrayList<>();
     ListView listView;
     SearchView searchView;
     BaiHatAdapter adapter;
@@ -49,7 +50,8 @@ public class DanhSachBaiHatOffline extends Fragment {
     ImageButton sort;
     PopupMenu dropMenu;
     Menu menu;
-    Bundle b = new Bundle();
+    private static final int MY_PERMISSION_REQUEST = 1;
+
     public DanhSachBaiHatOffline(){
 
     }
@@ -67,13 +69,14 @@ public class DanhSachBaiHatOffline extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        khoitaoquyentruycap();
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         sort = (ImageButton) view.findViewById(R.id.ib_sort);
-        khoitaobaihat();
+        laynhac();
         listTruyen = listBaihat;
         khoitaotimkiem();
         khoitaomenuSapxep();
@@ -122,10 +125,9 @@ public class DanhSachBaiHatOffline extends Fragment {
                     for(BaiHat bh : listBaihat)
                         if(bh.getTitle().toLowerCase().contains(newText.toLowerCase())){
                             listClone.add(bh);
-                            khoitaobaihat(listClone);
-                            listTruyen = listClone;
                         }
-                    if(listClone.isEmpty()) khoitaobaihat(listClone);
+                    khoitaobaihat(listClone);
+                    listTruyen = listClone;
                  }
                 return false;
             }
@@ -179,27 +181,60 @@ public class DanhSachBaiHatOffline extends Fragment {
         });
     }
 
-    private void khoitaobaihat(){
-        BaiHat bh1 = new BaiHat("Điều anh biết", "Chi Dân", R.raw.dieu_anh_biet);
-        BaiHat bh2 = new BaiHat("Đời hư ảo đưa em vào cơn mê", "Mix nhạc", R.raw.doi_hu_ao_dua_em_vao_con_me);
-        BaiHat bh3 = new BaiHat("Bad Liar", "Nightcore", R.raw.bad_liar);
-        BaiHat bh4 = new BaiHat("Từng trao nhau", "Con vịt", R.raw.tung_trao_nhau);
-        BaiHat bh5 = new BaiHat("Anh thấy mình nhớ em", "Tống Gia Vĩ", R.raw.anh_thay_minh_nho_em);
-        BaiHat bh6 = new BaiHat("Lại nhớ người yêu", "Quang Lập", R.raw.lai_nho_nguoi_yeu);
-        BaiHat bh7 = new BaiHat("Tay trái chỉ trăng", "Tát Đỉnh Đỉnh", R.raw.tay_trai_chi_trang);
-        listBaihat.add(bh1);
-        listBaihat.add(bh3);
-        listBaihat.add(bh2);
-        listBaihat.add(bh4);
-        listBaihat.add(bh5);
-        listBaihat.add(bh6);
-        listBaihat.add(bh7);
+    private void khoitaobaihat(ArrayList<BaiHat> listBh){
+        adapter = new BaiHatAdapter(getContext(), listBh);
+        listView.setAdapter(adapter);
+    }
+
+
+    //Phần khởi tạo bài hát từ bộ nhớ máy
+    private void khoitaoquyentruycap(){
+        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+            }else{
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+            }
+        }else{
+            Log.i("TAG", "Da khoi tao quyen truy cap: ");
+        }
+    }
+
+    private void laynhac(){
+        BaiHat bh;
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        Cursor songCursor = contentResolver.query(uri, null, null, null, null);
+        if(songCursor != null && songCursor.moveToFirst()){
+            do{
+                String tenbh = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
+                String tencs = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+                String duongdan = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.DATA));
+                Log.i("TAG", duongdan);
+                bh = new BaiHat(tenbh, tencs, duongdan);
+                listBaihat.add(bh);
+            }  while(songCursor.moveToNext());
+        }
+        songCursor.close();
         adapter = new BaiHatAdapter(getContext(), listBaihat);
         listView.setAdapter(adapter);
     }
 
-    private void khoitaobaihat(ArrayList<BaiHat> listBh){
-        adapter = new BaiHatAdapter(getContext(), listBh);
-        listView.setAdapter(adapter);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case MY_PERMISSION_REQUEST:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getActivity(), "Permision Granted", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(getActivity(), "Permision not grant", Toast.LENGTH_LONG).show();
+                        getActivity().finish();
+                    }
+                }
+        }
     }
 }

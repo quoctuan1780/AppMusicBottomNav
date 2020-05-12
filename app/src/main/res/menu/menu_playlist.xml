@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_tao_playlist"
+        android:title="Tạo" />
+    <item
+        android:id="@+id/item_huytao_playlist"
+        android:title="Hủy" />
+</menu>
