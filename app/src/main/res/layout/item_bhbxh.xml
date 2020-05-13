@@ -8,18 +8,18 @@
     android:paddingTop="10dp">
 
     <ImageView
-        android:id="@+id/iv_music_list"
+        android:id="@+id/iv_music_listbxh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:src="@drawable/ic_music_player"/>
 
     <TextView
-        android:id="@+id/tv_music_name"
+        android:id="@+id/tv_music_namebxh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/iv_music_list"
+        android:layout_toEndOf="@id/iv_music_listbxh"
         android:singleLine="true"
         android:text="Title"
         android:textColor="@color/color_black"
@@ -27,12 +27,12 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tv_music_subtitle"
+        android:id="@+id/tv_music_subtitlebxh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_music_name"
+        android:layout_below="@id/tv_music_namebxh"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/iv_music_list"
+        android:layout_toEndOf="@id/iv_music_listbxh"
         android:singleLine="true"
         android:text="SubTitle"
         android:textColor="@color/gray_color"
@@ -40,6 +40,7 @@
         android:textStyle="normal" />
 
     <ImageView
+        android:id="@+id/img_menubxh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
