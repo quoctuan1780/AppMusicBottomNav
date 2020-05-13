@@ -58,10 +58,12 @@ public class BangXepHang extends Fragment {
         int images[]= {R.drawable.poster1,R.drawable.poster3,R.drawable.poster2,R.drawable.poster4};
         v_flipper = view.findViewById(R.id.imgview_bhx);
         listView = view.findViewById(R.id.lv_bxh);
-        for(int i = 0; i < images.length; i++)
-        {
-            flipperImages(images[i]);
-        }
+
+            flipperImages(images[0]);
+            flipperImages(images[1]);
+            flipperImages(images[2]);
+            flipperImages(images[3]);
+
          dsbh = new ArrayList<>();
         khoitaoquyentruycap();
         Button vn = view.findViewById(R.id.bxhVN);
@@ -197,7 +199,7 @@ public class BangXepHang extends Fragment {
     public ArrayList<BaiHat> Top100KPOP(ArrayList<BaiHat> dsbh)
     {
         ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i =0; i<3; i++)
+        for(int i =0; i<10; i++)
         {
             top100.add(dsbh.get(i));
         }
@@ -208,7 +210,7 @@ public class BangXepHang extends Fragment {
         ImageView imageView = new ImageView(view.getContext());
         imageView.setBackgroundResource(image);
         v_flipper.addView(imageView);
-        v_flipper.setFlipInterval((30));
+        v_flipper.setFlipInterval((1000));
         v_flipper.setAutoStart(true);
         v_flipper.setInAnimation(view.getContext(), android.R.anim.slide_in_left);
         v_flipper.setOutAnimation(view.getContext(), android.R.anim.slide_out_right);

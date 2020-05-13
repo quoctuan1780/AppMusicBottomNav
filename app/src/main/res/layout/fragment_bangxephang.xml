@@ -20,13 +20,19 @@
         android:textAlignment="center"
         android:queryHint="Search here"
         android:paddingTop="80dp"
-        android:background="@color/background"
+        android:searchIcon="@drawable/ic_search_black_24dp"
+        android:background="@drawable/roundcorner1"
+
         />
     <ViewFlipper
         android:id="@+id/imgview_bhx"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="160dp"
         android:layout_below="@id/search_bxh"
+        android:gravity="center|center_horizontal"
         >
     </ViewFlipper>
     <LinearLayout
@@ -34,50 +40,63 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imgview_bhx"
+        android:paddingTop="10dp"
         android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:gravity="center|center_horizontal">
         <Button
             android:id="@+id/bxhVN"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="#4DC2F4"
-            android:textSize="16sp"
-            android:fontFamily="monospace"
-            android:text="Bảng xếp hạng Nhạc trẻ " />
+            android:layout_height="100dp"
+            android:background = "@drawable/top100tt"
+            android:scaleType="fitXY"
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+
+            />
         <Button
             android:id="@+id/bxhUSUK"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="#CA98F1"
-            android:textSize="16sp"
-            android:fontFamily="monospace"
-            android:text="Bảng xếp hạng Nhạc trữ tình" />
+            android:layout_height="100dp"
+            android:background="@drawable/top100nt"
+
+            android:scaleType="fitXY"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+             />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/ll_bxh1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_below="@+id/ll_bxh"
         android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:gravity="center|center_horizontal"
         android:orientation="horizontal">
         <Button
             android:id="@+id/bxhAsia"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="#31D42D"
-            android:textSize="16sp"
-            android:fontFamily="monospace"
-            android:text="Bảng xếp hạng Nhạc Rap"
+            android:layout_height="100dp"
+
+            android:background = "@drawable/top100pop"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
             />
 
         <Button
             android:id="@+id/bxhKPOP"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="#FD7325"
-            android:textSize="16sp"
-            android:fontFamily="monospace"
-            android:text="Bảng xếp hạng Nhạc Cách mạng"
+            android:layout_height="100dp"
+            android:background = "@drawable/top100remix"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+
             />
     </LinearLayout>
 
@@ -87,17 +106,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_bxh1"
-        android:paddingTop="20dp"
-        android:paddingLeft="30dp"
-        android:paddingBottom="20dp">
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp">
         <TextView
             android:id="@+id/top100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Top 100"
+            android:text="Top 100 bài hát"
+            android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp"
-            android:fontFamily="casual"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-condensed-light"
             />
     </LinearLayout>
     <ListView
@@ -106,7 +126,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_tv_top100"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"/>
+        android:layout_margin="5dp"
+        android:background="@drawable/background_bxh"/>
 
 </RelativeLayout>
 
