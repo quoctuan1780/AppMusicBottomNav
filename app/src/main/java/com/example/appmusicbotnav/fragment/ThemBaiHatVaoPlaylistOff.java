@@ -28,9 +28,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.appmusicbotnav.R;
-import com.example.appmusicbotnav.adapter.BaiHatAdapter;
 import com.example.appmusicbotnav.adapter.ListViewSelectAdapter;
-import com.example.appmusicbotnav.db.Database;
+import com.example.appmusicbotnav.db.BaiHatDBOffline;
+import com.example.appmusicbotnav.db.PlaylistDBOffline;
 import com.example.appmusicbotnav.model.BaiHat;
 import java.util.ArrayList;
 
@@ -41,8 +41,9 @@ public class ThemBaiHatVaoPlaylistOff extends Fragment {
     private ListView listView;
     private ArrayList<BaiHat> listBaihat = new ArrayList<>();
     public ArrayList<BaiHat> listBaihatClone = null;
-    Bundle bundle;
-    Database database;
+    private Bundle bundle;
+    private PlaylistDBOffline playlistDBOffline;
+    private BaiHatDBOffline baiHatDBOffline;
     private static final int MY_PERMISSION_REQUEST = 1;
     public ThemBaiHatVaoPlaylistOff(){
 
@@ -51,7 +52,9 @@ public class ThemBaiHatVaoPlaylistOff extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         bundle = this.getArguments();
-        database = new Database(getContext(), "music.sqlite", null, 1);
+        khoitaoquyentruycap();
+        playlistDBOffline = new PlaylistDBOffline(getContext(), "music.sqlite", null, 1);
+        baiHatDBOffline = new BaiHatDBOffline(getContext(), "music.sqlite", null, 1);
         super.onCreate(savedInstanceState);
     }
 
@@ -68,16 +71,8 @@ public class ThemBaiHatVaoPlaylistOff extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        database.Thucthitruyvan("CREATE TABLE IF NOT EXISTS Playlist(Id INTEGER PRIMARY KEY " +
-                "AUTOINCREMENT," +
-                "TenPlaylist VARCHAR(40)" +
-                ")");
-        database.Thucthitruyvan("CREATE TABLE IF NOT EXISTS Baihatplaylist(Id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "IdPlaylist INTEGER REFERENCES Playlist(Id)," +
-                "Tenbaihat VARCHAR(100)," +
-                "Tencasi VARCHAR(40)," +
-                "Duongdan VARCHAR(200)" +
-                ")");
+        playlistDBOffline.Taobang();
+        baiHatDBOffline.Taobang();
         return view;
     }
 
@@ -107,8 +102,8 @@ public class ThemBaiHatVaoPlaylistOff extends Fragment {
             switch (item.getItemId()){
                 case R.id.item_tao_playlist:
                     String a = bundle.getString("tenplaylist");
-                    database.Thucthitruyvan("INSERT INTO Playlist VALUES(null,'" + a + "')");
-                    Cursor cursor = database.Laydulieu("SELECT Id FROM Playlist WHERE TenPlaylist = '" + a +"'");
+                    playlistDBOffline.ThemPlaylist(a);
+                    Cursor cursor = playlistDBOffline.LayPlaylist();
                     if(cursor != null){
                         cursor.moveToNext();
                         int id = cursor.getInt(0);
@@ -117,8 +112,7 @@ public class ThemBaiHatVaoPlaylistOff extends Fragment {
                                 String tenbh = bh.getTitle();
                                 String tencs = bh.getSubTitle();
                                 String duongdan = bh.getPath();
-                                database.Thucthitruyvan("INSERT INTO Baihatplaylist VALUES(null," + id + ",'" + tenbh +"','" +
-                                        tencs + "','" + duongdan + "')");
+                                baiHatDBOffline.ThemBaiHatPl(tenbh, tencs, duongdan, id);
                             }
                         }
                     }

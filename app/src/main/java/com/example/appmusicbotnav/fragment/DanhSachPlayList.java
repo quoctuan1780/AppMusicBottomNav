@@ -2,7 +2,6 @@ package com.example.appmusicbotnav.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,12 +60,6 @@ public class DanhSachPlayList extends Fragment {
                     .navigate(R.id.action_frag_playlist_to_item_canhan2);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onStop() {
-        Log.i("TAG", "onStop Playlist: ");
-        super.onStop();
     }
 
     private void addTabs() {

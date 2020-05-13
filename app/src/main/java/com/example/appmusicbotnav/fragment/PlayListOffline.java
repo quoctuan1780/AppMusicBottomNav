@@ -91,25 +91,30 @@ public class PlayListOffline extends Fragment {
     }
 
     private void hienthiPlaylist(){
-        Cursor layplaylist = database.Laydulieu("SELECT * FROM Playlist");
-        while (layplaylist.moveToNext()){
-            ArrayList<BaiHat> listBh = new ArrayList<>();
+        try{
+            Cursor layplaylist = database.Laydulieu("SELECT * FROM Playlist");
+            while (layplaylist.moveToNext()){
+                ArrayList<BaiHat> listBh = new ArrayList<>();
 
-            int id = layplaylist.getInt(0);
-            String tenPlaylist = layplaylist.getString(1);
-            Cursor laybaihat = database.Laydulieu("SELECT * FROM Baihatplaylist WHERE id = " + id);
-            while (laybaihat.moveToNext()){
-                String tenbh = laybaihat.getString(2);
-                String tencs = laybaihat.getString(3);
-                String duongdan = laybaihat.getString(4);
-                BaiHat bh = new BaiHat(tenbh, tencs, duongdan);
-                listBh.add(bh);
+                int id = layplaylist.getInt(0);
+                String tenPlaylist = layplaylist.getString(1);
+                Cursor laybaihat = database.Laydulieu("SELECT * FROM Baihatplaylist WHERE id = " + id);
+                while (laybaihat.moveToNext()){
+                    String tenbh = laybaihat.getString(2);
+                    String tencs = laybaihat.getString(3);
+                    String duongdan = laybaihat.getString(4);
+                    BaiHat bh = new BaiHat(tenbh, tencs, duongdan);
+                    listBh.add(bh);
+                }
+                PlayList playList = new PlayList(tenPlaylist, listBh);
+                playLists.add(playList);
             }
-            PlayList playList = new PlayList(tenPlaylist, listBh);
-            playLists.add(playList);
+            PlayListSelectAdapter adapter = new PlayListSelectAdapter(getContext(), playLists);
+            lv_baihat.setAdapter(adapter);
+        }catch (Exception e){
+            Toast.makeText(getActivity(), "Chưa có playlist", Toast.LENGTH_LONG).show();
         }
-        PlayListSelectAdapter adapter = new PlayListSelectAdapter(getContext(), playLists);
-        lv_baihat.setAdapter(adapter);
+
     }
 
 

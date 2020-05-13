@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class PhatNhac extends AppCompatActivity {
+public class PhatNhac extends AppCompatActivity implements MediaPlayer.OnBufferingUpdateListener {
     private Toolbar toolbar;
     private TextView tv_tenbaihat, tv_tencasi, tv_tongtgbh, tv_tgchay;
     private ImageButton ib_lui, ib_toi, ib_play, ib_toi_10s, ib_lui_10s, ib_lap, ib_phatngaunhien;
@@ -77,7 +76,32 @@ public class PhatNhac extends AppCompatActivity {
                     giamnhacxuong10s();
                 }
             });
+            choinhac.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    vitribai++;
+                    if(vitribai > listBaihat.size() - 1){
+                        vitribai = 0;
+                    }
+                    if(choinhac.isPlaying()){
+                        choinhac.stop();
+                        ib_play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                    }
+                    if(lap)
+                        choinhac.setLooping(true);
+
+                    if(nghengaunhien)
+                        nghengaunhien();
+                    else
+                        phatnhac();
+                }
+            });
         }
+    }
+
+    @Override
+    public void onBufferingUpdate(MediaPlayer mp, int percent) {
+        skThoigian.setSecondaryProgress(percent);
     }
 
     @Override

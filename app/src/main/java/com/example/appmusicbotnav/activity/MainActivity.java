@@ -42,7 +42,30 @@ public class MainActivity extends AppCompatActivity {
         baitruocdo();
         playnhac();
         baiketiep();
-
+        if(PhatNhac.choinhac != null) {
+            PhatNhac.choinhac.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    PhatNhac.vitribai++;
+                    if (PhatNhac.vitribai > PhatNhac.listBaihat.size() - 1) {
+                        PhatNhac.vitribai = 0;
+                    }
+                    mp.stop();
+                    mp = new MediaPlayer();
+                    try {
+                        mp.setDataSource(PhatNhac.listBaihat.get(PhatNhac.vitribai).getPath());
+                        mp.prepare();
+                        tv_tenbaihat_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getTitle());
+                        tv_tencasi_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getSubTitle());
+                        mp.start();
+                        iv_disk_index.startAnimation(diaxoay);
+                        ib_play_main.setImageResource(R.drawable.ic_pause_black_24dp);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
         ll_thanhdieukhiennhac_index1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
