@@ -6,7 +6,7 @@
         android:title="Xóa playlist" />
     <item
         android:id="@+id/item_sua_playlist"
-        android:title="Sửa playlist" />
+        android:title="Sửa tên playlist" />
     <item
         android:id="@+id/item_sua_baihattrong_playlist"
         android:title="Sửa bài hát trong playlist" />

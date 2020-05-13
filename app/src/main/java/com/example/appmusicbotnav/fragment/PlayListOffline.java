@@ -18,7 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.adapter.PlayListSelectAdapter;
-import com.example.appmusicbotnav.db.Database;
+import com.example.appmusicbotnav.db.BaiHatDBOffline;
+import com.example.appmusicbotnav.db.PlaylistDBOffline;
 import com.example.appmusicbotnav.model.BaiHat;
 import com.example.appmusicbotnav.model.PlayList;
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class PlayListOffline extends Fragment {
     private Button taoplaylist;
     private ListView lv_baihat;
     private ArrayList<PlayList> playLists = new ArrayList<>();
-    private Database database;
+    private PlaylistDBOffline playlistDBOffline;
+    private BaiHatDBOffline baiHatDBOffline;
     public PlayListOffline(){
 
     }
@@ -39,7 +41,8 @@ public class PlayListOffline extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.item_playlist_offline, container, false);
-        database = new Database(getContext(), "music.sqlite", null, 1);
+        playlistDBOffline = new PlaylistDBOffline(getContext(), "music.sqlite", null, 1);
+        baiHatDBOffline = new BaiHatDBOffline(getContext(), "music.sqlite", null, 1);
         return view;
     }
 
@@ -92,13 +95,13 @@ public class PlayListOffline extends Fragment {
 
     private void hienthiPlaylist(){
         try{
-            Cursor layplaylist = database.Laydulieu("SELECT * FROM Playlist");
+            Cursor layplaylist = playlistDBOffline.LayPlaylist();
             while (layplaylist.moveToNext()){
                 ArrayList<BaiHat> listBh = new ArrayList<>();
 
                 int id = layplaylist.getInt(0);
                 String tenPlaylist = layplaylist.getString(1);
-                Cursor laybaihat = database.Laydulieu("SELECT * FROM Baihatplaylist WHERE id = " + id);
+                Cursor laybaihat = baiHatDBOffline.LayBaiHatPlaylist(id);
                 while (laybaihat.moveToNext()){
                     String tenbh = laybaihat.getString(2);
                     String tencs = laybaihat.getString(3);

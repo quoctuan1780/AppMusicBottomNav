@@ -9,16 +9,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.adapter.SlideAdapter;
 import com.example.appmusicbotnav.model.Slide;
-
 import java.util.ArrayList;
 
 public class ThuVien extends Fragment {

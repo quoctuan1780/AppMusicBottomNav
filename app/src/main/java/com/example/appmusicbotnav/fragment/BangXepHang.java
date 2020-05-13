@@ -7,31 +7,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.ViewFlipper;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.activity.PhatNhac;
 import com.example.appmusicbotnav.adapter.BaiHatAdapter;
 import com.example.appmusicbotnav.model.BaiHat;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-//import android.support.v7.widget.Toolbar;
-
 
 public class BangXepHang extends Fragment {
     ViewFlipper v_flipper;
@@ -59,51 +48,6 @@ public class BangXepHang extends Fragment {
         {
             flipperImages(images[i]);
         }
-//         dsbh = new ArrayList<>();
-//        BaiHat bh1 = new BaiHat("Điều anh biết", "Chi Dân", R.raw.dieu_anh_biet);
-//        BaiHat bh2 = new BaiHat("Đời hư ảo đưa em vào cơn mê", "Mix nhạc", R.raw.doi_hu_ao_dua_em_vao_con_me);
-//        BaiHat bh3 = new BaiHat("Bad Liar", "Nightcore", R.raw.bad_liar);
-//        BaiHat bh4 = new BaiHat("Từng trao nhau", "Con vịt", R.raw.tung_trao_nhau);
-//        BaiHat bh5 = new BaiHat("Anh thấy mình nhớ em", "Tống Gia Vĩ", R.raw.anh_thay_minh_nho_em);
-//        BaiHat bh6 = new BaiHat("Lại nhớ người yêu", "Quang Lập", R.raw.lai_nho_nguoi_yeu);
-//        BaiHat bh7 = new BaiHat("Tay trái chỉ trăng", "Tát Đỉnh Đỉnh", R.raw.tay_trai_chi_trang);
-//        dsbh.add(bh1);
-//        dsbh.add(bh3);
-//        dsbh.add(bh2);
-//        dsbh.add(bh4);
-//        dsbh.add(bh5);
-//        dsbh.add(bh6);
-//        dsbh.add(bh7);
-//        Button vn = view.findViewById(R.id.bxhVN);
-//        vn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                hienthiBH(Top100VN(dsbh));
-//            }
-//        });
-//        Button usuk = view.findViewById(R.id.bxhUSUK);
-//        vn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                hienthiBH(Top100USUK(dsbh));
-//            }
-//        });
-//        Button asia = view.findViewById(R.id.bxhAsia);
-//        vn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                hienthiBH(Top100Asia(dsbh));
-//            }
-//        });
-//        Button kpop = view.findViewById(R.id.bxhKPOP);
-//        vn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                hienthiBH(Top100KPOP(dsbh));
-//            }
-//        });
-//        searchView = view.findViewById(R.id.search_bxh);
-
     }
     public ArrayList<BaiHat> Top100VN(ArrayList<BaiHat> dsbh)
     {

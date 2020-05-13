@@ -1,6 +1,7 @@
 package com.example.appmusicbotnav.db;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.Nullable;
 
@@ -20,5 +21,10 @@ public class BaiHatDBOffline extends Database {
     public void ThemBaiHatPl(String tenbh, String tencs, String dn, int idPlaylist){
         String sql = "INSERT INTO BAIHAT VALUES(null, '" + tenbh + "', '"+tencs+"','"+dn+"', " + idPlaylist + ")";
         Thucthitruyvan(sql);
+    }
+
+    public Cursor LayBaiHatPlaylist(int idplaylist){
+        String sql = "SELECT * FROM BAIHAT WHERE id = " + idplaylist;
+        return Laydulieu(sql);
     }
 }

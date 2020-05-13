@@ -17,7 +17,9 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.appmusicbotnav.R;
-import com.example.appmusicbotnav.db.Database;
+import com.example.appmusicbotnav.db.BaiHatDBOffline;
+import com.example.appmusicbotnav.db.PlaylistDBOffline;
+import com.example.appmusicbotnav.model.BaiHat;
 import com.example.appmusicbotnav.model.PlayList;
 import java.util.ArrayList;
 
@@ -26,14 +28,16 @@ public class PlayListSelectAdapter extends ArrayAdapter<PlayList> {
     ArrayList<PlayList> listPlaylist;
     private Menu menuPlaylist;
     private PopupMenu PopMenuPlaylist;
-    private Database database;
     private AlertDialog.Builder hopthoainhaptenplaylist;
     private EditText nhap;
+    private PlaylistDBOffline playlistDBOffline;
+    private BaiHatDBOffline baiHatDBOffline;
     public PlayListSelectAdapter(Context context, ArrayList<PlayList> pl){
         super(context, 0, pl);
         this.context = context;
         this.listPlaylist = pl;
-        database = new Database(getContext(), "music.sqlite", null, 1);
+        playlistDBOffline = new PlaylistDBOffline(getContext(), "music.sqlite", null, 1);
+        baiHatDBOffline = new BaiHatDBOffline(getContext(), "music.sqlite", null, 1);
     }
 
     @Override
@@ -75,14 +79,13 @@ public class PlayListSelectAdapter extends ArrayAdapter<PlayList> {
                 switch (item.getItemId()) {
                     case R.id.item_xoa_playlist:
                         String tenplaylist = currentPlaylist.getTenPlaylist();
-                        Cursor layplaylist = database.Laydulieu("SELECT * FROM Playlist WHERE Tenplaylist = '"+ tenplaylist + "'");
+                        Cursor layplaylist = playlistDBOffline.LayPlayList(tenplaylist);
                         if(layplaylist != null){
                             layplaylist.moveToNext();
                             int id = layplaylist.getInt(0);
-                            database.Thucthitruyvan("DELETE FROM Baihatplaylist WHERE IdPlaylist = " + id);
-                            database.Thucthitruyvan("DELETE FROM Playlist WHERE Id = " + id);
+                            playlistDBOffline.XoaPlaylist(id);
                             Toast.makeText(getContext(), "Đã xóa playlist", Toast.LENGTH_LONG).show();
-                            notifyDataSetChanged();
+                            updateAdapter();
                             return true;
                         }
                         break;
@@ -120,13 +123,12 @@ public class PlayListSelectAdapter extends ArrayAdapter<PlayList> {
                 }
                 else{
                     String tenplaylist = currentPlaylist.getTenPlaylist();
-                    Cursor layplaylist = database.Laydulieu("SELECT * FROM Playlist WHERE Tenplaylist = '"+ tenplaylist + "'");
+                    Cursor layplaylist = playlistDBOffline.LayPlayList(tenplaylist);
                     if(layplaylist != null){
                         layplaylist.moveToNext();
                         int id = layplaylist.getInt(0);
-                        database.Thucthitruyvan("UPDATE Playlist SET Tenplaylist = '"+ nhap.getText().toString() + "' " +
-                                "WHERE id = " + id);
-                        notifyDataSetChanged();
+                        playlistDBOffline.SuaTenPlaylist(id, nhap.getText().toString());
+                        updateAdapter();
                     }
                 }
             }
@@ -142,8 +144,33 @@ public class PlayListSelectAdapter extends ArrayAdapter<PlayList> {
         hopthoainhaptenplaylist.show();
     }
 
-    public void updateAdapter(ArrayList<PlayList> playLists){
-        this.listPlaylist = playLists;
+    public ArrayList<PlayList> DanhSachPlaylist(){
+        ArrayList<PlayList> playLists = new ArrayList<>();
+        try{
+            Cursor playlist = playlistDBOffline.LayPlaylist();
+            while(playlist.moveToNext()){
+                ArrayList<BaiHat> baiHats = new ArrayList<>();
+                int id = playlist.getInt(0);
+                String tenPl = playlist.getString(1);
+                Cursor baihatpl = baiHatDBOffline.LayBaiHatPlaylist(id);
+                while(baihatpl.moveToNext()){
+                    String tenbh = baihatpl.getString(0);
+                    String tencs = baihatpl.getString(1);
+                    String dn = baihatpl.getString(2);
+                    BaiHat bh = new BaiHat(tenbh, tencs, dn);
+                    baiHats.add(bh);
+                }
+                PlayList pl = new PlayList(tenPl, baiHats);
+                playLists.add(pl);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return playLists;
+    }
+
+    public void updateAdapter(){
+        this.listPlaylist = DanhSachPlaylist();
         notifyDataSetChanged();
     }
 }
