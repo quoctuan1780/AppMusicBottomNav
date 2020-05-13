@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -29,14 +30,8 @@ import androidx.fragment.app.Fragment;
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.activity.PhatNhac;
 import com.example.appmusicbotnav.adapter.BXHAdapter;
-import com.example.appmusicbotnav.adapter.BaiHatAdapter;
 import com.example.appmusicbotnav.model.BaiHat;
-<<<<<<< HEAD
-=======
 
-import java.io.File;
-import java.lang.reflect.Array;
->>>>>>> fe4d19df735395d0a3f01d74d2d9e4ae4cc9b795
 import java.util.ArrayList;
 
 public class BangXepHang extends Fragment {
@@ -67,8 +62,6 @@ public class BangXepHang extends Fragment {
         {
             flipperImages(images[i]);
         }
-<<<<<<< HEAD
-=======
          dsbh = new ArrayList<>();
         khoitaoquyentruycap();
         Button vn = view.findViewById(R.id.bxhVN);
@@ -76,7 +69,7 @@ public class BangXepHang extends Fragment {
             @Override
             public void onClick(View v) {
                 dsbh=laynhac();
-                ArrayList<BaiHat> top100 = new ArrayList();
+                ArrayList<BaiHat> top100;
                 top100 = Top100VN(dsbh);
                 adapter = new BXHAdapter(getContext(), top100);
                 listView.setAdapter(adapter);
@@ -87,7 +80,7 @@ public class BangXepHang extends Fragment {
             @Override
             public void onClick(View v) {
                 dsbh=laynhac();
-                ArrayList<BaiHat> top100us = new ArrayList();
+                ArrayList<BaiHat> top100us;
                 top100us = Top100USUK(dsbh);
                 adapter = new BXHAdapter(getContext(), top100us);
                 listView.setAdapter(adapter);
@@ -98,7 +91,7 @@ public class BangXepHang extends Fragment {
             @Override
             public void onClick(View v) {
                 dsbh=laynhac();
-                ArrayList<BaiHat> top100as = new ArrayList();
+                ArrayList<BaiHat> top100as ;
                 top100as = Top100Asia(dsbh);
                 adapter = new BXHAdapter(getContext(), top100as);
                 listView.setAdapter(adapter);
@@ -109,7 +102,7 @@ public class BangXepHang extends Fragment {
             @Override
             public void onClick(View v) {
                 dsbh=laynhac();
-                ArrayList<BaiHat> top100k = new ArrayList();
+                ArrayList<BaiHat> top100k;
                 top100k = Top100KPOP(dsbh);
                 adapter = new BXHAdapter(getContext(), top100k);
                 listView.setAdapter(adapter);
@@ -124,7 +117,6 @@ public class BangXepHang extends Fragment {
         });
 
 
->>>>>>> fe4d19df735395d0a3f01d74d2d9e4ae4cc9b795
     }
     public ArrayList<BaiHat> Top100VN(ArrayList<BaiHat> dsbh)
     {
@@ -196,7 +188,7 @@ public class BangXepHang extends Fragment {
     public ArrayList<BaiHat> Top100Asia(ArrayList<BaiHat> dsbh)
     {
         ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i =0; i<6; i++)
+        for(int i =0; i < 6; i++)
         {
             top100.add(dsbh.get(i));
         }

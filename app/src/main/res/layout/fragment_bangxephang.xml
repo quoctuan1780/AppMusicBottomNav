@@ -8,7 +8,7 @@
     xmlns:layout_below="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.BangXepHang">
 
-    <androidx.appcompat.widget.SearchView
+    <SearchView
         android:id="@+id/search_bxh"
         android:layout_width="match_parent"
         android:layout_height="50dp"
