@@ -1,7 +1,14 @@
 package com.example.appmusicbotnav.fragment;
 
+import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,26 +19,38 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.activity.PhatNhac;
+import com.example.appmusicbotnav.adapter.BXHAdapter;
 import com.example.appmusicbotnav.adapter.BaiHatAdapter;
 import com.example.appmusicbotnav.model.BaiHat;
+<<<<<<< HEAD
+=======
+
+import java.io.File;
+import java.lang.reflect.Array;
+>>>>>>> fe4d19df735395d0a3f01d74d2d9e4ae4cc9b795
 import java.util.ArrayList;
 
 public class BangXepHang extends Fragment {
     ViewFlipper v_flipper;
     private View view;
-    BaiHatAdapter adapter;
+    BXHAdapter adapter;
     ListView listView;
     ImageView imgmenu;
     PopupMenu dropMenu;
     Menu menu;
     SearchView searchView;
     ArrayList<BaiHat> dsbh;
+    final int MY_PERMISSION_REQUEST =1;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,6 +67,64 @@ public class BangXepHang extends Fragment {
         {
             flipperImages(images[i]);
         }
+<<<<<<< HEAD
+=======
+         dsbh = new ArrayList<>();
+        khoitaoquyentruycap();
+        Button vn = view.findViewById(R.id.bxhVN);
+        vn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dsbh=laynhac();
+                ArrayList<BaiHat> top100 = new ArrayList();
+                top100 = Top100VN(dsbh);
+                adapter = new BXHAdapter(getContext(), top100);
+                listView.setAdapter(adapter);
+            }
+        });
+        Button usuk = view.findViewById(R.id.bxhUSUK);
+        usuk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dsbh=laynhac();
+                ArrayList<BaiHat> top100us = new ArrayList();
+                top100us = Top100USUK(dsbh);
+                adapter = new BXHAdapter(getContext(), top100us);
+                listView.setAdapter(adapter);
+            }
+        });
+        Button asia = view.findViewById(R.id.bxhAsia);
+        asia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dsbh=laynhac();
+                ArrayList<BaiHat> top100as = new ArrayList();
+                top100as = Top100Asia(dsbh);
+                adapter = new BXHAdapter(getContext(), top100as);
+                listView.setAdapter(adapter);
+            }
+        });
+        Button kpop = view.findViewById(R.id.bxhKPOP);
+        kpop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dsbh=laynhac();
+                ArrayList<BaiHat> top100k = new ArrayList();
+                top100k = Top100KPOP(dsbh);
+                adapter = new BXHAdapter(getContext(), top100k);
+                listView.setAdapter(adapter);
+            }
+        });
+        searchView = view.findViewById(R.id.search_bxh);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                phatnhac();
+            }
+        });
+
+
+>>>>>>> fe4d19df735395d0a3f01d74d2d9e4ae4cc9b795
     }
     public ArrayList<BaiHat> Top100VN(ArrayList<BaiHat> dsbh)
     {
@@ -66,6 +143,55 @@ public class BangXepHang extends Fragment {
             top100.add(dsbh.get(i));
         }
         return  top100;
+    }
+    private void khoitaoquyentruycap(){
+        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+            }else{
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+            }
+        }else{
+            Log.i("TAG", "Da khoi tao quyen truy cap: ");
+        }
+    }
+
+    private ArrayList<BaiHat> laynhac(){
+        BaiHat bh;
+        ArrayList<BaiHat> listlocal = new ArrayList<>();
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        Cursor songCursor = contentResolver.query(uri, null, null, null, null);
+        if(songCursor != null && songCursor.moveToFirst()){
+            do{
+                String tenbh = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
+                String tencs = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+                String duongdan = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.DATA));
+                Log.i("TAG", duongdan);
+                bh = new BaiHat(tenbh, tencs, duongdan);
+                listlocal.add(bh);
+            }  while(songCursor.moveToNext());
+        }
+        songCursor.close();
+       return listlocal;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case MY_PERMISSION_REQUEST:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getActivity(), "Permision Granted", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(getActivity(), "Permision not grant", Toast.LENGTH_LONG).show();
+                        getActivity().finish();
+                    }
+                }
+        }
     }
     public ArrayList<BaiHat> Top100Asia(ArrayList<BaiHat> dsbh)
     {
@@ -148,7 +274,7 @@ public class BangXepHang extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.equals("")){
-                    adapter = new BaiHatAdapter(getContext(), dsbh);
+                    adapter = new BXHAdapter(getContext(), dsbh);
                     listView.setAdapter(adapter);
 
                     return false;
@@ -168,12 +294,12 @@ public class BangXepHang extends Fragment {
         });
     }
     private void khoitaobaihat(ArrayList<BaiHat> listBh){
-        adapter = new BaiHatAdapter(getContext(), listBh);
+        adapter = new BXHAdapter(getContext(), listBh);
 
         listView.setAdapter(adapter);
     }
         private void hienthiBH(ArrayList<BaiHat> listBh){
-        adapter = new BaiHatAdapter(getContext(), listBh);
+        adapter = new BXHAdapter(getContext(), listBh);
 
         listView.setAdapter(adapter);
     }
