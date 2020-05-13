@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Tải về"
+        android:id="@+id/download_kbeat"
+        android:icon="@drawable/ic_file_download"
+        />
+    <item android:title="Thêm vào playlist"
+        android:id="@+id/themvaoplaylist_kbeat"
+        android:icon="@drawable/ic_file_download"
+        />
+</menu>

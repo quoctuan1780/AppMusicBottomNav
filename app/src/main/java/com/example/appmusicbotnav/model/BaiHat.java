@@ -24,10 +24,10 @@ public class BaiHat implements Serializable{
 
     }
 
-    public BaiHat(String title, String subTitle, int path) {
+    public BaiHat(String title, String subTitle, int thutubai) {
         this.tenbaihat = title;
         this.tencasi = subTitle;
-        this.thutubai = path;
+        this.thutubai = thutubai;
 
     }
 

@@ -62,5 +62,7 @@
         android:id="@+id/item_bxh"
         android:name="com.example.appmusicbotnav.fragment.BangXepHang"
         android:label="fragment_bangxehang"
-        tools:layout="@layout/fragment_bangxephang" />
+        tools:layout="@layout/fragment_bangxephang" >
+
+    </fragment>
 </navigation>
