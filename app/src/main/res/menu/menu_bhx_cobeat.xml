@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Tải về"
+        android:id="@+id/download_cobeat"
+        android:icon="@drawable/ic_file_download"
+        />
+    <item android:title="Thêm vào playlist"
+        android:id="@+id/themvaoplaylist_cobeat"
+        android:icon="@drawable/ic_file_download"
+        />
+    <item android:title="Record"
+        android:id="@+id/record"
+        android:icon="@drawable/ic_file_download"
+        />
+</menu>
