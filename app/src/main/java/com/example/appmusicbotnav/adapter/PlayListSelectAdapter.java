@@ -3,8 +3,11 @@ package com.example.appmusicbotnav.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,12 +19,20 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.appmusicbotnav.R;
+import com.example.appmusicbotnav.activity.SuaBaiHatPlaylist;
 import com.example.appmusicbotnav.db.BaiHatDBOffline;
 import com.example.appmusicbotnav.db.PlaylistDBOffline;
 import com.example.appmusicbotnav.model.BaiHat;
 import com.example.appmusicbotnav.model.PlayList;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class PlayListSelectAdapter extends ArrayAdapter<PlayList> {
     Context context;
@@ -93,6 +104,7 @@ public class PlayListSelectAdapter extends ArrayAdapter<PlayList> {
                         suatenplaylist(currentPlaylist);
                         return true;
                     case R.id.item_sua_baihattrong_playlist:
+                        suabaihattrongplaylist(currentPlaylist);
                         return true;
                 }
                 return false;
@@ -167,6 +179,14 @@ public class PlayListSelectAdapter extends ArrayAdapter<PlayList> {
             e.printStackTrace();
         }
         return playLists;
+    }
+
+    private void suabaihattrongplaylist(final PlayList currentPlaylist){
+        String tenpl = currentPlaylist.getTenPlaylist();
+        ArrayList<BaiHat> listbh = currentPlaylist.getBaiHat();
+        Intent suaplaylist = new Intent(getContext(),SuaBaiHatPlaylist.class);
+        suaplaylist.putExtra("tenplaylist", tenpl);
+        getContext().startActivity(suaplaylist);
     }
 
     public void updateAdapter(){

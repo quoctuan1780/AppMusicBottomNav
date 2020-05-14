@@ -56,37 +56,38 @@ public class BXHAdapter extends ArrayAdapter<BaiHat> {
         TextView tvTitle = listItem.findViewById(R.id.tv_music_namebxh);
         TextView tvSubtitle = listItem.findViewById(R.id.tv_music_subtitlebxh);
         ImageView imv = listItem.findViewById(R.id.img_menubxh);
-        taomenu(imv,currentSong);
+        taomenu(imv, currentSong);
         tvTitle.setText(currentSong.getTitle());
         tvSubtitle.setText(currentSong.getSubTitle());
         return listItem;
     }
-public void taomenu(ImageView iv, BaiHat bh)
-{
-    popupMenu = new PopupMenu(getContext(), iv);
-    menu = popupMenu.getMenu();
-    popupMenu.getMenuInflater().inflate(R.menu.menu_bxh_kbeat, menu);
-    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId())
-            {
-                case R.id.download_kbeat:
+    public void taomenu(ImageView iv, BaiHat bh)
+    {
+        popupMenu = new PopupMenu(getContext(), iv);
+        menu = popupMenu.getMenu();
+        popupMenu.getMenuInflater().inflate(R.menu.menu_bxh_kbeat, menu);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId())
                 {
-                    //download
-                    return true;
-                }
+                    case R.id.download_kbeat:
+                        break;
 
-                case R.id.themvaoplaylist_kbeat:
-                {
-                    // themplaylist
-                    return true;
-                }
+                    case R.id.themvaoplaylist_kbeat:
+                        break;
 
+                }
+                return false;
             }
-            return false;
-        }
-    });
-}
+        });
+
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMenu.show();
+            }
+        });
+    }
 }
 

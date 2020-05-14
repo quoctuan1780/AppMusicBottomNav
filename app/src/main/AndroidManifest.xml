@@ -22,6 +22,7 @@
         <activity android:name=".activity.PhatNhac">
 
         </activity>
+        <activity android:name=".activity.SuaBaiHatPlaylist"></activity>
     </application>
 
 </manifest>

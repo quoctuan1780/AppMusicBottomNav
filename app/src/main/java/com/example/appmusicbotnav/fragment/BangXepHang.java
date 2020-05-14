@@ -10,15 +10,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -31,20 +28,16 @@ import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.activity.PhatNhac;
 import com.example.appmusicbotnav.adapter.BXHAdapter;
 import com.example.appmusicbotnav.model.BaiHat;
-
 import java.util.ArrayList;
 
 public class BangXepHang extends Fragment {
-    ViewFlipper v_flipper;
+    private ViewFlipper v_flipper;
     private View view;
-    BXHAdapter adapter;
-    ListView listView;
-    ImageView imgmenu;
-    PopupMenu dropMenu;
-    Menu menu;
-    SearchView searchView;
-    ArrayList<BaiHat> dsbh;
-    final int MY_PERMISSION_REQUEST =1;
+    private BXHAdapter adapter;
+    private ListView listView;
+    private SearchView searchView;
+    private ArrayList<BaiHat> dsbh;
+    final int MY_PERMISSION_REQUEST = 1;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,8 +55,10 @@ public class BangXepHang extends Fragment {
         {
             flipperImages(images[i]);
         }
-         dsbh = new ArrayList<>();
+        dsbh = new ArrayList<>();
+
         khoitaoquyentruycap();
+
         Button vn = view.findViewById(R.id.bxhVN);
         vn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,9 +110,8 @@ public class BangXepHang extends Fragment {
                 phatnhac();
             }
         });
-
-
     }
+
     public ArrayList<BaiHat> Top100VN(ArrayList<BaiHat> dsbh)
     {
         ArrayList<BaiHat> top100 = new ArrayList<>();
@@ -161,7 +155,6 @@ public class BangXepHang extends Fragment {
                 String tenbh = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
                 String tencs = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
                 String duongdan = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.DATA));
-                Log.i("TAG", duongdan);
                 bh = new BaiHat(tenbh, tencs, duongdan);
                 listlocal.add(bh);
             }  while(songCursor.moveToNext());
@@ -188,7 +181,7 @@ public class BangXepHang extends Fragment {
     public ArrayList<BaiHat> Top100Asia(ArrayList<BaiHat> dsbh)
     {
         ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i =0; i < 6; i++)
+        for(int i = 0; i < 6; i++)
         {
             top100.add(dsbh.get(i));
         }
@@ -197,7 +190,7 @@ public class BangXepHang extends Fragment {
     public ArrayList<BaiHat> Top100KPOP(ArrayList<BaiHat> dsbh)
     {
         ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i =0; i<3; i++)
+        for(int i =0; i < 3; i++)
         {
             top100.add(dsbh.get(i));
         }
@@ -214,36 +207,7 @@ public class BangXepHang extends Fragment {
         v_flipper.setOutAnimation(view.getContext(), android.R.anim.slide_out_right);
 
     }
-    private void khoitaomenu(){
-        dropMenu = new PopupMenu(getContext(), imgmenu);
-        menu = dropMenu.getMenu();
-        dropMenu.getMenuInflater().inflate(R.menu.menu_bxh_kbeat, menu);
-        dropMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.download_kbeat:
-                        // chưa viết luôn
-                        return true;
-                    case R.id.themvaoplaylist_kbeat:
-                        // them vao playlist chua  viet
-                        return true;
-                }
-                return false;
-            }
-        });
 
-        imgmenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dropMenu.show();
-            }
-        });
-    }
-        public void down()
-        {
-        //bla bla
-        }
     private void phatnhac(){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

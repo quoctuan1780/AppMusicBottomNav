@@ -41,7 +41,6 @@ public class PhatNhac extends AppCompatActivity implements MediaPlayer.OnBufferi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phatnhac);
-        Log.i("TAG", "onCreate: ");
         //Lấy dữ liệu từ fragment danh sách bài hát offline qua Activity phát nhạc
         vitribai = getIntent().getIntExtra("vitri", 0);
         listBaihat = (ArrayList<BaiHat>) getIntent().getSerializableExtra("list");
@@ -216,7 +215,6 @@ public class PhatNhac extends AppCompatActivity implements MediaPlayer.OnBufferi
 
     private void khoitaohatchidinh(int vitribai){
         if(choinhac != null && choinhac.isPlaying()) choinhac.stop();
-//        choinhac = MediaPlayer.create(PhatNhac.this, listBaihat.get(vitribai).getFile());
         choinhac = new MediaPlayer();
         try {
             choinhac.setDataSource(listBaihat.get(vitribai).getPath());
@@ -413,7 +411,6 @@ public class PhatNhac extends AppCompatActivity implements MediaPlayer.OnBufferi
     private void tongthoigiannhac(){
         SimpleDateFormat dinhdangtg = new SimpleDateFormat("mm:ss");
         tv_tongtgbh.setText(dinhdangtg.format(choinhac.getDuration()));
-
         skThoigian.setMax(choinhac.getDuration());
         thaydoithanhchoinhac();
     }

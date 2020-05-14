@@ -6,28 +6,28 @@
     android:background="@color/background">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_chonbaihat_listview_off"
+        android:id="@+id/tb_suabaihat_playlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
-        android:id="@+id/ll_timkiem_bh_playlist_off"
+        android:id="@+id/ll_timkiem_bh_suaplaylist_off"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_below="@id/tb_chonbaihat_listview_off"
+        android:layout_below="@id/tb_suabaihat_playlist"
         >
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/sv_timkhiem_bh_playlist_off"
+            android:id="@+id/sv_timkhiem_bh_suaplaylist_off"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </androidx.appcompat.widget.SearchView>
     </LinearLayout>
     <ListView
-        android:id="@+id/lv_chonbaihat_playlist_off"
+        android:id="@+id/lv_chonbaihat_suaplaylist_off"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_timkiem_bh_playlist_off"
+        android:layout_below="@+id/ll_timkiem_bh_suaplaylist_off"
         ></ListView>
 </RelativeLayout>
