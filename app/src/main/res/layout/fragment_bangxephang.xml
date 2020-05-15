@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.BangXepHang">
-
+x+
     <SearchView
         android:id="@+id/search_bxh"
         android:layout_width="match_parent"
@@ -45,9 +45,6 @@
         <Button
             android:id="@+id/bxhVN"
             android:layout_width="200dp"
-            android:textSize="16sp"
-            android:fontFamily="monospace"
-            android:text="Bảng xếp hạng Nhạc trẻ "
             android:layout_height="100dp"
             android:background = "@drawable/top100tt"
             android:scaleType="fitXY"
