@@ -92,7 +92,7 @@ public class DanhSachBaiHatOffline extends Fragment {
             laynhac();
             listTruyen = listBaihat;
         }
-        khoitaotimkiem();
+        khoitaotimkiem(listTruyen);
         khoitaomenuSapxep();
         phatnhac();
         super.onViewCreated(view, savedInstanceState);
@@ -122,7 +122,7 @@ public class DanhSachBaiHatOffline extends Fragment {
         });
     }
 
-    private void khoitaotimkiem(){
+    private void khoitaotimkiem(final ArrayList<BaiHat> listbh){
         final ArrayList<BaiHat> listClone = new ArrayList<>();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -133,14 +133,14 @@ public class DanhSachBaiHatOffline extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.equals("")){
-                    adapter = new BaiHatAdapter(getContext(), listBaihat);
+                    adapter = new BaiHatAdapter(getContext(), listbh);
                     listView.setAdapter(adapter);
-                    listTruyen = listBaihat;
+                    listTruyen = listbh;
                     return false;
                 }
                 else{
                     listClone.clear();
-                    for(BaiHat bh : listBaihat)
+                    for(BaiHat bh : listbh)
                         if(bh.getTitle().toLowerCase().contains(newText.toLowerCase())){
                             listClone.add(bh);
                         }

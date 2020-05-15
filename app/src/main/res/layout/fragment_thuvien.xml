@@ -170,10 +170,10 @@
                             android:textColor="@color/black"></TextView>
 
                         <TextView
+                            android:id="@+id/tv_sl_playlist"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
-                            android:text="3"
                             android:textColor="@color/black"
                             android:textSize="14dp"></TextView>
                     </LinearLayout>

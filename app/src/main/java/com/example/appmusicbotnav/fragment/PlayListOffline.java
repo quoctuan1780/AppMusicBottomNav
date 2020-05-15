@@ -3,12 +3,9 @@ package com.example.appmusicbotnav.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +20,6 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -37,8 +33,6 @@ import com.example.appmusicbotnav.model.PlayList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-import static com.example.appmusicbotnav.fragment.DanhSachBaiHatOffline.listTruyen;
 
 public class PlayListOffline extends Fragment {
     private View view;
