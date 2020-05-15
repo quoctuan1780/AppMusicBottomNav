@@ -7,20 +7,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filterable;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.model.BaiHat;
-
 import java.util.ArrayList;
 
 public class BaiHatAdapter extends ArrayAdapter<BaiHat> implements Filterable {
 
     private Context mContext;
-    private ArrayList<BaiHat> songList = new ArrayList<>();
+    private ArrayList<BaiHat> songList;
 
     public BaiHatAdapter(Context mContext, ArrayList<BaiHat> songList) {
         super(mContext, 0, songList);

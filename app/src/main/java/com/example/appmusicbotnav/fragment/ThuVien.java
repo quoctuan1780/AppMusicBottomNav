@@ -54,8 +54,8 @@ public class ThuVien extends Fragment {
         toolbar = (Toolbar) view.findViewById(R.id.tb_thuvien);
         toolbar.setTitle("Thư viện");
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        QuangCao();
-        HienThiQuangCao();
+//        QuangCao();
+//        HienThiQuangCao();
         return view;
     }
 
@@ -90,17 +90,16 @@ public class ThuVien extends Fragment {
         });
     }
 
-    private void QuangCao() {
-        listQuangcao = new ArrayList<Slide>();
-        listQuangcao.add(new Slide(R.drawable.quangcao));
-        listQuangcao.add(new Slide(R.drawable.quangcao));
-    }
-
-    private void HienThiQuangCao() {
-        vpQuangcao = (ViewPager) view.findViewById(R.id.vp_quangcao);
-        SlideAdapter adapter = new SlideAdapter(view.getContext(), listQuangcao);
-        vpQuangcao.setAdapter(adapter);
-    }
+//    private void QuangCao() {
+////        listQuangcao = new ArrayList<Slide>();
+////        listQuangcao.add(new Slide(R.drawable.miku));
+////    }
+////
+////    private void HienThiQuangCao() {
+////        vpQuangcao = (ViewPager) view.findViewById(R.id.vp_quangcao);
+////        SlideAdapter adapter = new SlideAdapter(view.getContext(), listQuangcao);
+////        vpQuangcao.setAdapter(adapter);
+////    }
 
     //Phần khởi tạo bài hát từ bộ nhớ máy
     private void khoitaoquyentruycap(){

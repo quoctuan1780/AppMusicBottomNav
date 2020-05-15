@@ -33,13 +33,14 @@
             android:id="@+id/ll_quangcao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:paddingTop="20dp">
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/vp_quangcao"
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
-            </androidx.viewpager.widget.ViewPager>
+                android:layout_height="wrap_content"
+                android:src="@drawable/miku">
+            </ImageView>
         </LinearLayout>
 
         <LinearLayout
