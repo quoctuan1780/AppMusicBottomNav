@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +50,14 @@ public class DanhSachPlayList extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        if(getArguments() != null){
+            if(getArguments().getString("ok") != null && getArguments().getString("ok").equals("ok")) {
+                Toast.makeText(getActivity(), "Sửa bài hát playlist thành công", Toast.LENGTH_LONG).show();
+            }
+            else if(getArguments().getInt("taoplthanhcong") == 1){
+                Toast.makeText(getActivity(), "Tạo playlist thành công", Toast.LENGTH_LONG).show();
+            }
+        }
         addTabs();
         super.onViewCreated(view, savedInstanceState);
     }

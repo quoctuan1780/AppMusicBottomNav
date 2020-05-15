@@ -9,6 +9,14 @@ public class BaiHat implements Serializable{
     private String path;
     private int thutubai;
     private boolean checkBox;
+
+    public BaiHat(String tenbh, String tencs, String dn, boolean cb) {
+        this.tenbaihat = tenbh;
+        this.tencasi = tencs;
+        this.path = dn;
+        this.checkBox = cb;
+    }
+
     public String getPath() {
         return path;
     }
@@ -49,8 +57,6 @@ public class BaiHat implements Serializable{
     public String getSubTitle() {
         return tencasi;
     }
-
-    public int getFile(){return thutubai;}
 
     public boolean getChecked(){return checkBox;}
 

@@ -44,4 +44,9 @@ public class PlaylistDBOffline extends Database {
         String sql = "SELECT * FROM Playlist WHERE Tenplaylist = '"+ tenplaylist + "'";
         return Laydulieu(sql);
     }
+
+    public Cursor DemSoLuongPlaylist(){
+        String sql = "SELECT COUNT(*) FROM PLAYLIST";
+        return Laydulieu(sql);
+    }
 }

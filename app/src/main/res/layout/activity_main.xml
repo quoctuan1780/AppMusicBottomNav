@@ -5,13 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
-<!--    <FrameLayout-->
-<!--        android:id="@+id/fl_trangchu"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-<!--&lt;!&ndash;        <include layout="@layout/noidung_trangchu"/>&ndash;&gt;-->
-<!--    </FrameLayout>-->
-
 
     <fragment
         android:id="@+id/nav_host_fragment"

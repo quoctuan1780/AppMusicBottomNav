@@ -1,45 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/ll_diaxoay_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <ImageView
+            android:id="@+id/iv_disk_index"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/disc_index">
+        </ImageView>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_thanhdieukhiennhac_index"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="end|center_horizontal"
-        android:orientation="horizontal">
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="2dp"
+        android:layout_toStartOf="@+id/ll_nutdieukhiennhac_index"
+        android:layout_toEndOf="@+id/ll_diaxoay_index"
+        android:gravity="start|center_vertical"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
 
-        <LinearLayout
-            android:layout_width="180dp"
+        <TextView
+            android:id="@+id/tv_tenbaihat_index"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_horizontal"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_tenbaihat_index"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Không có nhạc đang phát"
-                android:textSize="14dp">
-            </TextView>
-            <TextView
-                android:id="@+id/tv_tencasi_index"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Không có"
-                android:textSize="10dp">
-            </TextView>
+            android:text="Không có nhạc đang phát"
+            android:textSize="14dp"></TextView>
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_tencasi_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không có"
+            android:textSize="10dp"></TextView>
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_nutdieukhiennhac_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal">
         <ImageButton
             android:id="@+id/ib_baitruoc_index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="10dp"
             android:backgroundTint="@color/white"
             android:src="@drawable/ic_skip_previous_black_24dp" />
 
@@ -58,19 +75,6 @@
             android:layout_marginStart="10dp"
             android:backgroundTint="@color/white"
             android:src="@drawable/ic_skip_next_black_24dp" />
-
     </LinearLayout>
 
-    <LinearLayout
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-        <ImageView
-            android:id="@+id/iv_disk_index"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/disc_index">
-        </ImageView>
-    </LinearLayout>
 </RelativeLayout>

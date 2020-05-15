@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PlayList {
     private String TenPlaylist;
-    ArrayList<BaiHat> baiHat;
+    private ArrayList<BaiHat> baiHat;
 
     public PlayList(String tenPlaylist, ArrayList<BaiHat> baiHat) {
         TenPlaylist = tenPlaylist;

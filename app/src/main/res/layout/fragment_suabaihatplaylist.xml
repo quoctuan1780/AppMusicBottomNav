@@ -9,7 +9,6 @@
         android:id="@+id/tb_suabaihat_playlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
         android:id="@+id/ll_timkiem_bh_suaplaylist_off"

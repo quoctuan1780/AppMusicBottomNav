@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item_tao_playlist"
-        android:title="Tạo"
-        app:showAsAction="ifRoom"/>
+        android:id="@+id/item_luubh_suaplaylist"
+        android:title="Lưu"
+        app:showAsAction="ifRoom"
+        />
 </menu>
