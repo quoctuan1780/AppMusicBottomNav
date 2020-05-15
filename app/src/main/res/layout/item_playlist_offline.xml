@@ -5,11 +5,25 @@
     android:layout_height="match_parent"
     android:background="@color/background">
     <LinearLayout
+        android:id="@+id/ll_timkiem_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/sv_timkiemplaylist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:queryHint="Tìm kiếm bài bát..."
+            android:paddingTop="10dp">
+        </androidx.appcompat.widget.SearchView>
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/ll_bt_tao_playlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:padding="10dp">
+        android:layout_below="@id/ll_timkiem_playlist">
         <Button
             android:id="@+id/bt_tao_playlist"
             android:layout_width="wrap_content"
@@ -27,7 +41,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/ib_sapxep_playlist"
+            android:id="@+id/ib_sapxep_playlist_off"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_sort_black_24dp">

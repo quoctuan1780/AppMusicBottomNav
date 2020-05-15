@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
-
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -15,12 +14,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.appmusicbotnav.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.io.Serializable;
-
 
 public class MainActivity extends AppCompatActivity {
     private Animation diaxoay;

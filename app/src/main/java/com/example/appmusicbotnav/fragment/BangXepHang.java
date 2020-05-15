@@ -16,11 +16,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -131,7 +131,7 @@ public class BangXepHang extends Fragment {
     public ArrayList<BaiHat> Top100USUK(ArrayList<BaiHat> dsbh)
     {
         ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i =0; i<5; i++)
+        for(int i = 0; i < 5; i++)
         {
             top100.add(dsbh.get(i));
         }
@@ -197,7 +197,7 @@ public class BangXepHang extends Fragment {
     public ArrayList<BaiHat> Top100KPOP(ArrayList<BaiHat> dsbh)
     {
         ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i =0; i < 3; i++)
+        for(int i = 0; i < 3; i++)
         {
             top100.add(dsbh.get(i));
         }

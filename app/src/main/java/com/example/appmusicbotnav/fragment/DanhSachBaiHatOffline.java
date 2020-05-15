@@ -15,6 +15,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -76,8 +78,20 @@ public class DanhSachBaiHatOffline extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         sort = (ImageButton) view.findViewById(R.id.ib_sort);
-        laynhac();
-        listTruyen = listBaihat;
+        if(getArguments() != null){
+            ArrayList<BaiHat> listbh = (ArrayList<BaiHat>) getArguments().getSerializable("listbh");
+            listTruyen = listbh;
+            for (BaiHat bh : listbh){
+                Log.i("TAG", bh.getTitle());
+                Log.i("TAG", bh.getSubTitle());
+                Log.i("TAG", bh.getPath());
+            }
+            khoitaobaihat(listbh);
+        }
+        else {
+            laynhac();
+            listTruyen = listBaihat;
+        }
         khoitaotimkiem();
         khoitaomenuSapxep();
         phatnhac();
@@ -87,6 +101,10 @@ public class DanhSachBaiHatOffline extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == android.R.id.home){
+            if(getArguments() != null && getArguments().getInt("key") == 1)
+                NavHostFragment.findNavController(DanhSachBaiHatOffline.this)
+                .navigate(R.id.action_frag_dsbhoff_to_frag_playlist);
+            else
             ((AppCompatActivity)getActivity()).onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -212,7 +230,6 @@ public class DanhSachBaiHatOffline extends Fragment {
                 String tenbh = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
                 String tencs = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
                 String duongdan = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.DATA));
-                Log.i("TAG", duongdan);
                 bh = new BaiHat(tenbh, tencs, duongdan);
                 listBaihat.add(bh);
             }  while(songCursor.moveToNext());
