@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/frag_playlist"
-        android:name="com.example.appmusicbotnav.fragment.DanhSachPlayList"
+        android:name="com.example.appmusicbotnav.fragment.DanhSachPlayListOffline"
         android:label="fragment_playlist"
         tools:layout="@layout/fragment_playlist">
         <action
