@@ -5,26 +5,26 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/nen2"
-    tools:context=".fragment.DanhSachBaiHatOffline">
+    tools:context=".fragment.GhiAm">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_baihat"
-        app:title="Chọn bài hát"
-        app:titleTextColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </androidx.appcompat.widget.Toolbar>
-
-    <LinearLayout
-        android:id="@+id/ll_timkiembaihat"
+        android:id="@+id/tb_BHghiam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tb_baihat"
-        android:paddingTop="20dp"
+        app:title="Danh sách beat bài hát"
+        android:paddingLeft="5dp"
+        android:layout_marginTop="10dp"
+        app:titleTextColor="@color/white">
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/ll_timkiemBHghiam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tb_BHghiam"
         android:orientation="horizontal">
 
         <SearchView
-            android:id="@+id/sv_timkiembaihatoff"
+            android:id="@+id/sv_timkiemBHghiam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -33,38 +33,40 @@
             android:iconifiedByDefault="false"
             android:queryHint="Tìm kiếm bài bát..."></SearchView>
     </LinearLayout>
+
     <LinearLayout
-        android:id="@+id/ll_sort"
+        android:id="@+id/ll_sapxep"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:layout_below="@+id/ll_timkiembaihat"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/ib_sort"
+        android:layout_below="@+id/ll_timkiemBHghiam"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+               <ImageButton
+            android:id="@+id/ib_sapxep"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_sort_black_24dp">
 
         </ImageButton>
         <TextView
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/sort"
+            android:fontFamily="sans-serif"
             android:gravity="center|center_vertical"
-            android:textSize="14dp"
-            android:fontFamily="sans-serif">
-        </TextView>
+            android:text="@string/sort"
+            android:textColor="@color/white"
+            android:textSize="18dp"></TextView>
     </LinearLayout>
-
     <ListView
-        android:id="@+id/lv_danhsachbaihat"
+        android:id="@+id/lv_danhsachBHghiam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:layout_below="@id/ll_sort"
+        android:layout_below="@id/ll_sapxep"
         android:focusable="false"
-        android:focusableInTouchMode="false">
+        android:focusableInTouchMode="false"
+        android:paddingTop="10dp">
     </ListView>
+
+
+
 </RelativeLayout>

@@ -2,32 +2,75 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/nen2"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_playlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:title="Playlist"
+        app:titleTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent">
     </androidx.appcompat.widget.Toolbar>
-    <RelativeLayout
-        android:id="@+id/rl_main"
+    <LinearLayout
+        android:id="@+id/ll_timkiem_playlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tb_playlist">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_playlist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </com.google.android.material.tabs.TabLayout>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vp_playlist"
-            android:layout_width="match_parent"
+        android:layout_below="@+id/tb_playlist"
+        android:padding="10dp">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/sv_timkiemplaylist"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tab_playlist">
-        </androidx.viewpager.widget.ViewPager>
-    </RelativeLayout>
+            android:iconifiedByDefault="true"
+            app:queryBackground="@color/trongsuot"
+            android:queryHint="Tìm kiếm bài bát..."
+            android:paddingTop="10dp">
+        </androidx.appcompat.widget.SearchView>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_bt_tao_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/ll_timkiem_playlist">
+        <Button
+            android:id="@+id/bt_tao_playlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_bt_create"
+            android:text="Tạo playlist">
+        </Button>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_sapxep_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/ll_bt_tao_playlist"
+        android:orientation="horizontal">
 
+        <ImageButton
+            android:id="@+id/ib_sapxep_playlist_off"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sort_black_24dp">
+
+        </ImageButton>
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:text="@string/sort"
+            android:gravity="center|center_vertical"
+            android:textSize="14dp"
+            android:fontFamily="sans-serif">
+        </TextView>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/lv_playlist_off"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_sapxep_playlist">
+    </ListView>
 </RelativeLayout>

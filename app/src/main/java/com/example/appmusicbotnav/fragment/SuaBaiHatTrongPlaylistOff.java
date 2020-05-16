@@ -60,7 +60,6 @@ public class SuaBaiHatTrongPlaylistOff extends Fragment {
         view = inflater.inflate(R.layout.fragment_suabaihatplaylist, container, false);
         setHasOptionsMenu(true);
         toolbar = (Toolbar) view.findViewById(R.id.tb_suabaihat_playlist);
-        toolbar.setTitle("Sửa bài hát trong playlist");
         toolbar.setBackgroundColor(R.color.gray_color);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -16,7 +16,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -64,7 +63,6 @@ public class DanhSachBaiHatOffline extends Fragment {
         view =  inflater.inflate(R.layout.fragment_baihat, container, false);
         setHasOptionsMenu(true);
         toolbar = (Toolbar) view.findViewById(R.id.tb_baihat);
-        toolbar.setTitle("Chọn bài hát");
         toolbar.setBackgroundColor(R.color.gray_color);
         searchView = (SearchView) view.findViewById(R.id.sv_timkiembaihatoff);
         listView = view.findViewById(R.id.lv_danhsachbaihat);
