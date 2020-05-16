@@ -4,18 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.BangXepHang">
-<<<<<<< HEAD
-x+
-    <SearchView
-=======
-
     <androidx.appcompat.widget.SearchView
->>>>>>> 7458d84f170c1ffbf7f3ee6bba6082950dc9f1d6
         android:id="@+id/search_bxh"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="19dp"
+        android:outlineAmbientShadowColor="@color/black"
         android:layout_marginLeft="19dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
@@ -28,7 +23,7 @@ x+
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="150dp"
         android:layout_below="@id/search_bxh"
         android:gravity="center|center_horizontal"
         >
@@ -39,7 +34,7 @@ x+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imgview_bhx"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
@@ -47,24 +42,17 @@ x+
         <Button
             android:id="@+id/bxhVN"
             android:layout_width="200dp"
-<<<<<<< HEAD
-=======
-            android:textSize="16sp"
-            android:fontFamily="monospace"
->>>>>>> 7458d84f170c1ffbf7f3ee6bba6082950dc9f1d6
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:background = "@drawable/top100tt"
             android:scaleType="fitXY"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
             />
         <Button
             android:id="@+id/bxhUSUK"
             android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:background="@drawable/top100nt"
             android:scaleType="fitXY"
-            android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
              />
     </LinearLayout>
@@ -72,9 +60,9 @@ x+
     <LinearLayout
         android:id="@+id/ll_bxh1"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/ll_bxh"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:gravity="center|center_horizontal"
@@ -82,20 +70,19 @@ x+
         <Button
             android:id="@+id/bxhAsia"
             android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:background = "@drawable/top100pop"
             android:scaleType="fitXY"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
+
             />
 
         <Button
             android:id="@+id/bxhKPOP"
             android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:background = "@drawable/top100remix"
             android:scaleType="fitXY"
-            android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
 
             />
@@ -107,7 +94,7 @@ x+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_bxh1"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:paddingLeft="10dp"
         android:paddingBottom="10dp">
         <TextView
@@ -129,7 +116,8 @@ x+
         android:layout_below="@+id/ll_tv_top100"
         android:layout_alignParentBottom="true"
         android:layout_margin="5dp"
-        android:background="@drawable/background_bxh"/>
+
+        android:background="@drawable/backgroundbxh"/>
 
 </RelativeLayout>
 
