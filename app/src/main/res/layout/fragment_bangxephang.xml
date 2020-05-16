@@ -43,7 +43,6 @@
             android:id="@+id/bxhVN"
             android:layout_width="200dp"
             android:layout_height="80dp"
-            android:background = "@drawable/top100tt"
             android:scaleType="fitXY"
             android:layout_marginLeft="10dp"
             />
