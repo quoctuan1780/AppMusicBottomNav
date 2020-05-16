@@ -87,7 +87,6 @@ public class DanhSachPlayListOffline extends Fragment {
                 Toast.makeText(getActivity(), "Tạo playlist thành công", Toast.LENGTH_LONG).show();
             }
         }
-//        addTabs();
         taoplaylist = (Button) view.findViewById(R.id.bt_tao_playlist);
         taoplaylist.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,14 +166,19 @@ public class DanhSachPlayListOffline extends Fragment {
         hopthoainhaptenplaylist.setPositiveButton("Tạo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(nhap.getText().toString().equals("")){
-                    Toast.makeText(getActivity(), "Tên playlist không được để trống", Toast.LENGTH_LONG).show();
+                Cursor cursor = playlistDBOffline.LayPlayList(nhap.getText().toString());
+                if(cursor.moveToNext()){
+                    Toast.makeText(getActivity(), "Playlist đã tồn tại", Toast.LENGTH_LONG).show();
                 }
-                else{
-                    Bundle bundle = new Bundle();
-                    bundle.putString("tenplaylist", nhap.getText().toString());
-                    NavHostFragment.findNavController(DanhSachPlayListOffline.this)
-                            .navigate(R.id.action_playlist_to_chonbhplaylistoff, bundle);
+                else {
+                    if (nhap.getText().toString().equals("")) {
+                        Toast.makeText(getActivity(), "Tên playlist không được để trống", Toast.LENGTH_LONG).show();
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("tenplaylist", nhap.getText().toString());
+                        NavHostFragment.findNavController(DanhSachPlayListOffline.this)
+                                .navigate(R.id.action_playlist_to_chonbhplaylistoff, bundle);
+                    }
                 }
             }
         });

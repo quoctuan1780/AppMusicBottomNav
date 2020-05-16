@@ -14,6 +14,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.appmusicbotnav.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.Serializable;
@@ -26,10 +28,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView tv_tenbaihat_index, tv_tencasi_index;
     private LinearLayout ll_thanhdieukhiennhac_index1;
     private int vitribai = -1;
+    private int countClick;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        countClick = 0;
         nav_thuvien = (BottomNavigationView) findViewById(R.id.nav_thuvien);
         nav_con_thuvien = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(nav_thuvien, nav_con_thuvien);
@@ -65,14 +69,21 @@ public class MainActivity extends AppCompatActivity {
         ll_thanhdieukhiennhac_index1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PhatNhac.class);
-                if(vitribai == -1){
-                    startActivity(intent);
+                countClick++;
+                if (countClick == 1) {
+                    countClick = 0;
+                    Intent intent = new Intent(MainActivity.this, PhatNhac.class);
+                    if (vitribai == -1) {
+                        startActivity(intent);
+                    } else {
+                        intent.putExtra("vitri", PhatNhac.vitribai);
+                        intent.putExtra("list", (Serializable) PhatNhac.listBaihat);
+                        startActivity(intent);
+                    }
                 }
                 else{
-                    intent.putExtra("vitri", PhatNhac.vitribai);
-                    intent.putExtra("list", (Serializable) PhatNhac.listBaihat);
-                    startActivity(intent);
+                    Toast.makeText(getBaseContext(), "Bạn đang nhấn quá nhanh", Toast.LENGTH_LONG).show();
+                    countClick = 0;
                 }
             }
         });
@@ -117,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
                         PhatNhac.vitribai = 0;
                     }
                     PhatNhac.choinhac.stop();
-//                    PhatNhac.choinhac = MediaPlayer.create(getBaseContext(), PhatNhac.listBaihat.get(PhatNhac.vitribai).getFile());
                     PhatNhac.choinhac = new MediaPlayer();
                     try{
                         PhatNhac.choinhac.setDataSource(PhatNhac.listBaihat.get(PhatNhac.vitribai).getPath());
@@ -145,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                         PhatNhac.vitribai = PhatNhac.listBaihat.size() - 1;
                     }
                     PhatNhac.choinhac.stop();
-//                    PhatNhac.choinhac = MediaPlayer.create(getBaseContext(), PhatNhac.listBaihat.get(PhatNhac.vitribai).getFile());
                     PhatNhac.choinhac = new MediaPlayer();
                     try{
                         PhatNhac.choinhac.setDataSource(PhatNhac.listBaihat.get(PhatNhac.vitribai).getPath());
