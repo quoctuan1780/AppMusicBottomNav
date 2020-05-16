@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/nen2"
     tools:context=".fragment.GhiAm">
@@ -23,7 +24,7 @@
         android:layout_below="@id/tb_BHghiam"
         android:orientation="horizontal">
 
-        <SearchView
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/sv_timkiemBHghiam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +32,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/search"
             android:iconifiedByDefault="false"
-            android:queryHint="Tìm kiếm bài bát..."></SearchView>
+            android:queryHint="Tìm kiếm bài bát..."></androidx.appcompat.widget.SearchView>
     </LinearLayout>
 
     <LinearLayout

@@ -2,6 +2,7 @@ package com.example.appmusicbotnav.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public class PlayListSelectAdapter extends ArrayAdapter<PlayList> {
         }
         currentPlaylist = getItem(position);
         TextView tvTitle = listItem.findViewById(R.id.tv_tenplaylist);
+        tvTitle.setTextColor(Color.WHITE);
         tvTitle.setText(currentPlaylist.getTenPlaylist());
         return listItem;
     }

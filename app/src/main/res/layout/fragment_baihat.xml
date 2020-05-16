@@ -52,8 +52,9 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:text="@string/sort"
+            android:textColor="@color/white"
             android:gravity="center|center_vertical"
-            android:textSize="14dp"
+            android:textSize="16dp"
             android:fontFamily="sans-serif">
         </TextView>
     </LinearLayout>
