@@ -3,10 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/nen2"
     tools:context=".fragment.DanhSachBaiHatOffline">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_baihat"
+        app:title="Chọn bài hát"
+        app:titleTextColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </androidx.appcompat.widget.Toolbar>
@@ -18,14 +22,15 @@
         android:layout_below="@id/tb_baihat"
         android:paddingTop="20dp"
         android:orientation="horizontal">
+
         <SearchView
             android:id="@+id/sv_timkiembaihatoff"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/search"
-            android:queryHint="Tìm kiếm bài bát...">
-        </SearchView>
+            android:iconifiedByDefault="false"
+            android:queryHint="Tìm kiếm bài bát..."></SearchView>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/ll_sort"

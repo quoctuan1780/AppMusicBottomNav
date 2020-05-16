@@ -18,4 +18,5 @@
     <color name="bgBottomNavigation">#fe485a</color>
     <color name="white">#FFFFFF</color>
     <color name="trongsuot">#4DFAF6F6</color>
-</resources>
+    <color name="item">#A47812</color>
+    </resources>

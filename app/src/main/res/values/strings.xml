@@ -27,7 +27,7 @@
     <string name="final_time">0.00</string>
 
     //nav
-    <string name="item_trangchu">Trang chủ</string>
+    <string name="item_trangchu">Cá nhân</string>
     <string name="item_online">Online</string>
     <string name="item_bxh">BXH</string>
     <string name="item_ghiam">Ghi âm</string>

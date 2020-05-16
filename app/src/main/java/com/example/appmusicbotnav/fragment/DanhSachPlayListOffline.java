@@ -68,7 +68,6 @@ public class DanhSachPlayListOffline extends Fragment {
         view = inflater.inflate(R.layout.fragment_playlist, container, false);
         setHasOptionsMenu(true);
         toolbar = (Toolbar) view.findViewById(R.id.tb_playlist);
-        toolbar.setTitle("Playlist");
         toolbar.setBackgroundColor(R.color.gray_color);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);

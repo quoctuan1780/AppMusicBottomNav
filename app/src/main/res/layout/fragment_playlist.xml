@@ -2,12 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/nen2"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_playlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:title="Playlist"
+        app:titleTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent">
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
@@ -20,7 +23,8 @@
             android:id="@+id/sv_timkiemplaylist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
+            android:iconifiedByDefault="true"
+            app:queryBackground="@color/trongsuot"
             android:queryHint="Tìm kiếm bài bát..."
             android:paddingTop="10dp">
         </androidx.appcompat.widget.SearchView>
@@ -35,7 +39,7 @@
             android:id="@+id/bt_tao_playlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_create"
+            android:background="@drawable/ic_bt_create"
             android:text="Tạo playlist">
         </Button>
     </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.appmusicbotnav.fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -52,7 +53,6 @@ public class ThuVien extends Fragment {
         view = inflater.inflate(R.layout.fragment_thuvien, container, false);
         setHasOptionsMenu(true);
         toolbar = (Toolbar) view.findViewById(R.id.tb_thuvien);
-        toolbar.setTitle("Thư viện");
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 //        QuangCao();
 //        HienThiQuangCao();

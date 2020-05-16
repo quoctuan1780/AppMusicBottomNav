@@ -64,7 +64,6 @@ public class ThemBaiHatVaoPlaylistOff extends Fragment {
         view = inflater.inflate(R.layout.item_thembaihatvao_playlist, container, false);
         setHasOptionsMenu(true);
         toolbar = (Toolbar) view.findViewById(R.id.tb_chonbaihat_listview_off);
-        toolbar.setTitle("Chọn bài hát");
         toolbar.setBackgroundColor(R.color.gray_color);
         listView = view.findViewById(R.id.lv_chonbaihat_playlist_off);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
