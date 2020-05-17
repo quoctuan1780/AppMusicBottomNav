@@ -103,4 +103,9 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
     </fragment>
+    <fragment
+        android:id="@+id/item_ghiam"
+        android:name="com.example.appmusicbotnav.fragment.GhiAm"
+        android:label="fragment_ghi_am"
+        tools:layout="@layout/fragment_ghi_am" />
 </navigation>
