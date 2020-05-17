@@ -1,6 +1,7 @@
 package com.example.appmusicbotnav.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,10 @@ public class ListViewSelectAdapter extends ArrayAdapter<BaiHat> {
         }
         BaiHat currentSong = baiHatList.get(position);
         TextView tvTitle = listItem.findViewById(R.id.tv_tenbaihat);
+        tvTitle.setTextColor(Color.WHITE);
+
         TextView tvSubtitle = listItem.findViewById(R.id.tv_tencasi);
+        tvSubtitle.setTextColor(Color.WHITE);
         ImageView imageView = listItem.findViewById(R.id.iv_chonbaihat);
         tvTitle.setText(currentSong.getTitle());
         tvSubtitle.setText(currentSong.getSubTitle());
