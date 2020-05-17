@@ -88,6 +88,14 @@ public class ThuVien extends Fragment {
                         .navigate(R.id.action_thuvien_playlist);
             }
         });
+
+        view.findViewById(R.id.ll_album).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(ThuVien.this)
+                        .navigate(R.id.action_item_canhan_to_frag_album_off);
+            }
+        });
     }
 
 //    private void QuangCao() {

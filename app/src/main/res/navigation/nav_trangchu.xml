@@ -23,6 +23,9 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_item_canhan_to_frag_album_off"
+            app:destination="@id/frag_album_off" />
     </fragment>
     <fragment
         android:id="@+id/item_chonBH_playlist_off"
@@ -102,5 +105,11 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/frag_album_off"
+        android:name="com.example.appmusicbotnav.fragment.DanhSachAlbumOffline"
+        android:label="DanhSachAlbum"
+        >
     </fragment>
 </navigation>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/nen2"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_album"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="Album"
+        app:titleTextColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent">
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/ll_timkiem_album"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tb_album"
+        android:padding="10dp">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/sv_timkiem_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="true"
+            app:queryBackground="@color/trongsuot"
+            android:queryHint="Tìm kiếm bài bát..."
+            android:paddingTop="10dp">
+        </androidx.appcompat.widget.SearchView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_sapxep_album"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/ll_timkiem_album"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ib_sapxep_album_off"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sort_black_24dp">
+        </ImageButton>
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:text="@string/sort"
+            android:gravity="center|center_vertical"
+            android:textSize="14dp"
+            android:fontFamily="sans-serif">
+        </TextView>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/lv_album_off"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_sapxep_album">
+    </ListView>
+</RelativeLayout>

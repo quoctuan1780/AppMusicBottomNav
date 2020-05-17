@@ -7,8 +7,21 @@ public class BaiHat implements Serializable{
     private String tenbaihat;
     private String tencasi;
     private String path;
-    private int thutubai;
+    private int albumId;
     private boolean checkBox;
+
+    public BaiHat(String title, String subTitle, String path, int albumId) {
+        this.tenbaihat = title;
+        this.tencasi = subTitle;
+        this.path = path;
+        this.albumId = albumId;
+    }
+
+    public BaiHat(String title, String subTitle, String path) {
+        this.tenbaihat = title;
+        this.tencasi = subTitle;
+        this.path = path;
+    }
 
     public BaiHat(String tenbh, String tencs, String dn, boolean cb) {
         this.tenbaihat = tenbh;
@@ -17,33 +30,14 @@ public class BaiHat implements Serializable{
         this.checkBox = cb;
     }
 
+    public int getAlbumId() { return albumId; }
+
     public String getPath() {
         return path;
     }
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    public BaiHat(String title, String subTitle, String path) {
-        this.tenbaihat = title;
-        this.tencasi = subTitle;
-        this.path = path;
-
-    }
-
-    public BaiHat(String title, String subTitle, int thutubai) {
-        this.tenbaihat = title;
-        this.tencasi = subTitle;
-        this.thutubai = thutubai;
-
-    }
-
-    public BaiHat(String title, String subTitle, int path, boolean cb) {
-        this.tenbaihat = title;
-        this.tencasi = subTitle;
-        this.thutubai = path;
-        this.checkBox = cb;
     }
 
     public String getTitle() {

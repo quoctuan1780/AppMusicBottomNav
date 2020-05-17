@@ -225,7 +225,7 @@ public class DanhSachBaiHatOffline extends Fragment {
         Cursor songCursor = contentResolver.query(uri, null, null, null, null);
         if(songCursor != null && songCursor.moveToFirst()){
             do{
-                String tenbh = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
+                String tenbh = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME));
                 String tencs = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
                 String duongdan = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.DATA));
                 bh = new BaiHat(tenbh, tencs, duongdan);
