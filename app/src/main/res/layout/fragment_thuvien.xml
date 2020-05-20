@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fl_thuvien"
     android:background="@drawable/nen2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.ThuVien">
+    android:paddingTop="30dp"
+    tools:context=".fragment.ThuVien"
+    android:orientation="vertical">
     <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_thuvien"
@@ -21,7 +23,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="645dp"
         android:layout_marginBottom="187dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,13 +39,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="20dp">
+            android:paddingTop="20dp"
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/miku">
-            </ImageView>
+                android:src="@drawable/miku"></ImageView>
         </LinearLayout>
 
         <LinearLayout
@@ -65,7 +67,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/ll_thuvien"
             android:paddingTop="10dp">
 
@@ -142,9 +144,9 @@
                     android:id="@+id/ll_playlist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:background="@color/trongsuot"
                     android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
                     android:paddingTop="5dp">
 
                     <LinearLayout
@@ -204,8 +206,8 @@
                     android:id="@+id/ll_album"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/trongsuot"
                     android:layout_marginTop="10dp"
+                    android:background="@color/trongsuot"
                     android:orientation="horizontal"
                     android:paddingTop="5dp">
 
@@ -266,8 +268,8 @@
                     android:id="@+id/ll_baihatghiam"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/trongsuot"
                     android:layout_marginTop="10dp"
+                    android:background="@color/trongsuot"
                     android:orientation="horizontal"
                     android:paddingTop="5dp">
 
@@ -328,8 +330,8 @@
                     android:id="@+id/ll_upload"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/trongsuot"
                     android:layout_marginTop="10dp"
+                    android:background="@color/trongsuot"
                     android:orientation="horizontal"
                     android:paddingTop="5dp">
 
@@ -376,4 +378,4 @@
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
