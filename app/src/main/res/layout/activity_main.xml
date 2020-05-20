@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.MainActivity"
+    android:orientation="vertical"
+    android:weightSum="100">
 
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="83"
         app:defaultNavHost="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +23,10 @@
     <LinearLayout
         android:id="@+id/ll_thanhdieukhiennhac_index1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="9"
         android:orientation="horizontal"
+        android:layout_below="@id/nav_host_fragment"
         app:layout_constraintBottom_toTopOf="@+id/nav_thuvien"
         app:layout_constraintStart_toStartOf="parent">
         <include layout="@layout/item_controller_baihat_index"/>
@@ -30,14 +35,12 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_thuvien"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
         android:background="?android:attr/windowBackground"
         android:foreground="?attr/selectableItemBackground"
         app:itemBackground="@color/white"
         android:theme="@style/BottomNavigationTheme"
+        android:layout_alignParentBottom="true"
         app:menu="@menu/nav_item" />
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

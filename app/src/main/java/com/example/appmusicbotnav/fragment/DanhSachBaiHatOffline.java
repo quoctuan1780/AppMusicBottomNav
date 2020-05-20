@@ -3,6 +3,7 @@ package com.example.appmusicbotnav.fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -21,12 +22,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 import com.example.appmusicbotnav.R;
@@ -94,6 +98,14 @@ public class DanhSachBaiHatOffline extends Fragment {
         khoitaomenuSapxep();
         phatnhac();
         super.onViewCreated(view, savedInstanceState);
+        RelativeLayout relativeLayout = (RelativeLayout) view.findViewById(R.id.rl_baihat);
+        relativeLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboardFrom(getContext(), v);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -106,6 +118,11 @@ public class DanhSachBaiHatOffline extends Fragment {
             getActivity().onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(view.getContext().INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void phatnhac(){

@@ -2,6 +2,7 @@ package com.example.appmusicbotnav.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,14 +12,18 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -103,6 +108,14 @@ public class DanhSachPlayListOffline extends Fragment {
         khoitaomenusapxepplaylist();
         khoitaotimkiemplaylist();
         super.onViewCreated(view, savedInstanceState);
+        RelativeLayout relativeLayout = (RelativeLayout) view.findViewById(R.id.rl_playlist);
+        relativeLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboardFrom(getContext(), v);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -114,7 +127,8 @@ public class DanhSachPlayListOffline extends Fragment {
     @Override
     public void onStop() {
         Log.i("TAG", "onStop: ");
-        adapter.clear();
+        if(adapter != null)
+            adapter.clear();
         super.onStop();
     }
 
@@ -132,6 +146,11 @@ public class DanhSachPlayListOffline extends Fragment {
                     .navigate(R.id.action_frag_playlist_to_item_canhan2);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(view.getContext().INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void khoitaotimkiemplaylist(){
