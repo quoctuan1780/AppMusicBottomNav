@@ -17,8 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.appmusicbotnav.R;
+import com.example.appmusicbotnav.modelOnline.Casi;
+import com.example.appmusicbotnav.service.APIService;
+import com.example.appmusicbotnav.service.DataService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private Animation diaxoay;
@@ -85,6 +94,25 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Bạn đang nhấn quá nhanh", Toast.LENGTH_LONG).show();
                     countClick = 0;
                 }
+            }
+        });
+        getData();
+    }
+
+    private void getData() {
+        DataService dataService = APIService.getService();
+        Call<List<Casi>> callback = dataService.Laydulietcasi();
+        callback.enqueue(new Callback<List<Casi>>() {
+            @Override
+            public void onResponse(Call<List<Casi>> call, Response<List<Casi>> response) {
+                ArrayList<Casi> listcasi = (ArrayList<Casi>) response.body();
+                for(Casi cs : listcasi)
+                    Log.i("TENCASI", cs.getTenCaSi());
+            }
+
+            @Override
+            public void onFailure(Call<List<Casi>> call, Throwable t) {
+
             }
         });
     }
