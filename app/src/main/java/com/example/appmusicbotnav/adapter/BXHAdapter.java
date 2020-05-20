@@ -1,6 +1,8 @@
 package com.example.appmusicbotnav.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +44,7 @@ public class BXHAdapter extends ArrayAdapter<BaiHat> {
         return position;
     }
 
+    @SuppressLint("ResourceAsColor")
     @NonNull
     @Override
     public View getView(int position,  @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -52,6 +55,8 @@ public class BXHAdapter extends ArrayAdapter<BaiHat> {
         BaiHat currentSong = bh.get(position);
         TextView tvTitle = listItem.findViewById(R.id.tv_music_namebxh);
         TextView tvSubtitle = listItem.findViewById(R.id.tv_music_subtitlebxh);
+        tvTitle.setTextColor(Color.WHITE);
+        tvSubtitle.setTextColor(Color.WHITE);
         ImageView imv = listItem.findViewById(R.id.img_menubxh);
         taomenu(imv, currentSong);
         tvTitle.setText(currentSong.getTitle());

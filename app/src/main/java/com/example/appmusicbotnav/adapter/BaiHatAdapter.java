@@ -1,6 +1,7 @@
 package com.example.appmusicbotnav.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,8 @@ public class BaiHatAdapter extends ArrayAdapter<BaiHat> implements Filterable {
         BaiHat currentSong = songList.get(position);
         TextView tvTitle = listItem.findViewById(R.id.tv_music_name);
         TextView tvSubtitle = listItem.findViewById(R.id.tv_music_subtitle);
+        tvSubtitle.setTextColor(Color.WHITE);
+        tvTitle.setTextColor(Color.WHITE);
         tvTitle.setText(currentSong.getTitle());
         tvSubtitle.setText(currentSong.getSubTitle());
         return listItem;

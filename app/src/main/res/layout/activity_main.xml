@@ -35,8 +35,7 @@
         android:background="?android:attr/windowBackground"
         android:foreground="?attr/selectableItemBackground"
         app:itemBackground="@color/white"
-        app:itemIconTint="@color/bgBottomNavigation"
-        app:itemTextColor="@color/bgBottomNavigation"
+        android:theme="@style/BottomNavigationTheme"
         app:menu="@menu/nav_item" />
 
 

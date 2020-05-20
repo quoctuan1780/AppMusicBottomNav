@@ -48,7 +48,7 @@ public class BangXepHang extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        int images[]= {R.drawable.poster1,R.drawable.poster3,R.drawable.poster2,R.drawable.poster4};
+        int images[]= {R.drawable.mm1,R.drawable.mm2,R.drawable.poster2,R.drawable.poster4};
         v_flipper = view.findViewById(R.id.imgview_bhx);
         listView = view.findViewById(R.id.lv_bxh);
         for(int i = 0; i < images.length; i++)
@@ -56,12 +56,6 @@ public class BangXepHang extends Fragment {
             flipperImages(images[i]);
         }
         dsbh = new ArrayList<>();
-
-
-            flipperImages(images[0]);
-            flipperImages(images[1]);
-            flipperImages(images[2]);
-            flipperImages(images[3]);
 
          dsbh = new ArrayList<>();
         khoitaoquyentruycap();
@@ -111,6 +105,7 @@ public class BangXepHang extends Fragment {
             }
         });
         searchView = view.findViewById(R.id.search_bxh);
+        timkiem();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -122,7 +117,7 @@ public class BangXepHang extends Fragment {
     public ArrayList<BaiHat> Top100VN(ArrayList<BaiHat> dsbh)
     {
         ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i =0; i<4; i++)
+        for(int i =0; i<11 ; i++)
         {
             top100.add(dsbh.get(i));
         }
@@ -131,7 +126,7 @@ public class BangXepHang extends Fragment {
     public ArrayList<BaiHat> Top100USUK(ArrayList<BaiHat> dsbh)
     {
         ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 8; i++)
         {
             top100.add(dsbh.get(i));
         }
@@ -188,7 +183,7 @@ public class BangXepHang extends Fragment {
     public ArrayList<BaiHat> Top100Asia(ArrayList<BaiHat> dsbh)
     {
         ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i = 0; i < 6; i++)
+        for(int i = 0; i < 9; i++)
         {
             top100.add(dsbh.get(i));
         }
@@ -197,7 +192,7 @@ public class BangXepHang extends Fragment {
     public ArrayList<BaiHat> Top100KPOP(ArrayList<BaiHat> dsbh)
     {
         ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < 6; i++)
         {
             top100.add(dsbh.get(i));
         }

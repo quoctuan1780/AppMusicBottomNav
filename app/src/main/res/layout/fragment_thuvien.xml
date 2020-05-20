@@ -59,8 +59,8 @@
                 android:fontFamily="sans-serif"
                 android:paddingLeft="20dp"
                 android:text="THƯ VIỆN"
-                android:textColor="@color/black"
-                android:textSize="16dp"></TextView>
+                android:textColor="@color/white"
+                android:textSize="18dp"></TextView>
         </LinearLayout>
 
         <ScrollView
