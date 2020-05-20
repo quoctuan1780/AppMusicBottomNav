@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -97,12 +98,24 @@ public class DanhSachPlayListOffline extends Fragment {
         lv_baihat = (ListView) view.findViewById(R.id.lv_playlist_off);
         sort = (ImageButton) view.findViewById(R.id.ib_sapxep_playlist_off);
         sv_timkiemplaylist = view.findViewById(R.id.sv_timkiemplaylist);
-        hienthiPlaylist();
         chonplaylist();
         chonplaylistsuabaihat();
         khoitaomenusapxepplaylist();
         khoitaotimkiemplaylist();
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        hienthiPlaylist();
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        Log.i("TAG", "onStop: ");
+        adapter.clear();
+        super.onStop();
     }
 
     @Override
@@ -166,11 +179,21 @@ public class DanhSachPlayListOffline extends Fragment {
         hopthoainhaptenplaylist.setPositiveButton("Tạo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Cursor cursor = playlistDBOffline.LayPlayList(nhap.getText().toString());
-                if(cursor.moveToNext()){
-                    Toast.makeText(getActivity(), "Playlist đã tồn tại", Toast.LENGTH_LONG).show();
-                }
-                else {
+                try {
+                    Cursor cursor = playlistDBOffline.LayPlayList(nhap.getText().toString());
+                    if (cursor.moveToNext()) {
+                        Toast.makeText(getActivity(), "Playlist đã tồn tại", Toast.LENGTH_LONG).show();
+                    } else {
+                        if (nhap.getText().toString().equals("")) {
+                            Toast.makeText(getActivity(), "Tên playlist không được để trống", Toast.LENGTH_LONG).show();
+                        } else {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("tenplaylist", nhap.getText().toString());
+                            NavHostFragment.findNavController(DanhSachPlayListOffline.this)
+                                    .navigate(R.id.action_playlist_to_chonbhplaylistoff, bundle);
+                        }
+                    }
+                }catch (Exception e){
                     if (nhap.getText().toString().equals("")) {
                         Toast.makeText(getActivity(), "Tên playlist không được để trống", Toast.LENGTH_LONG).show();
                     } else {
@@ -212,8 +235,10 @@ public class DanhSachPlayListOffline extends Fragment {
                 PlayList playList = new PlayList(tenPlaylist, listBh);
                 playLists.add(playList);
             }
-            adapter = new PlayListSelectAdapter(getContext(), playLists);
-            lv_baihat.setAdapter(adapter);
+            if(adapter == null) {
+                adapter = new PlayListSelectAdapter(getContext(), playLists);
+                lv_baihat.setAdapter(adapter);
+            }
         }catch (Exception e){
             Toast.makeText(getActivity(), "Chưa có playlist", Toast.LENGTH_LONG).show();
         }

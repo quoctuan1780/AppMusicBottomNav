@@ -66,11 +66,17 @@ public class ThuVien extends Fragment {
         khoitaoquyentruycap();
         soluongbh = demsoluongbaihat();
         tv_baihat.setText(soluongbh+"");
-        Cursor cursor = playlistDBOffline.DemSoLuongPlaylist();
-        if(cursor.moveToNext()){
-            soluongpl = Integer.parseInt(cursor.getString(0));
-            tv_playlist.setText(soluongpl+"");
+        try {
+            Cursor cursor = playlistDBOffline.DemSoLuongPlaylist();
+            if(cursor.moveToNext()){
+                soluongpl = Integer.parseInt(cursor.getString(0));
+                tv_playlist.setText(soluongpl+"");
+            }
+        }catch(Exception e){
+            tv_playlist.setText(0+"");
+            e.printStackTrace();
         }
+
         super.onViewCreated(view, savedInstanceState);
 
         view.findViewById(R.id.ll_baihat).setOnClickListener(new View.OnClickListener() {
@@ -86,6 +92,14 @@ public class ThuVien extends Fragment {
             public void onClick(View v) {
                 NavHostFragment.findNavController(ThuVien.this)
                         .navigate(R.id.action_thuvien_playlist);
+            }
+        });
+
+        view.findViewById(R.id.ll_album).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(ThuVien.this)
+                        .navigate(R.id.action_item_canhan_to_frag_album_off);
             }
         });
     }
