@@ -66,11 +66,17 @@ public class ThuVien extends Fragment {
         khoitaoquyentruycap();
         soluongbh = demsoluongbaihat();
         tv_baihat.setText(soluongbh+"");
-        Cursor cursor = playlistDBOffline.DemSoLuongPlaylist();
-        if(cursor.moveToNext()){
-            soluongpl = Integer.parseInt(cursor.getString(0));
-            tv_playlist.setText(soluongpl+"");
+        try {
+            Cursor cursor = playlistDBOffline.DemSoLuongPlaylist();
+            if(cursor.moveToNext()){
+                soluongpl = Integer.parseInt(cursor.getString(0));
+                tv_playlist.setText(soluongpl+"");
+            }
+        }catch(Exception e){
+            tv_playlist.setText(0+"");
+            e.printStackTrace();
         }
+
         super.onViewCreated(view, savedInstanceState);
 
         view.findViewById(R.id.ll_baihat).setOnClickListener(new View.OnClickListener() {

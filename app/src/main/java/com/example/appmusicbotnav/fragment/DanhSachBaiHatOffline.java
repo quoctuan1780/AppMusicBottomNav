@@ -103,7 +103,7 @@ public class DanhSachBaiHatOffline extends Fragment {
                 NavHostFragment.findNavController(DanhSachBaiHatOffline.this)
                 .navigate(R.id.action_frag_dsbhoff_to_frag_playlist);
             else
-            ((AppCompatActivity)getActivity()).onBackPressed();
+            getActivity().onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }
