@@ -19,15 +19,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tb_album"
         android:padding="10dp">
-        <androidx.appcompat.widget.SearchView
+        <SearchView
             android:id="@+id/sv_timkiem_album"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="true"
             app:queryBackground="@color/trongsuot"
-            android:queryHint="Tìm kiếm bài bát..."
+            android:queryHint="Tìm kiếm album..."
             android:paddingTop="10dp">
-        </androidx.appcompat.widget.SearchView>
+        </SearchView>
     </LinearLayout>
 
     <LinearLayout

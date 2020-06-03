@@ -40,21 +40,19 @@ import com.example.appmusicbotnav.model.BaiHat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 
 
 public class DanhSachBaiHatOffline extends Fragment {
-    View view;
-    Toolbar toolbar;
-    ArrayList<BaiHat> listBaihat = new ArrayList<>();
+    private View view;
+    private Toolbar toolbar;
+    private ArrayList<BaiHat> listBaihat = new ArrayList<>();
     public static ArrayList<BaiHat> listTruyen = new ArrayList<>();
-    ListView listView;
-    SearchView searchView;
-    BaiHatAdapter adapter;
-    HashMap<String, BaiHat> hmSearch;
-    ImageButton sort;
-    PopupMenu dropMenu;
-    Menu menu;
+    private ListView listView;
+    private SearchView searchView;
+    private BaiHatAdapter adapter;
+    private ImageButton sort;
+    private PopupMenu dropMenu;
+    private Menu menu;
     private static final int MY_PERMISSION_REQUEST = 1;
 
     public DanhSachBaiHatOffline(){
@@ -80,15 +78,21 @@ public class DanhSachBaiHatOffline extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         sort = (ImageButton) view.findViewById(R.id.ib_sort);
+
         if(getArguments() != null){
-            ArrayList<BaiHat> listbh = (ArrayList<BaiHat>) getArguments().getSerializable("listbh");
-            listTruyen = listbh;
-            for (BaiHat bh : listbh){
-                Log.i("TAG", bh.getTitle());
-                Log.i("TAG", bh.getSubTitle());
-                Log.i("TAG", bh.getPath());
+            try {
+                ArrayList<BaiHat> listbh = (ArrayList<BaiHat>) getArguments().getSerializable("listbh");
+                listTruyen = listbh;
+                khoitaobaihat(listbh);
+            }catch(Exception e){
+                try{
+                    ArrayList<BaiHat> listbh = (ArrayList<BaiHat>) getArguments().getSerializable("album");
+                    listTruyen = listbh;
+                    khoitaobaihat(listbh);
+                }catch (Exception eb){
+
+                }
             }
-            khoitaobaihat(listbh);
         }
         else {
             laynhac();

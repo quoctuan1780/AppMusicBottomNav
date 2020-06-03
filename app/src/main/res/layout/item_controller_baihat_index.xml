@@ -33,14 +33,14 @@
         <TextView
             android:id="@+id/tv_tenbaihat_index"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="Không có nhạc đang phát"
             android:textSize="14dp"></TextView>
 
         <TextView
             android:id="@+id/tv_tencasi_index"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="Không có"
             android:textSize="10dp"></TextView>
     </LinearLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/nen2"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_online"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="Online"
+        app:titleTextColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/menu_thuvien" />
+    <ImageView
+        android:id="@+id/iv_online"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_below="@+id/tb_online">
+    </ImageView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_online">
+        <include layout="@layout/item_album_online"></include>
+    </RelativeLayout>
+</RelativeLayout>

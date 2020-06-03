@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
@@ -126,7 +124,6 @@ public class DanhSachPlayListOffline extends Fragment {
 
     @Override
     public void onStop() {
-        Log.i("TAG", "onStop: ");
         if(adapter != null)
             adapter.clear();
         super.onStop();
@@ -181,6 +178,7 @@ public class DanhSachPlayListOffline extends Fragment {
             }
         });
     }
+
     private void khoitaomenuplaylist(View v){
         PopMenuPlaylist = new PopupMenu(getContext(), v);
         ((AppCompatActivity)getActivity()).getMenuInflater().inflate(R.menu.menu_item_playlist, PopMenuPlaylist.getMenu());
@@ -405,27 +403,4 @@ public class DanhSachPlayListOffline extends Fragment {
             }
         });
     }
-//    private void addTabs() {
-//        tabLayout = (TabLayout) view.findViewById(R.id.tab_playlist);
-//        pager = (ViewPager) view.findViewById(R.id.vp_playlist);
-//        pager.setAdapter(new PlaylistTablayoutAdapter(getFragmentManager()));
-//        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-//        tabLayout.setupWithViewPager(pager);
-//        tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                pager.setCurrentItem(tab.getPosition());
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
-//    }
 }
