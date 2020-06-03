@@ -15,17 +15,21 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"/>
+            app:exitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/action_thuvien_playlist"
             app:destination="@id/frag_playlist"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"/>
+            app:exitAnim="@anim/slide_out_left"/>a
         <action
             android:id="@+id/action_item_canhan_to_frag_album_off"
-            app:destination="@id/frag_album_off" />
+            app:destination="@id/frag_album_off"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/item_chonBH_playlist_off"
@@ -109,9 +113,20 @@
     <fragment
         android:id="@+id/frag_album_off"
         android:name="com.example.appmusicbotnav.fragment.DanhSachAlbumOffline"
-        android:label="DanhSachAlbum"
-        >
+        android:label="DanhSachAlbum">
+        <action
+            android:id="@+id/action_frag_album_off_to_frag_dsbhoff"
+            app:destination="@id/frag_dsbhoff"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
+    <fragment
+        android:id="@+id/item_online"
+        android:name="com.example.appmusicbotnav.fragment.Online"
+        android:label="Online" />
+    <fragment
         android:id="@+id/item_ghiam"
         android:name="com.example.appmusicbotnav.fragment.GhiAm"
         android:label="fragment_ghi_am"

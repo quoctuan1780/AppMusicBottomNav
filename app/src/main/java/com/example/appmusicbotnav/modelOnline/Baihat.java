@@ -1,9 +1,12 @@
 package com.example.appmusicbotnav.modelOnline;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Baihat {
+public class Baihat implements Parcelable{
     @SerializedName("idBaiHat")
     @Expose
     private Integer idBaiHat;
@@ -34,6 +37,46 @@ public class Baihat {
     @SerializedName("listComment")
     @Expose
     private List<Comment> listComment = null;
+
+    protected Baihat(Parcel in) {
+        if (in.readByte() == 0) {
+            idBaiHat = null;
+        } else {
+            idBaiHat = in.readInt();
+        }
+        tenBaiHat = in.readString();
+        tenTacGia = in.readString();
+        link = in.readString();
+        theLoai = in.readString();
+        if (in.readByte() == 0) {
+            luotNghe = null;
+        } else {
+            luotNghe = in.readInt();
+        }
+        lyrics = in.readString();
+        if (in.readByte() == 0) {
+            idAlbum = null;
+        } else {
+            idAlbum = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            idCaSi = null;
+        } else {
+            idCaSi = in.readInt();
+        }
+    }
+
+    public static final Creator<Baihat> CREATOR = new Creator<Baihat>() {
+        @Override
+        public Baihat createFromParcel(Parcel in) {
+            return new Baihat(in);
+        }
+
+        @Override
+        public Baihat[] newArray(int size) {
+            return new Baihat[size];
+        }
+    };
 
     public Integer getIdBaiHat() {
         return idBaiHat;
@@ -113,5 +156,43 @@ public class Baihat {
 
     public void setListComment(List<Comment> listComment) {
         this.listComment = listComment;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (idBaiHat == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(idBaiHat);
+        }
+        dest.writeString(tenBaiHat);
+        dest.writeString(tenTacGia);
+        dest.writeString(link);
+        dest.writeString(theLoai);
+        if (luotNghe == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(luotNghe);
+        }
+        dest.writeString(lyrics);
+        if (idAlbum == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(idAlbum);
+        }
+        if (idCaSi == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(idCaSi);
+        }
     }
 }
