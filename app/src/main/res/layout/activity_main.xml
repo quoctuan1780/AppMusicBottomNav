@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity"
     android:orientation="vertical"
+    android:background="@drawable/nen2"
     android:weightSum="100">
 
     <fragment
@@ -26,6 +27,7 @@
         android:layout_height="0dp"
         android:layout_weight="9"
         android:orientation="horizontal"
+        android:background="@color/background"
         android:layout_below="@id/nav_host_fragment"
         app:layout_constraintBottom_toTopOf="@+id/nav_thuvien"
         app:layout_constraintStart_toStartOf="parent">

@@ -37,6 +37,7 @@ import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.activity.PhatNhac;
 import com.example.appmusicbotnav.adapter.BaiHatAdapter;
 import com.example.appmusicbotnav.model.BaiHat;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -62,7 +63,7 @@ public class DanhSachBaiHatOffline extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view =  inflater.inflate(R.layout.fragment_baihat, container, false);
+        view =  inflater.inflate(R.layout.fragment_danhsachbaihat, container, false);
         setHasOptionsMenu(true);
         toolbar = (Toolbar) view.findViewById(R.id.tb_baihat);
         toolbar.setBackgroundColor(R.color.gray_color);

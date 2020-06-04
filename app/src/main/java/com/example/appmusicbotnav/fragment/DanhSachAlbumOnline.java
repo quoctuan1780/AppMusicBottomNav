@@ -2,10 +2,12 @@ package com.example.appmusicbotnav.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -13,11 +15,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.adapter.AlbumOnlineAdapter;
 import com.example.appmusicbotnav.modelOnline.Album;
+import com.example.appmusicbotnav.modelOnline.Baihat;
 import com.example.appmusicbotnav.service.APIService;
 import com.example.appmusicbotnav.service.DataService;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -30,7 +37,9 @@ public class DanhSachAlbumOnline extends Fragment {
     private ArrayList<Album> albumarraylist;
     private AlbumOnlineAdapter adapter;
     private ListView lv_album_online_all;
+    ArrayList<Baihat> baihatarraylist;
 
+    @SuppressLint("ResourceAsColor")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +51,7 @@ public class DanhSachAlbumOnline extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("Danh sách album");
+        toolbar.setBackgroundColor(R.color.gray_color);
         return view;
     }
 
@@ -49,6 +59,7 @@ public class DanhSachAlbumOnline extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         try{
             layalbumAll();
+            laydanhsachbaihat();
         }catch (Exception e){
 
         }
@@ -60,6 +71,19 @@ public class DanhSachAlbumOnline extends Fragment {
         if(item.getItemId() == android.R.id.home)
             getActivity().onBackPressed();
         return super.onOptionsItemSelected(item);
+    }
+
+    private void laydanhsachbaihat(){
+        lv_album_online_all.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Album albumhientai = adapter.getItem(position);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) albumhientai.getListBaiHat());
+                NavHostFragment.findNavController(DanhSachAlbumOnline.this)
+                        .navigate(R.id.action_danhSachAlbumOnline_to_danhsachbaihatOnline, bundle);
+            }
+        });
     }
 
     private void layalbumAll(){
