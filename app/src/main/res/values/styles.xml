@@ -19,4 +19,24 @@
         <item name="colorPrimary">@color/bgBottomNavigation</item>
         <item name="android:textColorSecondary">@color/gray_color</item>
     </style>
+
+    <style name="list_item_artist">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="list_item_title" parent="@style/AppTheme">
+        <item name="android:textSize">15.0sp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="play_button">
+        <item name="android:padding">30.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_margin">10.0dip</item>
+        <item name="android:src">@drawable/ic_play_circle_filled</item>
+    </style>
+
 </resources>

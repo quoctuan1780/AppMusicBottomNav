@@ -3,7 +3,6 @@ package com.example.appmusicbotnav.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.activity.PhatNhac;
 import com.example.appmusicbotnav.adapter.BaiHatOnlineAdapter;
@@ -41,6 +42,7 @@ public class Online extends Fragment  {
     private HorizontalScrollView hscv_album;
     private TextView tv_xemthem_album;
     private ArrayList<Album> albumarraylist;
+
     public Online(){
 
     }
@@ -59,9 +61,16 @@ public class Online extends Fragment  {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         try {
-            layalbumAll();
+            layalbumGoiy();
             laybaibatAll();
             phatnhac();
+            tv_xemthem_album.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NavHostFragment.findNavController(Online.this)
+                            .navigate(R.id.action_item_online_to_danhSachAlbumOnline2);
+                }
+            });
         }catch(Exception e){
             Toast.makeText(getActivity(), "Kiểm tra lại kết nối internet", Toast.LENGTH_LONG).show();
         }
@@ -83,9 +92,9 @@ public class Online extends Fragment  {
         });
     }
 
-    public void layalbumAll(){
+    public void layalbumGoiy(){
         DataService dataService = APIService.getService();
-        Call<List<Album>> listalbum = dataService.LaydulieuadbumAll();
+        Call<List<Album>> listalbum = dataService.LaydulieualbumGoiy();
         listalbum.enqueue(new Callback<List<Album>>() {
             @Override
             public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {

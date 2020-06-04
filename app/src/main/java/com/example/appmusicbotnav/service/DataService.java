@@ -18,4 +18,7 @@ public interface DataService {
 
     @GET("album/find-all")
     Call<List<Album>> LaydulieuadbumAll();
+
+    @GET("album/find-random")
+    Call<List<Album>> LaydulieualbumGoiy();
 }
