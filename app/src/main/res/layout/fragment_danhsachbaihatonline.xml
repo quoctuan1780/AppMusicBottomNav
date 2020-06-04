@@ -1,63 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:id="@+id/rl_baihat"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.DanhSachBaiHatOffline">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_album"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="Album"
+        android:id="@+id/tb_baihat_online"
+        app:title="Chọn bài hát"
         android:layout_marginTop="30dp"
         app:titleTextColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent">
-    </androidx.appcompat.widget.Toolbar>
-    <LinearLayout
-        android:id="@+id/ll_timkiem_album"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tb_album"
-        android:padding="10dp">
-        <SearchView
-            android:id="@+id/sv_timkiem_album"
-            android:layout_width="match_parent"
-            android:layout_marginRight="10dp"
-            android:layout_height="wrap_content"
-            android:iconifiedByDefault="true"
-            app:queryBackground="@color/light_gray"
-            android:queryHint="Tìm kiếm album..."
-            android:paddingTop="10dp">
-        </SearchView>
-    </LinearLayout>
+        android:layout_height="wrap_content">
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
-        android:id="@+id/ll_sapxep_album"
+        android:id="@+id/ll_timkiembaihat_online"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tb_baihat_online"
+        android:paddingTop="20dp"
+        android:orientation="horizontal">
+
+        <SearchView
+            android:id="@+id/sv_timkiembaihat_online"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/search"
+            android:iconifiedByDefault="false"
+            android:queryHint="Tìm kiếm bài bát..."></SearchView>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_sort_online"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:layout_below="@+id/ll_timkiem_album"
+        android:layout_below="@+id/ll_timkiembaihat_online"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/ib_sapxep_album_off"
+            android:id="@+id/ib_sort_online"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_sort_black_24dp">
+
         </ImageButton>
         <TextView
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:text="@string/sort"
+            android:textColor="@color/white"
             android:gravity="center|center_vertical"
-            android:textSize="14dp"
+            android:textSize="16dp"
             android:fontFamily="sans-serif">
         </TextView>
     </LinearLayout>
+
     <ListView
-        android:id="@+id/lv_album_off"
+        android:id="@+id/lv_danhsachbaihat_online"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_sapxep_album">
+        android:paddingTop="10dp"
+        android:layout_below="@id/ll_sort_online"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
     </ListView>
 </RelativeLayout>

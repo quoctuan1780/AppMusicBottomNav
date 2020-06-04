@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout ll_thanhdieukhiennhac_index1;
     private int vitribai = -1;
     private int countClick;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             baitruocdo();
             playnhac();
             baiketiep();
+
             ll_thanhdieukhiennhac_index1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -184,8 +188,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onResume() {
+        if(PhatNhac.choinhac == null) {
+            ll_thanhdieukhiennhac_index1.setVisibility(View.INVISIBLE);
+        }
+        else{
+            ll_thanhdieukhiennhac_index1.setVisibility(View.VISIBLE);
+        }
         if(PhatNhac.choinhac != null){
             if(PhatNhac.choinhac.isPlaying())
             {
