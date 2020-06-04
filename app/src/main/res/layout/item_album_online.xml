@@ -4,48 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/ll_thongtinalbum"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:gravity="center_vertical">-->
-<!--        <TextView-->
-<!--            android:id="@+id/tv_album_online"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Album"-->
-<!--            android:fontFamily="sans-serif-black"-->
-<!--            android:textSize="28dp">-->
-<!--        </TextView>-->
-<!--        <TextView-->
-<!--            android:id="@+id/tv_album_xemthem"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingLeft="40dp"-->
-<!--            android:layout_alignParentRight="true"-->
-<!--            android:text="Xem thêm"-->
-<!--            android:textColor="@color/gray_color">-->
-<!--        </TextView>-->
-<!--    </LinearLayout>-->
-
-<!--    <HorizontalScrollView-->
-<!--        android:id="@+id/hscv_album_online"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/ll_thongtinalbum">-->
-<!--    </HorizontalScrollView>-->
-    <TextView
-        android:id="@+id/tv_album_online"
+    <LinearLayout
+        android:id="@+id/ll_thongtinalbum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="Album"
-        android:textSize="28dp"></TextView>
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/tv_album_online"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Album"
+            android:fontFamily="sans-serif-black"
+            android:textSize="28dp">
+        </TextView>
+        <TextView
+            android:id="@+id/tv_album_xemthem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="40dp"
+            android:layout_alignParentRight="true"
+            android:text="Xem thêm"
+            android:textColor="@color/gray_color">
+        </TextView>
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/hscv_album_online"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_below="@+id/ll_thongtinalbum">
+    </HorizontalScrollView>
+
     <ListView
         android:id="@+id/lv_baihat_online"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_album_online">
+        android:layout_below="@+id/hscv_album_online">
     </ListView>
 </RelativeLayout>
