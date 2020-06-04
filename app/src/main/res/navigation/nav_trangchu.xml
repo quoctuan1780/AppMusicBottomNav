@@ -125,10 +125,22 @@
     <fragment
         android:id="@+id/item_online"
         android:name="com.example.appmusicbotnav.fragment.Online"
-        android:label="Online" />
+        android:label="Online" >
+        <action
+            android:id="@+id/action_item_online_to_danhSachAlbumOnline2"
+            app:destination="@id/danhSachAlbumOnline"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
     <fragment
         android:id="@+id/item_ghiam"
         android:name="com.example.appmusicbotnav.fragment.GhiAm"
         android:label="fragment_ghi_am"
         tools:layout="@layout/fragment_ghi_am" />
+    <fragment
+        android:id="@+id/danhSachAlbumOnline"
+        android:name="com.example.appmusicbotnav.fragment.DanhSachAlbumOnline"
+        android:label="DanhSachAlbumOnline" />
 </navigation>

@@ -1,5 +1,6 @@
 package com.example.appmusicbotnav.service;
 
+import com.example.appmusicbotnav.modelOnline.Album;
 import com.example.appmusicbotnav.modelOnline.Baihat;
 import com.example.appmusicbotnav.modelOnline.Casi;
 
@@ -14,4 +15,10 @@ public interface DataService {
 
     @GET("baihat/find-all")
     Call<List<Baihat>> LaydulieubaihatAll();
+
+    @GET("album/find-all")
+    Call<List<Album>> LaydulieuadbumAll();
+
+    @GET("album/find-random")
+    Call<List<Album>> LaydulieualbumGoiy();
 }
