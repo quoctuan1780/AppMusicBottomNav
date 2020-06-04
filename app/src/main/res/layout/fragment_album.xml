@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="Album"
+        android:layout_marginTop="30dp"
         app:titleTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent">
     </androidx.appcompat.widget.Toolbar>
@@ -21,10 +22,11 @@
         android:padding="10dp">
         <SearchView
             android:id="@+id/sv_timkiem_album"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginRight="10dp"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="true"
-            app:queryBackground="@color/trongsuot"
+            app:queryBackground="@color/light_gray"
             android:queryHint="Tìm kiếm album..."
             android:paddingTop="10dp">
         </SearchView>

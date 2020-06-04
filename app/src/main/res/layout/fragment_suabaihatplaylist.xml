@@ -9,6 +9,7 @@
         android:id="@+id/tb_suabaihat_playlist"
         app:title="Sửa bài hát playlist"
         app:titleTextColor="@color/white"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </androidx.appcompat.widget.Toolbar>
