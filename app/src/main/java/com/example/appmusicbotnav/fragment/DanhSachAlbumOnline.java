@@ -87,24 +87,27 @@ public class DanhSachAlbumOnline extends Fragment {
     }
 
     private void layalbumAll(){
-        DataService dataService = APIService.getService();
-        Call<List<Album>> listalbum = dataService.LaydulieuadbumAll();
-        listalbum.enqueue(new Callback<List<Album>>() {
-            @Override
-            public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
-                try{
-                    albumarraylist = (ArrayList<Album>) response.body();
-                    adapter = new AlbumOnlineAdapter(getContext(), albumarraylist);
-                    lv_album_online_all.setAdapter(adapter);
-                }catch (Exception e){
-                    Toast.makeText(getActivity(), "Kiểm tra lại kết nối internet", Toast.LENGTH_LONG).show();
+        try{
+            DataService dataService = APIService.getService();
+            Call<List<Album>> listalbum = dataService.LaydulieuadbumAll();
+
+            listalbum.enqueue(new Callback<List<Album>>() {
+                @Override
+                public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
+
+                        albumarraylist = (ArrayList<Album>) response.body();
+                        adapter = new AlbumOnlineAdapter(getContext(), albumarraylist);
+                        lv_album_online_all.setAdapter(adapter);
+
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<Album>> call, Throwable t) {
+                @Override
+                public void onFailure(Call<List<Album>> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(), "Kiểm tra lại kết nối internet", Toast.LENGTH_LONG).show();
+        }
     }
 }
