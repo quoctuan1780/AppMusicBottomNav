@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import static com.example.appmusicbotnav.fragment.DanhSachBaiHatOffline.listTruyen;
-
 public class DanhsachbaihatOnline extends Fragment {
     private View view;
     private Toolbar toolbar;
@@ -85,7 +83,7 @@ public class DanhsachbaihatOnline extends Fragment {
                 try {
                     startActivity(phatnhac);
                 }catch (Exception e){
-                    e.printStackTrace();
+
                 }
             }
         });

@@ -6,4 +6,7 @@
             <certificates src="user" overridePins="true"/>
         </trust-anchors>
     </debug-overrides>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">api-music-app.herokuapp.com</domain>
+    </domain-config>
 </network-security-config>
