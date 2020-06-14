@@ -1,17 +1,21 @@
 package com.example.appmusicbotnav.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -27,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class DanhsachbaihatOnline extends Fragment {
+public class DanhSachBaiHatOnline extends Fragment {
     private View view;
     private Toolbar toolbar;
     private BaiHatOnlineAdapter adapter;
@@ -37,6 +41,7 @@ public class DanhsachbaihatOnline extends Fragment {
     private ListView lv_dsbh;
     private ImageButton ib_sort_online;
     private Menu menu;
+    private RelativeLayout rl_baihat_online;
 
     @Nullable
     @Override
@@ -45,7 +50,8 @@ public class DanhsachbaihatOnline extends Fragment {
         toolbar = (Toolbar) view.findViewById(R.id.tb_baihat_online);
         sv_baihat_online = (SearchView) view.findViewById(R.id.sv_timkiembaihat_online);
         lv_dsbh = (ListView) view.findViewById(R.id.lv_danhsachbaihat_online);
-        ib_sort_online = (ImageButton) view.findViewById(R.id.ib_sort_online) ;
+        ib_sort_online = (ImageButton) view.findViewById(R.id.ib_sort_online);
+        rl_baihat_online = (RelativeLayout) view.findViewById(R.id.rl_baihat_online);
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -64,6 +70,13 @@ public class DanhsachbaihatOnline extends Fragment {
         }catch (Exception e){
             Toast.makeText(getActivity(), "Kiểm tra lại kết nối internet", Toast.LENGTH_LONG).show();
         }
+        rl_baihat_online.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboardFrom(getContext(), v);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -71,6 +84,11 @@ public class DanhsachbaihatOnline extends Fragment {
         if(item.getItemId() == android.R.id.home)
             getActivity().onBackPressed();
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(view.getContext().INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void phatnhac(){
