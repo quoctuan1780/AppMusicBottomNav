@@ -25,6 +25,7 @@
             android:layout_marginRight="10dp"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="true"
+            android:background="@drawable/search"
             app:queryBackground="@color/light_gray"
             android:queryHint="Tìm kiếm album..."
             android:paddingTop="10dp">

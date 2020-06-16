@@ -52,7 +52,6 @@ public class GhiAm extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         dsbh = new ArrayList<>();
-        khoitaoquyentruycap();
         dsbh = laynhac();
         listview = view.findViewById(R.id.lv_danhsachBHghiam);
         hienthiBH(dsbh);
@@ -67,19 +66,19 @@ public class GhiAm extends Fragment {
 //        });
     }
 
-    private void khoitaoquyentruycap(){
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-            }else{
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-            }
-        }else{
-            Log.i("TAG", "Da khoi tao quyen truy cap: ");
-        }
-    }
+//    private void khoitaoquyentruycap(){
+//        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+//            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
+//                ActivityCompat.requestPermissions(getActivity(),
+//                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+//            }else{
+//                ActivityCompat.requestPermissions(getActivity(),
+//                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+//            }
+//        }else{
+//            Log.i("TAG", "Da khoi tao quyen truy cap: ");
+//        }
+//    }
 
     private ArrayList<BaiHat> laynhac(){
         BaiHat bh;

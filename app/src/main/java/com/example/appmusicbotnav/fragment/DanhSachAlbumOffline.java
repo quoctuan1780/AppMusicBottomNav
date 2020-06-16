@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +25,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -72,7 +70,6 @@ public class DanhSachAlbumOffline extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        khoitaoquyentruycap();
         chonalbum();
         khoitaomenusapxepalbum();
         super.onViewCreated(view, savedInstanceState);
@@ -198,19 +195,6 @@ public class DanhSachAlbumOffline extends Fragment {
     }
 
     //Phần khởi tạo bài hát từ bộ nhớ máy
-    private void khoitaoquyentruycap(){
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-            }else{
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-            }
-        }else{
-            Log.i("TAG", "Da khoi tao quyen truy cap: ");
-        }
-    }
 
     private void laynhac(){
         BaiHat bh;

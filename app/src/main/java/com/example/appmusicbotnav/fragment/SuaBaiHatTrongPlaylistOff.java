@@ -94,7 +94,6 @@ public class SuaBaiHatTrongPlaylistOff extends Fragment {
         }
         adapter = new ListViewSelectAdapter(getContext(), listPl);
         lv_suabaihat.setAdapter(adapter);
-        khoitaoquyentruycap();
         chonbaihat();
         super.onViewCreated(view, savedInstanceState);
     }
@@ -112,20 +111,6 @@ public class SuaBaiHatTrongPlaylistOff extends Fragment {
                 adapter.updateAdapter(listPl);
             }
         });
-    }
-
-    private void khoitaoquyentruycap(){
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-            }else{
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-            }
-        }else{
-            Log.i("TAG", "Da khoi tao quyen truy cap: ");
-        }
     }
 
     private ArrayList<BaiHat> laynhac(){

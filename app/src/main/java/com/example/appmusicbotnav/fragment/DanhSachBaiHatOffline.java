@@ -72,7 +72,7 @@ public class DanhSachBaiHatOffline extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        khoitaoquyentruycap();
+
         return view;
     }
 
@@ -226,19 +226,6 @@ public class DanhSachBaiHatOffline extends Fragment {
 
 
     //Phần khởi tạo bài hát từ bộ nhớ máy
-    private void khoitaoquyentruycap(){
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-            }else{
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-            }
-        }else{
-            Log.i("TAG", "Da khoi tao quyen truy cap: ");
-        }
-    }
 
     private void laynhac(){
         BaiHat bh;
@@ -247,7 +234,7 @@ public class DanhSachBaiHatOffline extends Fragment {
         Cursor songCursor = contentResolver.query(uri, null, null, null, null);
         if(songCursor != null && songCursor.moveToFirst()){
             do{
-                String tenbh = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME));
+                String tenbh = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
                 String tencs = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
                 String duongdan = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.DATA));
                 bh = new BaiHat(tenbh, tencs, duongdan);

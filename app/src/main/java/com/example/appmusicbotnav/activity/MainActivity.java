@@ -214,6 +214,13 @@ public class MainActivity extends AppCompatActivity {
                 ib_play_main.setImageResource(R.drawable.ic_pause_black_24dp);
             }
             else {
+                if(PhatNhac.listBaihat != null) {
+                    tv_tenbaihat_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getTitle());
+                    tv_tencasi_index.setText(PhatNhac.listBaihat.get(PhatNhac.vitribai).getSubTitle());
+                }else if(PhatNhac.listBaihatOnline != null){
+                    tv_tenbaihat_index.setText(PhatNhac.listBaihatOnline.get(PhatNhac.vitribai).getTenBaiHat());
+                    tv_tencasi_index.setText(PhatNhac.listBaihatOnline.get(PhatNhac.vitribai).getTenTacGia());
+                }
                 ib_play_main.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                 iv_disk_index.clearAnimation();
             }
