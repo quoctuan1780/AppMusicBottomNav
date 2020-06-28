@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_online"
@@ -22,10 +23,19 @@
         android:layout_below="@+id/tb_online">
     </ImageView>
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/sc_layout"
+        android:layout_below="@id/iv_online"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_online">
-        <include layout="@layout/item_album_online"></include>
-    </RelativeLayout>
-</RelativeLayout>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/rl_album_online"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sc_layout">
+            <include layout="@layout/item_album_online"></include>
+            <include layout="@layout/item_casi_online"></include>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

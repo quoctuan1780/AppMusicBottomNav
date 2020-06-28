@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_thongtincasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/tv_casi_online"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ca sĩ"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-black"
+            android:textSize="28dp">
+        </TextView>
+        <TextView
+            android:id="@+id/tv_casi_xemthem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="40dp"
+            android:layout_alignParentRight="true"
+            android:textSize="20dp"
+            android:text="Xem thêm"
+            android:textColor="@color/colorButtonDialog">
+        </TextView>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_casi_online"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_thongtincasi"/>
+</RelativeLayout>
