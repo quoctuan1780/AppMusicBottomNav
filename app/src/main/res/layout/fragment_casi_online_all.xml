@@ -17,9 +17,22 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tb_casi_online_all"
         android:background="@drawable/miku"/>
+
+    <SearchView
+        android:id="@+id/sv_timkiem_casi_online"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/search"
+        android:layout_below="@id/iv_casi_online_all"
+        android:iconifiedByDefault="false"
+        android:queryHint="Tìm kiếm bài bát...">
+
+    </SearchView>
     <ListView
         android:id="@+id/lv_casi_online_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_casi_online_all"/>
+        android:layout_below="@+id/sv_timkiem_casi_online"/>
 </RelativeLayout>

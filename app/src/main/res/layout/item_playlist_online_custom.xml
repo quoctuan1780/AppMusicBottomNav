@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_playlist_online"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:scaleType="fitXY"
+        android:layout_margin="5dp">
+    </ImageView>
+    <TextView
+        android:id="@+id/tv_ten_playlist_online"
+        android:layout_margin="30dp"
+        android:layout_alignBottom="@+id/iv_playlist_online"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Playlist thu nhat">
+    </TextView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/color_phamau">
+    </View>
+</RelativeLayout>

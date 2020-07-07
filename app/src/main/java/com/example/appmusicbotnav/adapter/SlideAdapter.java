@@ -14,8 +14,9 @@ import java.util.ArrayList;
 public class SlideAdapter extends PagerAdapter {
     private ArrayList<Slide> listQuangcao;
     private LayoutInflater layoutInflater;
-    public SlideAdapter(Context context, ArrayList<Slide> listquangcao){
-        this.listQuangcao = listquangcao;
+
+    public SlideAdapter(Context context, ArrayList<Slide> listQuangcao){
+        this.listQuangcao = listQuangcao;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -40,7 +41,7 @@ public class SlideAdapter extends PagerAdapter {
         //Đổ dữ liệu vào đối tượng
         Slide mau = listQuangcao.get(position);
         iv.setImageResource(mau.getHinh());
-
+        iv.setScaleType(ImageView.ScaleType.FIT_XY);
         //Thêm vào container
         container.addView(view);
         return view;

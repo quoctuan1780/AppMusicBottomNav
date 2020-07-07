@@ -52,6 +52,5 @@ public class CasiOnlineAdapter extends ArrayAdapter<Casi> {
         tv_tencasi.setText(currentCasi.getTenCaSi());
         tv_soluongbh.setText("Số lượng bài hát: " + currentCasi.getListBaiHat().size()+"");
         return listitem;
-
     }
 }

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,19 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-
 import com.example.appmusicbotnav.R;
-import com.example.appmusicbotnav.adapter.AlbumOnlineAdapter;
 import com.example.appmusicbotnav.adapter.CasiOnlineAdapter;
-import com.example.appmusicbotnav.modelOnline.Album;
-import com.example.appmusicbotnav.modelOnline.Baihat;
 import com.example.appmusicbotnav.modelOnline.Casi;
 import com.example.appmusicbotnav.service.APIService;
 import com.example.appmusicbotnav.service.DataService;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +35,8 @@ public class DanhSachCaSiOnline extends Fragment {
     private static ArrayList<Casi> casiArrayList;
     private CasiOnlineAdapter adapter;
     private ListView lv_casi_online_all;
+    private SearchView sv_casionline;
+    private ArrayList<Casi> casiArrayListClone = new ArrayList<>();
 
     @SuppressLint("ResourceAsColor")
     @Nullable
@@ -47,6 +45,7 @@ public class DanhSachCaSiOnline extends Fragment {
         view = inflater.inflate(R.layout.fragment_casi_online_all, container, false);
         toolbar = (Toolbar) view.findViewById(R.id.tb_casi_online_all);
         lv_casi_online_all = (ListView) view.findViewById(R.id.lv_casi_online_all);
+        sv_casionline = (SearchView) view.findViewById(R.id.sv_timkiem_casi_online);
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -61,16 +60,52 @@ public class DanhSachCaSiOnline extends Fragment {
         if(casiArrayList !=  null){
             adapter = new CasiOnlineAdapter(getContext(), casiArrayList);
             lv_casi_online_all.setAdapter(adapter);
+            timkiemcasi();
             laydanhsachbaihat();
         }else {
             try {
                 laycasiAll();
+                timkiemcasi();
                 laydanhsachbaihat();
             } catch (Exception e) {
 
             }
         }
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void timkiemcasi() {
+        sv_casionline.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(casiArrayList != null) {
+                    if (newText.equals("")) {
+                        casiArrayListClone.clear();
+                        adapter = new CasiOnlineAdapter(getContext(), casiArrayList);
+                        lv_casi_online_all.setAdapter(adapter);
+                        return false;
+                    } else {
+                        casiArrayListClone.clear();
+                        for (Casi cs : casiArrayList) {
+                            if (cs.getTenCaSi().toLowerCase().contains(newText.toLowerCase())) {
+                                casiArrayListClone.add(cs);
+                            }
+                        }
+                        adapter = new CasiOnlineAdapter(getContext(), casiArrayListClone);
+                        lv_casi_online_all.setAdapter(adapter);
+                        return false;
+                    }
+                }else{
+                    Toast.makeText(getContext(), "Không tải được danh sách bài hát để tìm kiếm", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            }
+        });
     }
 
     @Override
@@ -84,7 +119,7 @@ public class DanhSachCaSiOnline extends Fragment {
         lv_casi_online_all.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Casi casihientai = casiArrayList.get(position);
+                Casi casihientai = adapter.getItem(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) casihientai.getListBaiHat());
                 NavHostFragment.findNavController(DanhSachCaSiOnline.this)
@@ -100,9 +135,15 @@ public class DanhSachCaSiOnline extends Fragment {
             listCall.enqueue(new Callback<List<Casi>>() {
                 @Override
                 public void onResponse(Call<List<Casi>> call, Response<List<Casi>> response) {
-                    casiArrayList = (ArrayList<Casi>) response.body();
-                    adapter = new CasiOnlineAdapter(getContext(), casiArrayList);
-                    lv_casi_online_all.setAdapter(adapter);
+                    if(response.isSuccessful()) {
+                        casiArrayList = (ArrayList<Casi>) response.body();
+                        if(getContext() != null) {
+                            adapter = new CasiOnlineAdapter(getContext(), casiArrayList);
+                            lv_casi_online_all.setAdapter(adapter);
+                        }
+                    }else{
+                        Toast.makeText(getContext(), "Không tải được danh sách ca sĩ", Toast.LENGTH_LONG).show();
+                    }
                 }
 
                 @Override
@@ -114,5 +155,6 @@ public class DanhSachCaSiOnline extends Fragment {
 
         }
     }
-    
+
+
 }

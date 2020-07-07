@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.appmusicbotnav.R;
-import com.example.appmusicbotnav.fragment.Online;
 import com.example.appmusicbotnav.modelOnline.Album;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
