@@ -22,6 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.PhatNhac"/>
+        <activity android:name=".activity.DangNhap"/>
+        <activity android:name=".activity.DangKi"/>
     </application>
 
 </manifest>

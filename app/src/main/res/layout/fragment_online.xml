@@ -14,18 +14,11 @@
         app:titleTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_thuvien" />
-    <ImageView
-        android:id="@+id/iv_online"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_below="@+id/tb_online">
-    </ImageView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/sc_layout"
-        android:layout_below="@id/iv_online"
+        android:layout_below="@id/tb_online"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -34,8 +27,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sc_layout">
+            <RelativeLayout
+                android:id="@+id/rl_quangcao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/vp_quangcao_online"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp">
+                </androidx.viewpager.widget.ViewPager>
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/ci_quangcao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignParentRight="true">
+                </me.relex.circleindicator.CircleIndicator>
+            </RelativeLayout>
             <include layout="@layout/item_album_online"></include>
             <include layout="@layout/item_casi_online"></include>
+            <include layout="@layout/item_playlist_online"></include>
+            <include layout="@layout/item_baihat_goiy_online"></include>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

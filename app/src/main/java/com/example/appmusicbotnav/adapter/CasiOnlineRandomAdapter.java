@@ -26,6 +26,9 @@ public class CasiOnlineRandomAdapter extends RecyclerView.Adapter<CasiOnlineRand
 
     public CasiOnlineRandomAdapter(Context context, ArrayList<Casi> casiArrayList, Fragment fragment){
         this.context = context;
+        if(casiArrayList == null || casiArrayList.isEmpty())
+            this.casiArrayList = new ArrayList<>();
+        else
         this.casiArrayList = casiArrayList;
         this.fragment = fragment;
         listicon.add(R.drawable.ic_casi_1);

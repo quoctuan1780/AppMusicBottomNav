@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/ll_item_quangcao"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/iv_quangcao"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:src="@mipmap/ic_launcher">
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
     </ImageView>
-</LinearLayout>
+
+    <View
+        android:background="@drawable/color_phamau"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+    </View>
+</RelativeLayout>

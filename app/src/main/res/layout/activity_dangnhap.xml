@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_chaomung" />
 
     <EditText
-        android:id="@+id/ed_tendangnhap"
+        android:id="@+id/et_tendangnhap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_tbdangnhap" />
 
     <EditText
-        android:id="@+id/ed_matkhau"
+        android:id="@+id/et_matkhau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -72,13 +72,14 @@
         android:ems="10"
         android:fontFamily="sans-serif-light"
         android:hint="Mật khẩu"
+        android:password="true"
         android:inputType="textEmailAddress"
         android:paddingLeft="25sp"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_tendangnhap" />
+        app:layout_constraintTop_toBottomOf="@+id/et_tendangnhap" />
 
     <TextView
         android:id="@+id/tv_quenmatkhau"
@@ -92,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.695"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_matkhau" />
+        app:layout_constraintTop_toBottomOf="@+id/et_matkhau" />
 
     <Button
         android:id="@+id/bt_dangnhap"

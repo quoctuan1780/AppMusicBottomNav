@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|center_horizontal">
+
+    <TextView
+        android:id="@+id/tv_token"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TextView>
+    <Button
+        android:id="@+id/bt_lay_playlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lay playlist"
+        android:layout_below="@+id/tv_token">
+
+    </Button>
+    <Button
+        android:id="@+id/bt_dangxuat"
+        android:text="Đăng xuất"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bt_lay_playlist">
+    </Button>
+</RelativeLayout>

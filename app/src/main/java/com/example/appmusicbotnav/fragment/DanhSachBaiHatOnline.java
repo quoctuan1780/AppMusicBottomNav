@@ -1,5 +1,6 @@
 package com.example.appmusicbotnav.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class DanhSachBaiHatOnline extends Fragment {
     private Menu menu;
     private RelativeLayout rl_baihat_online;
 
+    @SuppressLint("ResourceAsColor")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class DanhSachBaiHatOnline extends Fragment {
         ib_sort_online = (ImageButton) view.findViewById(R.id.ib_sort_online);
         rl_baihat_online = (RelativeLayout) view.findViewById(R.id.rl_baihat_online);
         setHasOptionsMenu(true);
+        toolbar.setBackgroundColor(R.color.gray_color);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);

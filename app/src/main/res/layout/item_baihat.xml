@@ -2,9 +2,10 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="60dp"
     android:background="@color/trongsuot"
-    android:paddingTop="10dp">
+    android:paddingTop="10dp"
+    android:layout_marginTop="5dp">
 
     <ImageView
         android:id="@+id/iv_music_list"
@@ -34,7 +35,7 @@
         android:layout_toEndOf="@id/iv_music_list"
         android:singleLine="true"
         android:text="SubTitle"
-        android:textColor="@color/gray_color"
+        android:textColor="@color/color_black"
         android:textSize="12sp"
         android:textStyle="normal" />
 </RelativeLayout>
