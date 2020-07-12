@@ -51,4 +51,7 @@ public interface DataService {
 
     @GET("baihat/find-by-idcasi")
     Call<List<Baihat>> laybhtheoidcs();
+
+    @GET("baihat/find-all")
+    Call<List<Baihat>> laybh();
 }
