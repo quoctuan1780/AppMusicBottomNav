@@ -55,4 +55,9 @@ public class BaiHatOnlineAdapter extends ArrayAdapter<Baihat> {
         tvSubtitle.setText(currentSong.getTenTacGia());
         return listItem;
     }
+
+    public void updateBaihat(ArrayList<Baihat> baihatArrayList){
+        this.songList = baihatArrayList;
+        notifyDataSetChanged();
+    }
 }

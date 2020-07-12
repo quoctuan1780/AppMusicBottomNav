@@ -1,14 +1,18 @@
 package com.example.appmusicbotnav.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -36,6 +40,7 @@ public class DanhSachAlbumOnline extends Fragment {
     private ListView lv_album_online_all;
     private ArrayList<Album> albumArrayListClone = new ArrayList<>();
     private SearchView sv_albumOnline;
+    private RelativeLayout relativeLayout;
 
     @SuppressLint("ResourceAsColor")
     @Nullable
@@ -45,6 +50,7 @@ public class DanhSachAlbumOnline extends Fragment {
         toolbar = (Toolbar) view.findViewById(R.id.tb_album_online_all);
         lv_album_online_all = (ListView) view.findViewById(R.id.lv_album_online_all);
         sv_albumOnline = (SearchView) view.findViewById(R.id.sv_timkiem_album_online);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.rl_albumonline);
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -56,6 +62,13 @@ public class DanhSachAlbumOnline extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        relativeLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboardFrom(getContext(), v);
+                return false;
+            }
+        });
         if(albumarraylist !=  null){
             adapter = new AlbumOnlineAdapter(getActivity(), albumarraylist);
             lv_album_online_all.setAdapter(adapter);
@@ -78,6 +91,11 @@ public class DanhSachAlbumOnline extends Fragment {
         if(item.getItemId() == android.R.id.home)
             getActivity().onBackPressed();
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(view.getContext().INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void laydanhsachbaihat(){

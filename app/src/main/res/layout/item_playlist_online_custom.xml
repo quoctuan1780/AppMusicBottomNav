@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="110dp">
 
     <ImageView
         android:id="@+id/iv_playlist_online"
@@ -20,6 +20,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textStyle="bold"
+        android:textColor="@color/bgBottomNavigation"
         android:textSize="20dp"
         android:text="Playlist thu nhat">
     </TextView>

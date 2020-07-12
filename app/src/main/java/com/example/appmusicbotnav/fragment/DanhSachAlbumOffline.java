@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -19,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -33,6 +35,8 @@ import com.example.appmusicbotnav.adapter.AlbumAdapter;
 import com.example.appmusicbotnav.model.Album;
 import com.example.appmusicbotnav.model.AlbumArraylist;
 import com.example.appmusicbotnav.model.BaiHat;
+import com.google.gson.internal.$Gson$Preconditions;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -49,6 +53,7 @@ public class DanhSachAlbumOffline extends Fragment {
     private ImageButton sort;
     private SearchView sv_album;
     private static ArrayList<Album> albums1;
+    private RelativeLayout rl_album_offline;
 
     @SuppressLint("ResourceAsColor")
     @Nullable
@@ -59,6 +64,7 @@ public class DanhSachAlbumOffline extends Fragment {
         toolbar = (Toolbar) view.findViewById(R.id.tb_album);
         sort = (ImageButton) view.findViewById(R.id.ib_sapxep_album_off);
         sv_album = (SearchView) view.findViewById(R.id.sv_timkiem_album);
+        rl_album_offline = (RelativeLayout) view.findViewById(R.id.rl_album_offline);
         albums  = new ArrayList<>();
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -72,6 +78,13 @@ public class DanhSachAlbumOffline extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         chonalbum();
         khoitaomenusapxepalbum();
+        rl_album_offline.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboardFrom(getContext(), v);
+                return false;
+            }
+        });
         super.onViewCreated(view, savedInstanceState);
     }
 

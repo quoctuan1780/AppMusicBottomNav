@@ -22,11 +22,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -55,7 +55,7 @@ public class DanhSachPlayListOffline extends Fragment {
     private PopupMenu dropMenu;
     private Menu menu;
     private ImageButton sort;
-    private SearchView sv_timkiemplaylist;
+    private android.widget.SearchView sv_timkiemplaylist;
     public DanhSachPlayListOffline(){
 
     }

@@ -1,14 +1,18 @@
 package com.example.appmusicbotnav.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.modelOnline.Authenticate;
 import com.example.appmusicbotnav.modelOnline.Thongtintaikhoan;
@@ -24,6 +28,7 @@ public class DangNhap extends AppCompatActivity {
     private EditText et_tendangnhap, et_matkhau;
     private Button bt_dangnhap;
     private ProgressDialog dialog;
+    private ConstraintLayout cl_dangnhap;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,12 +36,25 @@ public class DangNhap extends AppCompatActivity {
         setContentView(R.layout.activity_dangnhap);
         khoiTao();
         kiemTraDangNhap();
+
+        cl_dangnhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyboardFrom(DangNhap.this, v);
+            }
+        });
+    }
+
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(view.getContext().INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void khoiTao(){
         et_tendangnhap = (EditText) findViewById(R.id.et_tendangnhap);
         et_matkhau = (EditText) findViewById(R.id.et_matkhau);
         bt_dangnhap = (Button) findViewById(R.id.bt_dangnhap);
+        cl_dangnhap = (ConstraintLayout) findViewById(R.id.cl_dangnhap);
     }
 
     private void kiemTraDangNhap(){

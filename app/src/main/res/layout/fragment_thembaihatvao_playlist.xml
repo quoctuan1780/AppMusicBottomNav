@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/nen2">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_chonbaihat_listview_off"
@@ -19,11 +18,16 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_below="@id/tb_chonbaihat_listview_off">
-        <androidx.appcompat.widget.SearchView
+        <SearchView
             android:id="@+id/sv_timkhiem_bh_playlist_off"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content">
-        </androidx.appcompat.widget.SearchView>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/search"
+            android:iconifiedByDefault="false"
+            android:queryHint="Tìm kiếm bài bát...">
+        </SearchView>
     </LinearLayout>
     <ListView
         android:id="@+id/lv_chonbaihat_playlist_off"
