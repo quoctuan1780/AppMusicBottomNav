@@ -57,4 +57,9 @@ public class BaiHatAdapter extends ArrayAdapter<BaiHat> implements Filterable {
         tvSubtitle.setText(currentSong.getSubTitle());
         return listItem;
     }
+
+    public void updateAdapter(ArrayList<BaiHat> baiHatArrayList){
+        this.songList = baiHatArrayList;
+        notifyDataSetChanged();
+    }
 }

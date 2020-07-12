@@ -2,41 +2,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rl_playlist"
+    android:id="@+id/rl_playlist_online"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_playlist"
+        android:id="@+id/tb_playlist_online"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Playlist"
+        app:title="Playlist Online"
         android:layout_marginTop="30dp"
         app:titleTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent">
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
-        android:id="@+id/ll_timkiem_playlist"
+        android:id="@+id/ll_timkiem_playlist_online"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tb_playlist"
+        android:layout_below="@+id/tb_playlist_online"
         android:layout_margin="10dp">
         <SearchView
-            android:id="@+id/sv_timkiemplaylist"
+            android:id="@+id/sv_timkiemplaylist_online"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/search"
+            android:iconifiedByDefault="false"
             android:queryHint="Tìm kiếm Playlist...">
         </SearchView>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/ll_bt_tao_playlist"
+        android:id="@+id/ll_bt_tao_playlist_online"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_below="@id/ll_timkiem_playlist">
+        android:layout_below="@id/ll_timkiem_playlist_online">
         <Button
-            android:id="@+id/bt_tao_playlist"
+            android:id="@+id/bt_tao_playlist_online"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_bt_create"
@@ -44,15 +46,15 @@
         </Button>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/ll_sapxep_playlist"
+        android:id="@+id/ll_sapxep_playlist_online"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:layout_below="@+id/ll_bt_tao_playlist"
+        android:layout_below="@+id/ll_bt_tao_playlist_online"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/ib_sapxep_playlist_off"
+            android:id="@+id/ib_sapxep_playlist_online"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_sort_black_24dp">
@@ -69,9 +71,9 @@
         </TextView>
     </LinearLayout>
     <ListView
-        android:id="@+id/lv_playlist_off"
+        android:id="@+id/lv_playlist_online"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_sapxep_playlist">
+        android:layout_below="@+id/ll_sapxep_playlist_online">
     </ListView>
 </RelativeLayout>

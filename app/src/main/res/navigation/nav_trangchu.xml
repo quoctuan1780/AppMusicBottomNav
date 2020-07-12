@@ -30,12 +30,19 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_item_canhan_to_baiHatDaTaiXuong"
+            app:destination="@id/baiHatDaTaiXuong"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/item_chonBH_playlist_off"
         android:name="com.example.appmusicbotnav.fragment.ThemBaiHatVaoPlaylistOff"
         android:label="item_chonBH_offline"
-        tools:layout="@layout/item_thembaihatvao_playlist">
+        tools:layout="@layout/fragment_thembaihatvao_playlist">
         <action
             android:id="@+id/action_item_chonBH_playlist_off_to_frag_playlist"
             app:destination="@id/frag_playlist"
@@ -147,6 +154,13 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_item_online_to_danhSachPlayListOnline"
+            app:destination="@id/danhSachPlayListOnline"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/item_ghiam"
@@ -185,4 +199,31 @@
         android:id="@+id/item_taikhoan"
         android:name="com.example.appmusicbotnav.fragment.TaiKhoan"
         android:label="TaiKhoan" />
+    <fragment
+        android:id="@+id/danhSachPlayListOnline"
+        android:name="com.example.appmusicbotnav.fragment.DanhSachPlayListOnline"
+        android:label="DanhSachPlayListOnline" >
+        <action
+            android:id="@+id/action_danhSachPlayListOnline_to_chonBaiHatPlaylistOnline"
+            app:destination="@id/chonBaiHatPlaylistOnline"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_danhSachPlayListOnline_to_danhsachbaihatOnline"
+            app:destination="@id/danhsachbaihatOnline"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/chonBaiHatPlaylistOnline"
+        android:name="com.example.appmusicbotnav.fragment.ChonBaiHatPlaylistOnline"
+        android:label="ChonBaiHatPlaylistOnline" />
+    <fragment
+        android:id="@+id/baiHatDaTaiXuong"
+        android:name="com.example.appmusicbotnav.fragment.DanhSachBaiHatDaTaiXuong"
+        android:label="BaiHatDaTaiXuong" />
 </navigation>
