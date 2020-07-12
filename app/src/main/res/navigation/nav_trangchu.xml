@@ -97,6 +97,9 @@
         android:label="fragment_bangxehang"
         tools:layout="@layout/fragment_bangxephang" >
 
+        <action
+            android:id="@+id/action_item_bxh_to_danhsachbaihatOnline"
+            app:destination="@id/danhsachbaihatOnline" />
     </fragment>
     <fragment
         android:id="@+id/frag_suabaihat_playlistoff"

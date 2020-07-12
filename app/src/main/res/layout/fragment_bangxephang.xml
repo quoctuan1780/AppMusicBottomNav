@@ -5,122 +5,122 @@
     android:layout_height="match_parent"
     android:id="@+id/rl_layout_rank"
     tools:context=".fragment.BangXepHang">
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_bxh"
-
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="19dp"
-        android:outlineAmbientShadowColor="@color/black"
-        android:layout_marginLeft="19dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="30dp"
-        android:iconifiedByDefault="false"
-        android:queryHint="Tìm kiếm bài bát...">
-    </androidx.appcompat.widget.SearchView>
-    <ViewFlipper
-        android:id="@+id/imgview_bhx"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@id/search_bxh"
-        android:gravity="center|center_horizontal"
-        >
-    </ViewFlipper>
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_bxh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="19dp"
+                android:outlineAmbientShadowColor="@color/black"
+                android:layout_marginLeft="19dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="30dp"
+                android:iconifiedByDefault="false"
+                android:queryHint="Tìm kiếm bài bát...">
+            </androidx.appcompat.widget.SearchView>
 
-    <LinearLayout
-        android:id="@+id/ll_bxh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/imgview_bhx"
-        android:paddingTop="5dp"
-        android:orientation="horizontal"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:gravity="center|center_horizontal">
-        <Button
-            android:id="@+id/bxhVN"
-            android:layout_width="200dp"
-            android:layout_height="80dp"
-            android:background="@drawable/top100tt"
-            android:scaleType="fitXY"
-            android:layout_marginLeft="10dp"
-            />
-        <Button
-            android:id="@+id/bxhUSUK"
-            android:layout_width="200dp"
-            android:layout_height="80dp"
-            android:background="@drawable/top100nt"
-            android:scaleType="fitXY"
-            android:layout_marginRight="10dp"
-             />
-    </LinearLayout>
+            <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/imgslide"
+                android:layout_below="@+id/search_bxh">
 
-    <LinearLayout
-        android:id="@+id/ll_bxh1"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_below="@+id/ll_bxh"
-        android:paddingTop="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:gravity="center|center_horizontal"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/bxhAsia"
-            android:layout_width="200dp"
-            android:layout_height="80dp"
-            android:background = "@drawable/top100pop"
-            android:scaleType="fitXY"
-            android:layout_marginLeft="10dp"
+            </androidx.viewpager.widget.ViewPager>
+            <TextView
+                android:id="@+id/tv_top100bh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top bài hát hay nhất"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:layout_below="@id/imgslide"
+                android:fontFamily="sans-serif-condensed-light"
+                >
+            </TextView>
 
-            />
+            <ListView
+                android:id="@+id/lv_topTH"
+                android:layout_width="match_parent"
+                android:layout_height="850dp"
+                android:layout_below="@+id/tv_top100bh"
+                android:layout_margin="5dp">
+            </ListView>
 
-        <Button
-            android:id="@+id/bxhKPOP"
-            android:layout_width="200dp"
-            android:layout_height="80dp"
-            android:background = "@drawable/top100remix"
-            android:scaleType="fitXY"
-            android:layout_marginRight="10dp"
+            <LinearLayout
+                android:id="@+id/ll_bxh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lv_topTH"
+                android:paddingTop="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:gravity="center|center_horizontal">
+                <Button
+                    android:id="@+id/bxhVN"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/top100tt"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="10dp"
+                    />
+                <Button
+                    android:id="@+id/bxhUSUK"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/top100nt"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
 
-            />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_bxh1"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/ll_bxh"
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:gravity="center|center_horizontal"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/bxhAsia"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:background = "@drawable/top100pop"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="10dp"
 
+                    />
 
-    <LinearLayout
-        android:id="@+id/ll_tv_top100"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_bxh1"
-        android:paddingTop="5dp"
-        android:paddingLeft="10dp"
-        android:paddingBottom="10dp">
-        <TextView
-            android:id="@+id/top100"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Top 100 bài hát"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
-            android:fontFamily="sans-serif-condensed-light"
-            />
-    </LinearLayout>
+                <Button
+                    android:id="@+id/bxhKPOP"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:background = "@drawable/top100remix"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
+            <ListView
+                android:id="@+id/lv_hien_thi_top_20"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/ll_bxh1">
+            </ListView>
+        </RelativeLayout>
 
-    <ListView
-        android:id="@+id/lv_bxh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_tv_top100"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="5dp"
-
-        android:background="@drawable/backgroundbxh"/>
-
+    </ScrollView>
 </RelativeLayout>
 
 

@@ -15,15 +15,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.example.appmusicbotnav.R;
-import com.example.appmusicbotnav.model.BaiHat;
+import com.example.appmusicbotnav.modelOnline.Baihat;
+
 import java.util.ArrayList;
 
-public class BXHAdapter extends ArrayAdapter<BaiHat> {
+public class BXHAdapter extends ArrayAdapter<Baihat> {
     Context context;
-    ArrayList<BaiHat> bh = new ArrayList<>();
+    ArrayList<Baihat> bh ;
     PopupMenu popupMenu;
     Menu menu;
-    public BXHAdapter(@NonNull Context context, ArrayList<BaiHat> bh) {
+    public BXHAdapter(@NonNull Context context, ArrayList<Baihat> bh) {
         super(context, 0, bh);
         this.context = context;
         this.bh =bh;
@@ -35,7 +36,7 @@ public class BXHAdapter extends ArrayAdapter<BaiHat> {
 
     @Nullable
     @Override
-    public BaiHat getItem(int position) {
+    public Baihat getItem(int position) {
         return bh.get(position);
     }
 
@@ -52,18 +53,18 @@ public class BXHAdapter extends ArrayAdapter<BaiHat> {
         if (listItem == null) {
             listItem = LayoutInflater.from(context).inflate(R.layout.item_bhbxh, parent, false);
         }
-        BaiHat currentSong = bh.get(position);
+        Baihat currentSong = bh.get(position);
         TextView tvTitle = listItem.findViewById(R.id.tv_music_namebxh);
         TextView tvSubtitle = listItem.findViewById(R.id.tv_music_subtitlebxh);
         tvTitle.setTextColor(Color.WHITE);
         tvSubtitle.setTextColor(Color.WHITE);
         ImageView imv = listItem.findViewById(R.id.img_menubxh);
         taomenu(imv, currentSong);
-        tvTitle.setText(currentSong.getTitle());
-        tvSubtitle.setText(currentSong.getSubTitle());
+        tvTitle.setText(currentSong.getTenBaiHat());
+        tvSubtitle.setText(currentSong.getTenTacGia());
         return listItem;
     }
-    public void taomenu(ImageView iv, BaiHat bh)
+    public void taomenu(ImageView iv, Baihat bh)
     {
         popupMenu = new PopupMenu(getContext(), iv);
         menu = popupMenu.getMenu();

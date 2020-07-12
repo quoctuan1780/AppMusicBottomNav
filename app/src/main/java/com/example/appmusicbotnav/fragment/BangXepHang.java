@@ -1,15 +1,9 @@
 package com.example.appmusicbotnav.fragment;
 
-import android.Manifest;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,27 +14,42 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.activity.PhatNhac;
 import com.example.appmusicbotnav.adapter.BXHAdapter;
-import com.example.appmusicbotnav.model.BaiHat;
+import com.example.appmusicbotnav.adapter.SlideAdapter;
+import com.example.appmusicbotnav.model.Slide;
+import com.example.appmusicbotnav.modelOnline.Baihat;
+import com.example.appmusicbotnav.service.APIService;
+import com.example.appmusicbotnav.service.DataService;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BangXepHang extends Fragment {
-    private ViewFlipper v_flipper;
+    private ViewPager v_flipper;
     private View view;
     private BXHAdapter adapter;
+    private BXHAdapter adapter1;
     private ListView listView;
+    private ListView listViewTH;
     private SearchView searchView;
-    private ArrayList<BaiHat> dsbh;
+    private ArrayList<Baihat> dsbh;
+    private ArrayList<Baihat> listtruyen;
     final int MY_PERMISSION_REQUEST = 1;
 
 
@@ -52,68 +61,97 @@ public class BangXepHang extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        int images[]= {R.drawable.mm1,R.drawable.mm2,R.drawable.poster2,R.drawable.poster4};
-        v_flipper = view.findViewById(R.id.imgview_bhx);
-        listView = view.findViewById(R.id.lv_bxh);
-        for(int i = 0; i < images.length; i++)
-        {
-            flipperImages(images[i]);
-        }
+
+        Slide slide2 = new Slide(R.drawable.mm2);
+        Slide slide3 = new Slide(R.drawable.poster2);
+        Slide slide4 = new Slide(R.drawable.poster4);
+        ArrayList<Slide> images = new ArrayList<Slide>();
+
+        images.add(slide2);
+        images.add(slide3);
+        images.add(slide4);
+        v_flipper = view.findViewById(R.id.imgslide);
+        SlideAdapter imgslide = new SlideAdapter(getContext(),images);
+        v_flipper.setAdapter(imgslide);
+        listView = view.findViewById(R.id.lv_hien_thi_top_20);
+        listViewTH = view.findViewById(R.id.lv_topTH);
         dsbh = new ArrayList<>();
+        dsbh=laynhac();
+        v_flipper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int idcs = dsbh.get(v_flipper.getCurrentItem()).getIdCaSi();
+                DataService dataService = APIService.getService();
+                Call<List<Baihat>> ds = dataService.laybhtheoidcs();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("listbhtheocs", (ArrayList<? extends Parcelable>) ds);
 
-         dsbh = new ArrayList<>();
-        khoitaoquyentruycap();
-
+            }
+        });
         Button vn = view.findViewById(R.id.bxhVN);
         vn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dsbh=laynhac();
-                ArrayList<BaiHat> top100;
-                top100 = Top100VN(dsbh);
-                adapter = new BXHAdapter(getContext(), top100);
-                listView.setAdapter(adapter);
+                listtruyen = Top20TT(dsbh);
+                adapter1 = new BXHAdapter(getContext(), listtruyen);
+                listView.setAdapter(adapter1);
             }
         });
         Button usuk = view.findViewById(R.id.bxhUSUK);
+
         usuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dsbh=laynhac();
-                ArrayList<BaiHat> top100us;
-                top100us = Top100USUK(dsbh);
-                adapter = new BXHAdapter(getContext(), top100us);
-                listView.setAdapter(adapter);
+                listtruyen = Top20POP(dsbh);
+                adapter1 = new BXHAdapter(getContext(), listtruyen);
+                listView.setAdapter(adapter1);
             }
         });
         Button asia = view.findViewById(R.id.bxhAsia);
         asia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dsbh=laynhac();
-                ArrayList<BaiHat> top100as ;
-                top100as = Top100Asia(dsbh);
-                adapter = new BXHAdapter(getContext(), top100as);
-                listView.setAdapter(adapter);
+                listtruyen = Top20Remix(dsbh);
+                adapter1 = new BXHAdapter(getContext(), listtruyen);
+                listView.setAdapter(adapter1);
             }
         });
         Button kpop = view.findViewById(R.id.bxhKPOP);
         kpop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dsbh=laynhac();
-                ArrayList<BaiHat> top100k;
-                top100k = Top100KPOP(dsbh);
-                adapter = new BXHAdapter(getContext(), top100k);
-                listView.setAdapter(adapter);
+                listtruyen = Top20NT(dsbh);
+                adapter1 = new BXHAdapter(getContext(), listtruyen);
+                listView.setAdapter(adapter1);
             }
         });
         searchView = view.findViewById(R.id.search_bxh);
         timkiem();
+        listViewTH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent phatnhac = new Intent(getActivity(), PhatNhac.class);
+                phatnhac.putExtra("vitri", position);
+                phatnhac.putParcelableArrayListExtra("listonline", (ArrayList<? extends Parcelable>) dsbh);
+                try {
+                    startActivity(phatnhac);
+                }catch (Exception e){
+
+                }
+            }
+        });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                phatnhac();
+                Intent phatnhac = new Intent(getActivity(), PhatNhac.class);
+                phatnhac.putExtra("vitri", position);
+                phatnhac.putParcelableArrayListExtra("listonline", (ArrayList<? extends Parcelable>) dsbh);
+                try {
+                    startActivity(phatnhac);
+                }catch (Exception e){
+
+                }
             }
         });
 
@@ -132,115 +170,99 @@ public class BangXepHang extends Fragment {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public ArrayList<BaiHat> Top100VN(ArrayList<BaiHat> dsbh)
-    {
-        ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i =0; i<11 ; i++)
-        {
-            top100.add(dsbh.get(i));
-        }
-        return  top100;
-    }
-    public ArrayList<BaiHat> Top100USUK(ArrayList<BaiHat> dsbh)
-    {
-        ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i = 0; i < 8; i++)
-        {
-            top100.add(dsbh.get(i));
-        }
-        return  top100;
-    }
-    private void khoitaoquyentruycap(){
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
-            }else{
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST);
+    public ArrayList<Baihat> Top20POP(ArrayList<Baihat> dsbh) {
+        ArrayList<Baihat> top20 = new ArrayList<>();
+        for (int i = 0; i < dsbh.size(); i++) {
+            if(top20.size()<20)
+            {
+                if(dsbh.get(i).getTheLoai().equals( "POP"))
+                    top20.add(dsbh.get(i));
             }
-        }else{
-            Log.i("TAG", "Da khoi tao quyen truy cap: ");
+            else
+                break;
         }
+
+        return top20;
     }
 
-    private ArrayList<BaiHat> laynhac(){
-        BaiHat bh;
-        ArrayList<BaiHat> listlocal = new ArrayList<>();
-        ContentResolver contentResolver = getActivity().getContentResolver();
-        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        Cursor songCursor = contentResolver.query(uri, null, null, null, null);
-        if(songCursor != null && songCursor.moveToFirst()){
-            do{
-                String tenbh = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
-                String tencs = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-                String duongdan = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.DATA));
-                bh = new BaiHat(tenbh, tencs, duongdan);
-                listlocal.add(bh);
-            }  while(songCursor.moveToNext());
+    public ArrayList<Baihat> Top20Remix(ArrayList<Baihat> dsbh) {
+        ArrayList<Baihat> top20 = new ArrayList<>();
+        for (int i = 0; i < dsbh.size(); i++) {
+            if(top20.size()<20)
+            {
+                if(dsbh.get(i).getTheLoai().equals("Remix"))
+                    top20.add(dsbh.get(i));
+            }
+            else
+                break;
         }
-        songCursor.close();
-       return listlocal;
+
+        return top20;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case MY_PERMISSION_REQUEST:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(getActivity(), "Permision Granted", Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        Toast.makeText(getActivity(), "Permision not grant", Toast.LENGTH_LONG).show();
-                        getActivity().finish();
+    public ArrayList<Baihat> Top20NT(ArrayList<Baihat> dsbh) {
+        ArrayList<Baihat> top20 = new ArrayList<>();
+        for (int i = 0; i < dsbh.size(); i++) {
+            if(top20.size()<20)
+            {
+                if(dsbh.get(i).getTheLoai().equals("Nhạc Trẻ") || dsbh.get(i).getTheLoai().equals("Nh?c Tr?"))
+                    top20.add(dsbh.get(i));
+            }
+            else
+                break;
+        }
+
+        return top20;
+    }
+
+    public ArrayList<Baihat> Top20TT(ArrayList<Baihat> dsbh) {
+        ArrayList<Baihat> top20 = new ArrayList<>();
+        for (int i = 0; i < dsbh.size(); i++) {
+            if(top20.size()<20)
+            {
+                if(dsbh.get(i).getTheLoai().equals("Trữ tình"))
+                    top20.add(dsbh.get(i));
+            }
+            else
+                break;
+        }
+
+        return top20;
+    }
+
+    private ArrayList<Baihat> laynhac() {
+        try {
+            DataService dataService = APIService.getService();
+            Call<List<Baihat>> ds = dataService.lay100baihat();
+
+            ds.enqueue(new Callback<List<Baihat>>() {
+                @Override
+                public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+                    if (response.isSuccessful()) {
+                        dsbh = (ArrayList<Baihat>) response.body();
+                        if (getContext() != null) {
+                            adapter = new BXHAdapter(getContext(), dsbh);
+                            listViewTH.setAdapter(adapter);
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Không tải được danh sách bài hát", Toast.LENGTH_LONG).show();
                     }
                 }
+
+                @Override
+                public void onFailure(Call<List<Baihat>> call, Throwable t) {
+
+                }
+            });
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Kiểm tra lại kết nối internet", Toast.LENGTH_LONG).show();
         }
-    }
-    public ArrayList<BaiHat> Top100Asia(ArrayList<BaiHat> dsbh)
-    {
-        ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i = 0; i < 9; i++)
-        {
-            top100.add(dsbh.get(i));
-        }
-        return  top100;
-    }
-    public ArrayList<BaiHat> Top100KPOP(ArrayList<BaiHat> dsbh)
-    {
-        ArrayList<BaiHat> top100 = new ArrayList<>();
-        for(int i = 0; i < 6; i++)
-        {
-            top100.add(dsbh.get(i));
-        }
-        return  top100;
+
+        return dsbh;
     }
 
-    public void flipperImages(int image){
-        ImageView imageView = new ImageView(view.getContext());
-        imageView.setBackgroundResource(image);
-        v_flipper.addView(imageView);
-        v_flipper.setFlipInterval((1000));
-        v_flipper.setAutoStart(true);
-        v_flipper.setInAnimation(view.getContext(), android.R.anim.slide_in_left);
-        v_flipper.setOutAnimation(view.getContext(), android.R.anim.slide_out_right);
-
-    }
-
-    private void phatnhac(){
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent phatnhac = new Intent(getActivity(), PhatNhac.class);
-                phatnhac.putExtra("vitri", position);
-                phatnhac.putExtra("list", dsbh);
-                startActivity(phatnhac);
-            }
-        });
-    }
     private void timkiem(){
-        final ArrayList<BaiHat> listClone = new ArrayList<>();
+        final ArrayList<Baihat> listClone = new ArrayList<>();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -257,8 +279,8 @@ public class BangXepHang extends Fragment {
                 }
                 else{
                     listClone.clear();
-                    for(BaiHat bh : dsbh)
-                        if(bh.getTitle().toLowerCase().contains(newText.toLowerCase())){
+                    for(Baihat bh : dsbh)
+                        if(bh.getTenBaiHat().toLowerCase().contains(newText.toLowerCase())){
                             listClone.add(bh);
                             khoitaobaihat(listClone);
 
@@ -269,12 +291,7 @@ public class BangXepHang extends Fragment {
             }
         });
     }
-    private void khoitaobaihat(ArrayList<BaiHat> listBh){
-        adapter = new BXHAdapter(getContext(), listBh);
-
-        listView.setAdapter(adapter);
-    }
-        private void hienthiBH(ArrayList<BaiHat> listBh){
+    private void khoitaobaihat(ArrayList<Baihat> listBh){
         adapter = new BXHAdapter(getContext(), listBh);
 
         listView.setAdapter(adapter);
