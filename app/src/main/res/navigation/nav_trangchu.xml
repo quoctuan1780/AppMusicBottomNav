@@ -103,7 +103,9 @@
         android:name="com.example.appmusicbotnav.fragment.BangXepHang"
         android:label="fragment_bangxehang"
         tools:layout="@layout/fragment_bangxephang" >
-
+        <action
+            android:id="@+id/action_item_bxh_to_danhsachbaihatOnline2"
+            app:destination="@id/danhsachbaihatOnline" />
     </fragment>
     <fragment
         android:id="@+id/frag_suabaihat_playlistoff"

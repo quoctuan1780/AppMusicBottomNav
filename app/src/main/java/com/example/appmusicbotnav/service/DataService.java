@@ -61,6 +61,15 @@ public interface DataService {
     @GET("playlist/find-by-idnguoidung")
     Call<List<Playlist>> LayPlaylistTheotaikhoan(@Header("Authorization") String token, @Query("id") int id);
 
+    @GET("baihat/find-bxh")
+    Call<List<Baihat>> lay100baihat();
+
+    @GET("baihat/find-by-idcasi")
+    Call<List<Baihat>> laybhtheoidcs();
+
+    @GET("baihat/find-all")
+    Call<List<Baihat>> laybh();
+  
     @POST("playlist/add-playlist")
     Call<Playlist> themPlaylist(@Header("Authorization") String token, @Body Playlist playlist);
 
