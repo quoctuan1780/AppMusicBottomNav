@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,10 +41,12 @@ public class ThemBaiHatVaoPlaylistOff extends Fragment {
     private ListView listView;
     private ArrayList<BaiHat> listBaihat = new ArrayList<>();
     public ArrayList<BaiHat> listBaihatClone = null;
+    private ArrayList<BaiHat> baiHatArrayList = new ArrayList<>();
     private Bundle bundle;
     private PlaylistDBOffline playlistDBOffline;
     private BaiHatDBOffline baiHatDBOffline;
     private static final int MY_PERMISSION_REQUEST = 1;
+    private SearchView searchView;
     public ThemBaiHatVaoPlaylistOff(){
 
     }
@@ -61,10 +64,11 @@ public class ThemBaiHatVaoPlaylistOff extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.item_thembaihatvao_playlist, container, false);
+        view = inflater.inflate(R.layout.fragment_thembaihatvao_playlist, container, false);
         setHasOptionsMenu(true);
         toolbar = (Toolbar) view.findViewById(R.id.tb_chonbaihat_listview_off);
         toolbar.setBackgroundColor(R.color.gray_color);
+        searchView = (SearchView) view.findViewById(R.id.sv_timkhiem_bh_playlist_off);
         listView = view.findViewById(R.id.lv_chonbaihat_playlist_off);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -83,10 +87,11 @@ public class ThemBaiHatVaoPlaylistOff extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         laynhac();
-        chonbaihat();
         listBaihatClone = listBaihat;
         adapter = new ListViewSelectAdapter(getContext(), listBaihatClone);
         listView.setAdapter(adapter);
+        chonbaihat();
+        khoitaotimkiem();
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -178,12 +183,49 @@ public class ThemBaiHatVaoPlaylistOff extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BaiHat bh = listBaihatClone.get(position);
-                if(bh.getChecked() == false)
-                    bh.setCheckBox(true);
-                else bh.setCheckBox(false);
-                listBaihatClone.set(position, bh);
-                adapter.updateAdapter(listBaihatClone);
+                if(baiHatArrayList.size() == 0) {
+                    BaiHat bh = listBaihatClone.get(position);
+                    if (bh.getChecked() == false)
+                        bh.setCheckBox(true);
+                    else bh.setCheckBox(false);
+                    listBaihatClone.set(position, bh);
+                    adapter.updateAdapter(listBaihatClone);
+                }else{
+                    BaiHat bh = baiHatArrayList.get(position);
+                    if (bh.getChecked() == false)
+                        bh.setCheckBox(true);
+                    else bh.setCheckBox(false);
+                    baiHatArrayList.set(position, bh);
+                    adapter.updateAdapter(baiHatArrayList);
+                }
+            }
+        });
+    }
+
+    private void khoitaotimkiem(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.equals("")) {
+                    baiHatArrayList.clear();
+                    adapter.updateAdapter(listBaihatClone);
+                    return true;
+                }
+                else{
+                    baiHatArrayList.clear();
+                    for(BaiHat bh : listBaihatClone) {
+                        if (bh.getTitle().toLowerCase().contains(newText.toLowerCase())) {
+                            baiHatArrayList.add(bh);
+                        }
+                    }
+                    adapter.updateAdapter(baiHatArrayList);
+                    return true;
+                }
             }
         });
     }

@@ -17,7 +17,7 @@ public class Playlist {
     private Integer idNguoiDung;
     @SerializedName("listBaiHat_PlayList")
     @Expose
-    private List<Object> listBaiHatPlayList = null;
+    private List<BaiHat_Playlist> listBaiHatPlayList = null;
 
     public Integer getIdPlayList() {
         return idPlayList;
@@ -43,11 +43,11 @@ public class Playlist {
         this.idNguoiDung = idNguoiDung;
     }
 
-    public List<Object> getListBaiHatPlayList() {
+    public List<BaiHat_Playlist> getListBaiHatPlayList() {
         return listBaiHatPlayList;
     }
 
-    public void setListBaiHatPlayList(List<Object> listBaiHatPlayList) {
+    public void setListBaiHatPlayList(List<BaiHat_Playlist> listBaiHatPlayList) {
         this.listBaiHatPlayList = listBaiHatPlayList;
     }
 }

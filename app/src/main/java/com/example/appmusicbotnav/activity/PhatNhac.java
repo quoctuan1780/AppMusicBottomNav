@@ -1,12 +1,17 @@
 package com.example.appmusicbotnav.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,14 +21,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.model.BaiHat;
 import com.example.appmusicbotnav.modelOnline.Baihat;
 import com.example.appmusicbotnav.service.APIService;
 import com.example.appmusicbotnav.service.DataService;
+
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,7 +46,7 @@ import retrofit2.Response;
 public class PhatNhac extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView tv_tenbaihat, tv_tencasi, tv_tongtgbh, tv_tgchay;
-    public ImageButton ib_lui, ib_toi, ib_play, ib_toi_10s, ib_lui_10s, ib_lap, ib_phatngaunhien;
+    public ImageButton ib_lui, ib_toi, ib_play, ib_toi_10s, ib_lui_10s, ib_lap, ib_phatngaunhien, ib_download;
     private ImageView iv_disk;
     private SeekBar skThoigian;
     public static ArrayList<BaiHat> listBaihat;
@@ -60,9 +71,11 @@ public class PhatNhac extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         khoitao();
         if(kiemtranhacOnOff()){
+            ib_download.setVisibility(View.INVISIBLE);
             phatnhacoffline();
         }
         else {
+            ib_download.setVisibility(View.VISIBLE);
             phatnhaconline();
             baitruocdo();
             baiketiep();
@@ -89,6 +102,7 @@ public class PhatNhac extends AppCompatActivity {
         ib_phatngaunhien = (ImageButton) findViewById(R.id.ib_nghengaunhien);
         skThoigian = (SeekBar) findViewById(R.id.sk_phatnhac);
         iv_disk = (ImageView) findViewById(R.id.iv_dia_phat_nhac);
+        ib_download = (ImageButton) findViewById(R.id.ib_download);
     }
 
     private boolean kiemtranhacOnOff(){
@@ -614,6 +628,62 @@ public class PhatNhac extends AppCompatActivity {
         }
     }
 
+    private void taiNhac(){
+        if(ib_download.getVisibility() == View.VISIBLE) {
+            ib_download.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ActivityCompat.requestPermissions(PhatNhac.this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            1);
+//                    else {
+//                        String link = listBaihatOnline.get(vitribai).getLink();
+//                        DownloadManager downloadManager;
+//                        File file = Environment.getExternalStorageDirectory();
+//                        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+//                        Uri uri = Uri.parse(link);
+//                        DownloadManager.Request request = new DownloadManager.Request(uri);
+//                        request.setDestinationInExternalPublicDir("/Download/", "");
+//                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+//                        Long downloadID = downloadManager.enqueue(request);
+//                        Toast.makeText(PhatNhac.this, "Đang tải bài hát...", Toast.LENGTH_LONG).show();
+//                    }
+                }
+            });
+        }
+    }
+
+    private boolean checkWriteExternalPermission()
+    {
+        String permission = android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        int res = getBaseContext().checkCallingOrSelfPermission(permission);
+        return (res == PackageManager.PERMISSION_GRANTED);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    String link = listBaihatOnline.get(vitribai).getLink();
+                    DownloadManager downloadManager;
+                    File file = Environment.getExternalStorageDirectory();
+                    downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                    Uri uri = Uri.parse(link);
+                    DownloadManager.Request request = new DownloadManager.Request(uri);
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC, listBaihatOnline.get(vitribai).getTenBaiHat()+".mp3");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    Long downloadID = downloadManager.enqueue(request);
+                    Toast.makeText(PhatNhac.this, "Đang tải bài hát...", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(PhatNhac.this, "Bạn chưa gán quyền truy cập để ghi vào bộ nhớ", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -679,6 +749,7 @@ public class PhatNhac extends AppCompatActivity {
             nghengaunhienhoackhong();
             tangnhaclen10s();
             giamnhacxuong10s();
+            taiNhac();
             return (null);
         }
 
