@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -46,7 +47,7 @@ import retrofit2.Response;
 public class PhatNhac extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView tv_tenbaihat, tv_tencasi, tv_tongtgbh, tv_tgchay;
-    public ImageButton ib_lui, ib_toi, ib_play, ib_toi_10s, ib_lui_10s, ib_lap, ib_phatngaunhien, ib_download;
+    public ImageButton ib_lui, ib_toi, ib_play, ib_toi_10s, ib_lui_10s, ib_lap, ib_phatngaunhien, ib_download, ib_binhluan;
     private ImageView iv_disk;
     private SeekBar skThoigian;
     public static ArrayList<BaiHat> listBaihat;
@@ -72,10 +73,12 @@ public class PhatNhac extends AppCompatActivity {
         khoitao();
         if(kiemtranhacOnOff()){
             ib_download.setVisibility(View.INVISIBLE);
+            ib_binhluan.setVisibility(View.INVISIBLE);
             phatnhacoffline();
         }
         else {
             ib_download.setVisibility(View.VISIBLE);
+            ib_binhluan.setVisibility(View.VISIBLE);
             phatnhaconline();
             baitruocdo();
             baiketiep();
@@ -103,6 +106,7 @@ public class PhatNhac extends AppCompatActivity {
         skThoigian = (SeekBar) findViewById(R.id.sk_phatnhac);
         iv_disk = (ImageView) findViewById(R.id.iv_dia_phat_nhac);
         ib_download = (ImageButton) findViewById(R.id.ib_download);
+        ib_binhluan = (ImageButton) findViewById(R.id.ib_binhluan);
     }
 
     private boolean kiemtranhacOnOff(){
@@ -636,28 +640,21 @@ public class PhatNhac extends AppCompatActivity {
                     ActivityCompat.requestPermissions(PhatNhac.this,
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             1);
-//                    else {
-//                        String link = listBaihatOnline.get(vitribai).getLink();
-//                        DownloadManager downloadManager;
-//                        File file = Environment.getExternalStorageDirectory();
-//                        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-//                        Uri uri = Uri.parse(link);
-//                        DownloadManager.Request request = new DownloadManager.Request(uri);
-//                        request.setDestinationInExternalPublicDir("/Download/", "");
-//                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-//                        Long downloadID = downloadManager.enqueue(request);
-//                        Toast.makeText(PhatNhac.this, "Đang tải bài hát...", Toast.LENGTH_LONG).show();
-//                    }
                 }
             });
         }
     }
 
-    private boolean checkWriteExternalPermission()
-    {
-        String permission = android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-        int res = getBaseContext().checkCallingOrSelfPermission(permission);
-        return (res == PackageManager.PERMISSION_GRANTED);
+    private void binhluan(){
+        ib_binhluan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PhatNhac.this, BinhLuan.class);
+                intent.putExtra("idBaihat", listBaihatOnline.get(vitribai).getIdBaiHat());
+                intent.putExtra("tenBaihat", listBaihatOnline.get(vitribai).getTenBaiHat());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -689,9 +686,6 @@ public class PhatNhac extends AppCompatActivity {
         super.onStop();
         tenbhcu = tenbh;
         vitricu = vitribai;
-//        if(listBaihatOnline != null && choinhac != null){
-//            chuyenbaitudongOn();
-//        }
     }
 
     @Override
@@ -750,6 +744,7 @@ public class PhatNhac extends AppCompatActivity {
             tangnhaclen10s();
             giamnhacxuong10s();
             taiNhac();
+            binhluan();
             return (null);
         }
 
