@@ -5,6 +5,7 @@ import com.example.appmusicbotnav.modelOnline.Album;
 import com.example.appmusicbotnav.modelOnline.BaiHat_Playlist;
 import com.example.appmusicbotnav.modelOnline.Baihat;
 import com.example.appmusicbotnav.modelOnline.Casi;
+import com.example.appmusicbotnav.modelOnline.Comment;
 import com.example.appmusicbotnav.modelOnline.Playlist;
 import com.example.appmusicbotnav.modelOnline.Taikhoan;
 import com.example.appmusicbotnav.modelOnline.Thongtintaikhoan;
@@ -84,4 +85,10 @@ public interface DataService {
 
     @PUT("playlist/edit-playlist")
     Call<Playlist> suaTenPlaylist(@Header("Authorization") String token, @Body Playlist playlist);
+
+    @GET("comment/find-by-idbaihat")
+    Call<List<Comment>> layComment(@Query("id") int id);
+
+    @POST("comment/add-comment")
+    Call<Comment> comment(@Header("Authorization") String token, @Body Comment comment);
 }

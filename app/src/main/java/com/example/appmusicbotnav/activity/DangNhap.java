@@ -61,16 +61,13 @@ public class DangNhap extends AppCompatActivity {
         bt_dangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(et_tendangnhap.getText().equals("") || et_matkhau.getText().equals("")){
+                if(et_tendangnhap.getText().toString().equals("") || et_matkhau.getText().toString().equals("")){
                     Toast.makeText(DangNhap.this, "Tên đăng nhập hoặc mật khẩu không được để trống", Toast.LENGTH_LONG).show();
                 }
                 else{
                     DataService dataService = APIService.getService();
                     final Session session = new Session(DangNhap.this);
-                    Taikhoan login = new Taikhoan();
-                    login.setTen(et_tendangnhap.getText().toString());
-                    login.setPass(et_matkhau.getText().toString());
-                    Call<Authenticate> call = dataService.Dangnhap(login);
+
                     dialog = new ProgressDialog(DangNhap.this);
                     dialog.setMessage("Đang đăng nhập...");
                     dialog.show();
@@ -84,6 +81,40 @@ public class DangNhap extends AppCompatActivity {
                                 session.setTen(thongtintaikhoan.getTen());
                                 session.setEmail(thongtintaikhoan.getEmail());
                                 session.setId(thongtintaikhoan.getIdNguoiDung());
+                                Taikhoan login = new Taikhoan();
+                                login.setTen(et_tendangnhap.getText().toString());
+                                login.setPass(et_matkhau.getText().toString());
+                                DataService dataService1 = APIService.getService();
+                                Call<Authenticate> authenticateCall = dataService1.Dangnhap(login);
+                                authenticateCall.enqueue(new Callback<Authenticate>() {
+                                    @Override
+                                    public void onResponse(Call<Authenticate> call, Response<Authenticate> response) {
+                                        if (response.isSuccessful()) {
+                                            Authenticate authenticate = response.body();
+                                            dialog.dismiss();
+                                            session.setToken(authenticate.getToken());
+                                            Toast.makeText(DangNhap.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+                                            final Handler handler = new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    onBackPressed();
+                                                }
+                                            }, 1000);
+                                        } else {
+                                            dialog.dismiss();
+                                            Toast.makeText(DangNhap.this, "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Authenticate> call, Throwable t) {
+
+                                    }
+                                });
+                            }else{
+                                dialog.dismiss();
+                                Toast.makeText(DangNhap.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -92,35 +123,6 @@ public class DangNhap extends AppCompatActivity {
 
                         }
                     });
-                    if(!session.getTen().equals("")) {
-                        call.enqueue(new Callback<Authenticate>() {
-                            @Override
-                            public void onResponse(Call<Authenticate> call, Response<Authenticate> response) {
-                                if (response.isSuccessful()) {
-                                    Authenticate authenticate = response.body();
-                                    dialog.dismiss();
-                                    session.setToken(authenticate.getToken());
-                                    Toast.makeText(DangNhap.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
-                                    final Handler handler = new Handler();
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            onBackPressed();
-                                        }
-                                    }, 1000);
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<Authenticate> call, Throwable t) {
-
-                            }
-                        });
-                    }else{
-                        dialog.dismiss();
-                        Toast.makeText(DangNhap.this, "Đăng nhập không thành công", Toast.LENGTH_LONG).show();
-                        session.clearSession();
-                    }
                 }
             }
         });

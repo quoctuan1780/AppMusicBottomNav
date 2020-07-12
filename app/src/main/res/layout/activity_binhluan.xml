@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/cl_binhluan"
+    android:background="@color/background">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_binhluan"
+        app:title="Bình luận bài hát"
+        app:titleTextColor="@color/black"
+        android:background="@color/gray_color"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/iv_nen_miku_binhluan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/miku"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_binhluan">
+    </ImageView>
+
+    <TextView
+        android:background="@drawable/boder"
+        android:id="@+id/tv_tenbaihat_binhluan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Tên bài hát"
+        android:textColor="@color/bgBottomNavigation"
+        android:textSize="20dp"
+        android:paddingLeft="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/iv_nen_miku_binhluan"
+        tools:layout_editor_absoluteX="0dp"></TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_hien_thi_binh_luan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/boder"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tenbaihat_binhluan"
+        app:layout_constraintVertical_bias="0.082"></androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:weightSum="100"
+        android:background="@drawable/boder"
+        android:gravity="center_vertical|center_horizontal">
+        <EditText
+            android:id="@+id/et_binhluan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="80"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:hint="Viết bình luận"
+            android:background="@drawable/edittext_button_style_rounded"
+            ></EditText>
+        <ImageButton
+            android:id="@+id/ib_binhluan"
+            android:layout_marginLeft="40dp"
+            android:layout_weight="8"
+            android:layout_width="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/ic_send_black_24dp"
+            android:layout_height="wrap_content">
+        </ImageButton>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

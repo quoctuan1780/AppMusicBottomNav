@@ -93,6 +93,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_dieukhien2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -120,6 +121,13 @@
             android:layout_marginStart="30dp"
             android:backgroundTint="@color/white"
             android:src="@drawable/ic_file_download_black_24dp" />
-    </LinearLayout>
 
+        <ImageButton
+            android:id="@+id/ib_binhluan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_comment_black_24dp" />
+    </LinearLayout>
 </RelativeLayout>
