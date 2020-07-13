@@ -207,7 +207,7 @@ public class BangXepHang extends Fragment {
                     if (response.isSuccessful()) {
                         dsbh = (ArrayList<Baihat>) response.body();
                         if (getContext() != null) {
-                            sapxepgiamdan(dsbh);
+
                             adapter = new BXHAdapter(getContext(), top20BaiHat(dsbh));
                             listViewTH.setAdapter(adapter);
                             topPOP = top20POP(dsbh);
