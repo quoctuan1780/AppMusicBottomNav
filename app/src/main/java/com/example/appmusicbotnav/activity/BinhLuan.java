@@ -1,14 +1,23 @@
 package com.example.appmusicbotnav.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -25,13 +34,8 @@ import com.example.appmusicbotnav.modelOnline.Taikhoan;
 import com.example.appmusicbotnav.service.APIService;
 import com.example.appmusicbotnav.service.DataService;
 import com.example.appmusicbotnav.session.Session;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,6 +54,7 @@ public class BinhLuan extends AppCompatActivity {
     private Session session;
     private EditText et_noidung;
     private ImageButton ib_binhluan;
+    private LinearLayout linearLayout;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -61,6 +66,7 @@ public class BinhLuan extends AppCompatActivity {
         tv_tenbaihat = (TextView) findViewById(R.id.tv_tenbaihat_binhluan);
         et_noidung = (EditText) findViewById(R.id.et_binhluan);
         ib_binhluan = (ImageButton) findViewById(R.id.ib_binhluan);
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         toolbar = (Toolbar) findViewById(R.id.tb_binhluan);
         toolbar.setBackgroundColor(R.color.gray_color);
         setSupportActionBar(toolbar);
@@ -75,10 +81,24 @@ public class BinhLuan extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 hideKeyboardFrom(BinhLuan.this, v);
+                linearLayout.setTranslationY(0f);
                 return false;
             }
         });
 
+        et_noidung.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                new HeightProvider(BinhLuan.this).init().setHeightListener(new HeightProvider.HeightListener() {
+                    @Override
+                    public void onHeightChanged(int height) {
+                        linearLayout.setTranslationY(-(height + linearLayout.getHeight()));
+                    }
+                });
+                return false;
+            }
+
+        });
         layBinhLuan();
         binhLuan();
     }
@@ -153,10 +173,88 @@ public class BinhLuan extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == android.R.id.home){
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+}
+
+class HeightProvider extends PopupWindow implements ViewTreeObserver.OnGlobalLayoutListener {
+    private Activity mActivity;
+    private View rootView;
+    private HeightListener listener;
+    private int heightMax; // Record the maximum height of the pop content area
+
+    public HeightProvider(Activity activity) {
+        super(activity);
+        this.mActivity = activity;
+
+        // Basic configuration
+        rootView = new View(activity);
+        setContentView(rootView);
+
+        // Monitor global Layout changes
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+        setBackgroundDrawable(new ColorDrawable(0));
+
+        // Set width to 0 and height to full screen
+        setWidth(0);
+        setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+
+        // Set keyboard pop-up mode
+        setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+    }
+
+    public HeightProvider init() {
+        if (!isShowing()) {
+            final View view = mActivity.getWindow().getDecorView();
+            // Delay loading popupwindow, if not, error will be reported
+            view.post(new Runnable() {
+                @Override
+                public void run() {
+                    showAtLocation(view, Gravity.NO_GRAVITY, 0, 0);
+                }
+            });
+        }
+        return this;
+    }
+
+    public HeightProvider setHeightListener(HeightListener listener) {
+        this.listener = listener;
+        return this;
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        Rect rect = new Rect();
+        rootView.getWindowVisibleDisplayFrame(rect);
+        if (rect.bottom > heightMax) {
+            heightMax = rect.bottom;
+        }
+
+        // The difference between the two is the height of the keyboard
+        int keyboardHeight = heightMax - rect.bottom;
+        if (listener != null) {
+            listener.onHeightChanged(keyboardHeight);
+        }
+    }
+
+    public interface HeightListener {
+        void onHeightChanged(int height);
     }
 }
