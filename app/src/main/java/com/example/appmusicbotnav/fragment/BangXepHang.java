@@ -565,7 +565,7 @@ public class BangXepHang extends Fragment {
         Collections.sort(baihatArrayList, new Comparator<Baihat>() {
             @Override
             public int compare(Baihat o1, Baihat o2) {
-                return o2.getLuotNghe().toString().compareTo(o1.getLuotNghe().toString());
+                return o2.getLuotNghe() - o1.getLuotNghe();
             }
         });
     }

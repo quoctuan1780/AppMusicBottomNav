@@ -2,12 +2,15 @@ package com.example.appmusicbotnav.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +32,7 @@ public class DangNhap extends AppCompatActivity {
     private Button bt_dangnhap;
     private ProgressDialog dialog;
     private ConstraintLayout cl_dangnhap;
+    private TextView tv_dangki;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,7 +40,7 @@ public class DangNhap extends AppCompatActivity {
         setContentView(R.layout.activity_dangnhap);
         khoiTao();
         kiemTraDangNhap();
-
+        dangKi();
         cl_dangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +59,7 @@ public class DangNhap extends AppCompatActivity {
         et_matkhau = (EditText) findViewById(R.id.et_matkhau);
         bt_dangnhap = (Button) findViewById(R.id.bt_dangnhap);
         cl_dangnhap = (ConstraintLayout) findViewById(R.id.cl_dangnhap);
+        tv_dangki = (TextView) findViewById(R.id.tv_dangkingay);
     }
 
     private void kiemTraDangNhap(){
@@ -69,62 +74,87 @@ public class DangNhap extends AppCompatActivity {
                     final Session session = new Session(DangNhap.this);
 
                     dialog = new ProgressDialog(DangNhap.this);
-                    dialog.setMessage("Đang đăng nhập...");
+                    dialog.setMessage("Đang đăng nhập, xin hãy đợi 30s...");
                     dialog.show();
                     dialog.setCanceledOnTouchOutside(false);
                     Call<Thongtintaikhoan> thongtintaikhoanCall = dataService.Laythongtintaikhoan(et_tendangnhap.getText().toString());
-                    thongtintaikhoanCall.enqueue(new Callback<Thongtintaikhoan>() {
-                        @Override
-                        public void onResponse(Call<Thongtintaikhoan> call, Response<Thongtintaikhoan> response) {
-                            if(response.isSuccessful()){
-                                Thongtintaikhoan thongtintaikhoan = response.body();
-                                session.setTen(thongtintaikhoan.getTen());
-                                session.setEmail(thongtintaikhoan.getEmail());
-                                session.setId(thongtintaikhoan.getIdNguoiDung());
-                                Taikhoan login = new Taikhoan();
-                                login.setTen(et_tendangnhap.getText().toString());
-                                login.setPass(et_matkhau.getText().toString());
-                                DataService dataService1 = APIService.getService();
-                                Call<Authenticate> authenticateCall = dataService1.Dangnhap(login);
-                                authenticateCall.enqueue(new Callback<Authenticate>() {
-                                    @Override
-                                    public void onResponse(Call<Authenticate> call, Response<Authenticate> response) {
-                                        if (response.isSuccessful()) {
-                                            Authenticate authenticate = response.body();
-                                            dialog.dismiss();
-                                            session.setToken(authenticate.getToken());
-                                            Toast.makeText(DangNhap.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
-                                            final Handler handler = new Handler();
-                                            handler.postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    onBackPressed();
-                                                }
-                                            }, 1000);
-                                        } else {
-                                            dialog.dismiss();
-                                            Toast.makeText(DangNhap.this, "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+                    if(isNetworkConnected()) {
+                        thongtintaikhoanCall.enqueue(new Callback<Thongtintaikhoan>() {
+                            @Override
+                            public void onResponse(Call<Thongtintaikhoan> call, Response<Thongtintaikhoan> response) {
+                                if (response.isSuccessful()) {
+                                    Thongtintaikhoan thongtintaikhoan = response.body();
+                                    session.setTen(thongtintaikhoan.getTen());
+                                    session.setEmail(thongtintaikhoan.getEmail());
+                                    session.setId(thongtintaikhoan.getIdNguoiDung());
+                                    Taikhoan login = new Taikhoan();
+                                    login.setTen(et_tendangnhap.getText().toString());
+                                    login.setPass(et_matkhau.getText().toString());
+                                    DataService dataService1 = APIService.getService();
+                                    Call<Authenticate> authenticateCall = dataService1.Dangnhap(login);
+                                    authenticateCall.enqueue(new Callback<Authenticate>() {
+                                        @Override
+                                        public void onResponse(Call<Authenticate> call, Response<Authenticate> response) {
+                                            if (response.isSuccessful()) {
+                                                Authenticate authenticate = response.body();
+                                                dialog.dismiss();
+                                                session.setToken(authenticate.getToken());
+                                                Toast.makeText(DangNhap.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+                                                final Handler handler = new Handler();
+                                                handler.postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        onBackPressed();
+                                                    }
+                                                }, 1000);
+                                            } else {
+                                                dialog.dismiss();
+                                                Toast.makeText(DangNhap.this, "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onFailure(Call<Authenticate> call, Throwable t) {
-
-                                    }
-                                });
-                            }else{
-                                dialog.dismiss();
-                                Toast.makeText(DangNhap.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                                        @Override
+                                        public void onFailure(Call<Authenticate> call, Throwable t) {
+                                            call.cancel();
+                                            dialog.dismiss();
+                                            Toast.makeText(DangNhap.this, "Đăng nhập thất bại, kiểm tra lại kết nối internet", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } else {
+                                    dialog.dismiss();
+                                    Toast.makeText(DangNhap.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<Thongtintaikhoan> call, Throwable t) {
-
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<Thongtintaikhoan> call, Throwable t) {
+                                call.cancel();
+                                dialog.dismiss();
+                                Toast.makeText(DangNhap.this, "Đăng nhập thất bại, kiểm tra lại kết nối internet", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }else{
+                        dialog.dismiss();
+                        Toast.makeText(DangNhap.this, "Kiểm tra lại kết nối Internet", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
+    }
+
+    private void dangKi(){
+        tv_dangki.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DangNhap.this, DangKi.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 }

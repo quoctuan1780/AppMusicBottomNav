@@ -134,6 +134,9 @@ public class BinhLuan extends AppCompatActivity {
                 commentCall.enqueue(new Callback<Comment>() {
                     @Override
                     public void onResponse(Call<Comment> call, Response<Comment> response) {
+                        if(response.code() == 401){
+                            Toast.makeText(BinhLuan.this, "Bạn đã hết phiên đăng nhập, hãy đăng nhập lại để bình luận", Toast.LENGTH_SHORT).show();
+                        }else
                         if(response.isSuccessful()){
                             adapter.updateAdapter(response.body());
                             et_noidung.setText("");

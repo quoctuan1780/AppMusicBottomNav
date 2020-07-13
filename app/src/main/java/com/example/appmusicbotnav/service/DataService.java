@@ -91,4 +91,7 @@ public interface DataService {
 
     @POST("comment/add-comment")
     Call<Comment> comment(@Header("Authorization") String token, @Body Comment comment);
+
+    @POST("nguoidung/add-nguoidung")
+    Call<Thongtintaikhoan> dangki(@Body Thongtintaikhoan Thongtin);
 }
