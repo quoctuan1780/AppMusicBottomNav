@@ -1,8 +1,10 @@
 package com.example.appmusicbotnav.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -13,16 +15,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
@@ -48,223 +54,43 @@ import retrofit2.Response;
 public class BangXepHang extends Fragment {
     private ViewPager v_flipper;
     private View view;
-    private BXHAdapter adapter;
-    private BXHAdapter adapterTT;
-    private BXHAdapter adapterNT;
-    private BXHAdapter adapterpop;
-    private BXHAdapter adapterremix;
-    private ListView listViewTH;
-    private SearchView searchView;
-    private ArrayList<Baihat> dsbh;
+    private BXHAdapter adapter, adapterTT, adapterNT, adapterpop, adapterremix;
+    private static ArrayList<Baihat> dsbh, listTimKiem;
     private ArrayList<Baihat> listtruyen;
-    ImageView imTT;
-    ListView tvTT;
-    ImageView imNT;
-    ListView tvNT;
-    ImageView impop;
-    ListView tvpop;
-    ImageView imremix;
-    ListView tvremix;
-    ArrayList<Baihat> bhall;
-    final int MY_PERMISSION_REQUEST = 1;
-
-    private  ArrayList<Baihat> topPOP = new ArrayList<>();
+    private ImageView imTT, imNT, impop, imremix, ib_timkiem;
+    private ListView lvTT, lvNT, lvpop, lvremix, listViewTH;
+    private  ArrayList<Baihat> topPOP, topTT, topNT, topRemix;
+    private RelativeLayout relativeLayout;
+    private ScrollView scrollView;
+    private Toolbar toolbar;
+    private EditText et_timkiem;
 
 
+    @SuppressLint("ResourceAsColor")
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_bangxephang, container, false);
+        imTT = (ImageView) view.findViewById(R.id.iv_top_TT);
+        lvTT = (ListView) view.findViewById(R.id.lv_top_TT);
+        imNT = (ImageView) view.findViewById(R.id.iv_top_NT);
+        lvNT = (ListView) view.findViewById(R.id.lv_top_NT);
+        impop = (ImageView) view.findViewById(R.id.iv_top_pop);
+        lvpop = (ListView) view.findViewById(R.id.lv_top_pop);
+        imremix = (ImageView) view.findViewById(R.id.iv_top_remix);
+        lvremix = (ListView) view.findViewById(R.id.lv_top_remix);
+        listViewTH = view.findViewById(R.id.lv_topTH);
+        v_flipper = view.findViewById(R.id.imgslide);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.rl_layout_rank);
+        et_timkiem = (EditText) view.findViewById(R.id.et_timkiem_bxh);
+        ib_timkiem = (ImageButton) view.findViewById(R.id.ib_timkiem_bxh);
+        toolbar = (Toolbar) view.findViewById(R.id.tb_bangxephang);
+        toolbar.setBackgroundColor(R.color.gray_color);
+        scrollView = (ScrollView) view.findViewById(R.id.sc_bangxephang);
         return view;
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        Slide slide2 = new Slide(R.drawable.mm2);
-        Slide slide3 = new Slide(R.drawable.poster2);
-        Slide slide4 = new Slide(R.drawable.poster4);
-        ArrayList<Slide> images = new ArrayList<Slide>();
-        bhall = new ArrayList<>();
-        bhall = laynhacall();
-
-        images.add(slide2);
-        images.add(slide3);
-        images.add(slide4);
-        v_flipper = view.findViewById(R.id.imgslide);
-        SlideAdapter imgslide = new SlideAdapter(getContext(), images);
-        v_flipper.setAdapter(imgslide);
-
-        listViewTH = view.findViewById(R.id.lv_topTH);
-
-        dsbh = new ArrayList<>();
-        laynhac();
-
-        adapter = new BXHAdapter(getContext(), dsbh);
-        listViewTH.setAdapter(adapter);
-
-        imTT = (ImageView) view.findViewById(R.id.iv_top_TT);
-        tvTT = (ListView) view.findViewById(R.id.lv_top_TT);
-        imNT = (ImageView) view.findViewById(R.id.iv_top_NT);
-        tvNT = (ListView) view.findViewById(R.id.lv_top_NT);
-        impop = (ImageView) view.findViewById(R.id.iv_top_pop);
-        tvpop = (ListView) view.findViewById(R.id.lv_top_pop);
-        imremix = (ImageView) view.findViewById(R.id.iv_top_remix);
-        tvremix = (ListView) view.findViewById(R.id.lv_top_remix);
-
-        ArrayList<Baihat> topTT = new ArrayList<>();
-        ArrayList<Baihat> topNT = new ArrayList<>();
-
-        ArrayList<Baihat> topRemix = new ArrayList<>();
-        //sapxepgiamdan();
-        if(Top20TT(dsbh).size()<1)
-        {
-//            for(int i =0; i< 3;i++)
-//            {
-//                topTT.add(Top20TT(bhall).get(i));
-//            }
-        }
-        else {
-            for(int i =0; i<Top20TT(dsbh).size() ;i++)
-            {
-                if(topTT.size()<3)
-                topTT.add(Top20TT(dsbh).get(i));
-                else
-                    break;
-            }
-        }
-        adapterTT= new BXHAdapter(getContext(), topTT);
-        tvTT.setAdapter(adapterTT);
-        if(Top20NT(dsbh).size()<1)
-        {
-//            for(int i =0; i< 3;i++)
-//            {
-//                topNT.add(Top20NT(bhall).get(i));
-//            }
-        }
-        else {
-            for(int i =0; i< Top20NT(dsbh).size();i++)
-            {
-                if(topNT.size()<3)
-                topNT.add(Top20NT(dsbh).get(i));
-                else
-                    break;
-            }
-        }
-        adapterNT= new BXHAdapter(getContext(), topNT);
-        tvNT.setAdapter(adapterNT);
-
-        Log.i("BAIHATBXH", Integer.toString(topPOP.size()));
-        ArrayList<Baihat> top3POP = new ArrayList<>();
-        if(topPOP.size() < 3)
-        {
-//            for(int i =0; i< 3;i++)
-//            {
-//                topPOP.add(Top20POP(bhall).get(i));
-//            }
-        }
-        else {
-            for(int i =0; i< topPOP.size();i++)
-            {
-                Log.i("BAIHATBXH", topPOP.get(i).getTenBaiHat());
-                if(top3POP.size()<3)
-                    top3POP.add(topPOP.get(i));
-                else
-                    break;
-            }
-        }
-        adapterpop= new BXHAdapter(getContext(), top3POP);
-        tvpop.setAdapter(adapterpop);
-
-        if(Top20Remix(dsbh).size() < 1)
-        {
-//            for(int i =0; i< 3;i++)
-//            {
-//                topRemix.add(Top20Remix(bhall).get(i));
-//            }
-        }
-        else {
-            for(int i =0; i< Top20Remix(dsbh).size();i++)
-            {
-                if(topRemix.size()<3)
-                topRemix.add(Top20Remix(dsbh).get(i));
-                else
-                    break;
-            }
-        }
-        adapterremix= new BXHAdapter(getContext(), topRemix);
-        tvremix.setAdapter(adapterremix);
-        imTT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listtruyen = Top20TT(dsbh);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) listtruyen);
-                NavHostFragment.findNavController(BangXepHang.this)
-                        .navigate(R.id.action_item_bxh_to_danhsachbaihatOnline2, bundle);
-            }
-        });
-
-        imNT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listtruyen = Top20NT(dsbh);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) listtruyen);
-                NavHostFragment.findNavController(BangXepHang.this)
-                        .navigate(R.id.action_item_bxh_to_danhsachbaihatOnline2, bundle);
-            }
-        });
-        impop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listtruyen = Top20POP(dsbh);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) listtruyen);
-                NavHostFragment.findNavController(BangXepHang.this)
-                        .navigate(R.id.action_item_bxh_to_danhsachbaihatOnline2, bundle);
-            }
-        });
-        imremix.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listtruyen = Top20Remix(dsbh);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) listtruyen);
-                NavHostFragment.findNavController(BangXepHang.this)
-                        .navigate(R.id.action_item_bxh_to_danhsachbaihatOnline2, bundle);
-            }
-        });
-        searchView = view.findViewById(R.id.search_bxh);
-        timkiem();
-        listViewTH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent phatnhac = new Intent(getActivity(), PhatNhac.class);
-                phatnhac.putExtra("vitri", position);
-                phatnhac.putParcelableArrayListExtra("listonline", (ArrayList<? extends Parcelable>) dsbh);
-                try {
-                    startActivity(phatnhac);
-                }catch (Exception e){
-
-                }
-            }
-        });
-
-        listViewTH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent phatnhac = new Intent(getActivity(), PhatNhac.class);
-                phatnhac.putExtra("vitri", position);
-                phatnhac.putParcelableArrayListExtra("listonline", (ArrayList<? extends Parcelable>) dsbh);
-                try {
-                    startActivity(phatnhac);
-                }catch (Exception e){
-
-                }
-            }
-        });
-
-        RelativeLayout relativeLayout = (RelativeLayout) view.findViewById(R.id.rl_layout_rank);
         relativeLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -272,21 +98,126 @@ public class BangXepHang extends Fragment {
                 return false;
             }
         });
+
+        ArrayList<Slide> images = new ArrayList<>();
+        images.add(new Slide(R.drawable.mm2));
+        images.add(new Slide(R.drawable.poster2));
+        images.add(new Slide(R.drawable.poster4));
+        SlideAdapter imgSlideAdapter = new SlideAdapter(getContext(), images);
+        v_flipper.setAdapter(imgSlideAdapter);
+
+        if(dsbh == null) {
+            laynhac();
+        }else{
+            adapter = new BXHAdapter(getContext(), dsbh);
+            listViewTH.setAdapter(adapter);
+            topPOP = top20POP(dsbh);
+            layTop3POP(topPOP);
+            topRemix = top20Remix(dsbh);
+            layTop3Remix(topRemix);
+            topNT = top20NT(dsbh);
+            layTop3NhacTre(topNT);
+            topTT = top20TT(dsbh);
+            layTop3NhacTruTinh(topTT);
+        }
+
+        cuonListview();
+
+        imTT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listtruyen = top20TT(dsbh);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) listtruyen);
+                NavHostFragment.findNavController(BangXepHang.this)
+                        .navigate(R.id.action_item_bxh_to_danhsachbaihatOnline1, bundle);
+            }
+        });
+
+        imNT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listtruyen = top20NT(dsbh);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) listtruyen);
+                NavHostFragment.findNavController(BangXepHang.this)
+                        .navigate(R.id.action_item_bxh_to_danhsachbaihatOnline1, bundle);
+            }
+        });
+        impop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listtruyen = top20POP(dsbh);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) listtruyen);
+                NavHostFragment.findNavController(BangXepHang.this)
+                        .navigate(R.id.action_item_bxh_to_danhsachbaihatOnline1, bundle);
+            }
+        });
+        imremix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listtruyen = top20Remix(dsbh);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) listtruyen);
+                NavHostFragment.findNavController(BangXepHang.this)
+                        .navigate(R.id.action_item_bxh_to_danhsachbaihatOnline1, bundle);
+            }
+        });
+
+        listViewTH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent phatnhac = new Intent(getActivity(), PhatNhac.class);
+                phatnhac.putExtra("vitri", position);
+                phatnhac.putParcelableArrayListExtra("listonline", (ArrayList<? extends Parcelable>) dsbh);
+                try {
+                    startActivity(phatnhac);
+                }catch (Exception e){
+
+                }
+            }
+        });
+
+        listViewTH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent phatnhac = new Intent(getActivity(), PhatNhac.class);
+                phatnhac.putExtra("vitri", position);
+                phatnhac.putParcelableArrayListExtra("listonline", (ArrayList<? extends Parcelable>) dsbh);
+                try {
+                    startActivity(phatnhac);
+                }catch (Exception e){
+
+                }
+            }
+        });
+        timkiem();
+
     }
 
 
     private void laynhac(){
         try {
             DataService dataService = APIService.getService();
-            Call<List<Baihat>> ds = dataService.lay100baihat();
+            final Call<List<Baihat>> ds = dataService.lay100baihat();
             ds.enqueue(new Callback<List<Baihat>>() {
                 @Override
                 public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
                     if (response.isSuccessful()) {
                         dsbh = (ArrayList<Baihat>) response.body();
                         if (getContext() != null) {
-                            adapter = new BXHAdapter(getContext(), dsbh);
+                            sapxepgiamdan(dsbh);
+                            adapter = new BXHAdapter(getContext(), top20BaiHat(dsbh));
                             listViewTH.setAdapter(adapter);
+                            topPOP = top20POP(dsbh);
+                            layTop3POP(topPOP);
+                            topRemix = top20Remix(dsbh);
+                            layTop3Remix(topRemix);
+                            topNT = top20NT(dsbh);
+                            layTop3NhacTre(topNT);
+                            topTT = top20TT(dsbh);
+                            layTop3NhacTruTinh(topTT);
                         }
                     } else {
                         Toast.makeText(getContext(), "Không tải được danh sách bài hát", Toast.LENGTH_LONG).show();
@@ -308,26 +239,20 @@ public class BangXepHang extends Fragment {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public ArrayList<Baihat> Top20POP(final ArrayList<Baihat> dsbhtruyen) {
+    private ArrayList<Baihat> top20BaiHat(ArrayList<Baihat> baihatArrayList){
         ArrayList<Baihat> top20 = new ArrayList<>();
-        for (int i = 0; i < dsbhtruyen.size(); i++) {
-            if(top20.size() < 20)
-            {
-                if(dsbhtruyen.get(i).getTheLoai().equals( "POP")) {
-                    Log.i("BAIHATBXH", dsbhtruyen.get(i).getTenBaiHat());
-                    top20.add(dsbhtruyen.get(i));
-                }
+        for(int i = 0; i < baihatArrayList.size(); i++){
+            if(top20.size() < 20){
+                top20.add(baihatArrayList.get(i));
             }
-            else
-                break;
         }
-
         return top20;
     }
 
-    public void Top20POPSua() {
+    public ArrayList<Baihat> top20POP(ArrayList<Baihat> dsbh) {
+        ArrayList<Baihat> topPOP = new ArrayList<>();
         for (int i = 0; i < dsbh.size(); i++) {
-            if(topPOP.size()<20)
+            if(topPOP.size() < 20)
             {
                 if(dsbh.get(i).getTheLoai().equals( "POP"))
                     topPOP.add(dsbh.get(i));
@@ -335,9 +260,51 @@ public class BangXepHang extends Fragment {
             else
                 break;
         }
+        return topPOP;
     }
 
-    public ArrayList<Baihat> Top20Remix(ArrayList<Baihat> dsbh) {
+    private void layTop3POP(ArrayList<Baihat> topPOP){
+        final ArrayList<Baihat> top3POP = new ArrayList<>();
+        if(topPOP.size() < 3)
+        {
+            for(int i = 0; i < topPOP.size();i++)
+            {
+                top3POP.add(topPOP.get(i));
+            }
+        }
+        else {
+            for(int i = 0; i < topPOP.size();i++)
+            {
+                if(top3POP.size() < 3)
+                    top3POP.add(topPOP.get(i));
+                else
+                    break;
+            }
+        }
+        if(top3POP.size() > 0){
+            adapterpop = new BXHAdapter(getContext(), top3POP);
+            lvpop.setAdapter(adapterpop);
+            lvpop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent phatnhac = new Intent(getActivity(), PhatNhac.class);
+                    phatnhac.putExtra("vitri", position);
+                    phatnhac.putParcelableArrayListExtra("listonline", (ArrayList<? extends Parcelable>) top3POP);
+                    try {
+                        startActivity(phatnhac);
+                    }catch (Exception e){
+
+                    }
+                }
+            });
+        }else{
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                    android.R.layout.simple_list_item_1, android.R.id.text1, Collections.singletonList("Không có bài hát nào"));
+            lvpop.setAdapter(adapter);
+        }
+    }
+
+    public ArrayList<Baihat> top20Remix(ArrayList<Baihat> dsbh) {
         ArrayList<Baihat> top20 = new ArrayList<>();
         for (int i = 0; i < dsbh.size(); i++) {
             if(top20.size() < 20)
@@ -348,11 +315,51 @@ public class BangXepHang extends Fragment {
             else
                 break;
         }
-
         return top20;
     }
 
-    public ArrayList<Baihat> Top20NT(ArrayList<Baihat> dsbh) {
+    private void layTop3Remix(ArrayList<Baihat> top20Remix){
+        final ArrayList<Baihat> top3Remix = new ArrayList<>();
+        if(top20Remix.size() < 3)
+        {
+            for(int i = 0; i < top20Remix.size();i++)
+            {
+                top3Remix.add(top20Remix.get(i));
+            }
+        }
+        else {
+            for(int i =0; i < top20Remix.size();i++)
+            {
+                if(top3Remix.size() < 3)
+                    top3Remix.add(top20Remix.get(i));
+                else
+                    break;
+            }
+        }
+        if(top3Remix.size() > 0) {
+            adapterremix = new BXHAdapter(getContext(), top3Remix);
+            lvremix.setAdapter(adapterremix);
+            lvremix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent phatnhac = new Intent(getActivity(), PhatNhac.class);
+                    phatnhac.putExtra("vitri", position);
+                    phatnhac.putParcelableArrayListExtra("listonline", (ArrayList<? extends Parcelable>) top3Remix);
+                    try {
+                        startActivity(phatnhac);
+                    }catch (Exception e){
+
+                    }
+                }
+            });
+        }else {
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                    android.R.layout.simple_list_item_1, android.R.id.text1, Collections.singletonList("Không có bài hát nào"));
+            lvremix.setAdapter(adapter);
+        }
+    }
+
+    public ArrayList<Baihat> top20NT(ArrayList<Baihat> dsbh) {
         ArrayList<Baihat> top20 = new ArrayList<>();
         for (int i = 0; i < dsbh.size(); i++) {
             if(top20.size()<20)
@@ -367,10 +374,51 @@ public class BangXepHang extends Fragment {
         return top20;
     }
 
-    public ArrayList<Baihat> Top20TT(ArrayList<Baihat> dsbh) {
+    private void layTop3NhacTre(ArrayList<Baihat> top20NhacTre){
+        final ArrayList<Baihat> top3NhacTre = new ArrayList<>();
+        if(top20NhacTre.size() < 3)
+        {
+            for(int i = 0; i < top20NhacTre.size();i++)
+            {
+                top3NhacTre.add(top20NhacTre.get(i));
+            }
+        }
+        else {
+            for(int i = 0; i < top20NhacTre.size();i++)
+            {
+                if(top3NhacTre.size() < 3)
+                    top3NhacTre.add(top20NhacTre.get(i));
+                else
+                    break;
+            }
+        }
+        if(top3NhacTre.size() > 0) {
+            adapterNT = new BXHAdapter(getContext(), top3NhacTre);
+            lvNT.setAdapter(adapterNT);
+            lvNT.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent phatnhac = new Intent(getActivity(), PhatNhac.class);
+                    phatnhac.putExtra("vitri", position);
+                    phatnhac.putParcelableArrayListExtra("listonline", (ArrayList<? extends Parcelable>) top3NhacTre);
+                    try {
+                        startActivity(phatnhac);
+                    }catch (Exception e){
+
+                    }
+                }
+            });
+        }else{
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                    android.R.layout.simple_list_item_1, android.R.id.text1, Collections.singletonList("Không có bài hát nào"));
+            lvNT.setAdapter(adapter);
+        }
+    }
+
+    public ArrayList<Baihat> top20TT(ArrayList<Baihat> dsbh) {
         ArrayList<Baihat> top20 = new ArrayList<>();
         for (int i = 0; i < dsbh.size(); i++) {
-            if(top20.size()<20)
+            if(top20.size() < 20)
             {
                 if(dsbh.get(i).getTheLoai().equals("Trữ tình"))
                     top20.add(dsbh.get(i));
@@ -382,22 +430,155 @@ public class BangXepHang extends Fragment {
         return top20;
     }
 
-    private ArrayList<Baihat> laynhacall() {
+    private void layTop3NhacTruTinh(ArrayList<Baihat> top20NhacTruTinh){
+        final ArrayList<Baihat> top3NhacTruTinh = new ArrayList<>();
+        if(top20NhacTruTinh.size() < 3)
+        {
+            for(int i = 0; i < top20NhacTruTinh.size();i++)
+            {
+                top3NhacTruTinh.add(top20NhacTruTinh.get(i));
+            }
+        }
+        else {
+            for(int i = 0; i < top20NhacTruTinh.size();i++)
+            {
+                if(top3NhacTruTinh.size() < 3)
+                    top3NhacTruTinh.add(top20NhacTruTinh.get(i));
+                else
+                    break;
+            }
+        }
+        if(top3NhacTruTinh.size() > 0) {
+            adapterTT = new BXHAdapter(getContext(), top3NhacTruTinh);
+            lvTT.setAdapter(adapterTT);
+            lvTT.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent phatnhac = new Intent(getActivity(), PhatNhac.class);
+                    phatnhac.putExtra("vitri", position);
+                    phatnhac.putParcelableArrayListExtra("listonline", (ArrayList<? extends Parcelable>) top3NhacTruTinh);
+                    try {
+                        startActivity(phatnhac);
+                    }catch (Exception e){
+
+                    }
+                }
+            });
+        }else{
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                    android.R.layout.simple_list_item_1, android.R.id.text1, Collections.singletonList("Không có bài hát nào"));
+            lvTT.setAdapter(adapter);
+        }
+    }
+
+    private void cuonListview(){
+        lvpop.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
+
+        lvremix.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
+
+        lvNT.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
+
+        lvTT.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
+    }
+
+    private void sapxepgiamdan(ArrayList<Baihat> baihatArrayList){
+        Collections.sort(baihatArrayList, new Comparator<Baihat>() {
+            @Override
+            public int compare(Baihat o1, Baihat o2) {
+                return o2.getLuotNghe().toString().compareTo(o1.getLuotNghe().toString());
+            }
+        });
+    }
+
+    private void layBaiHatTimKiem(String query) {
         try {
             DataService dataService = APIService.getService();
-            Call<List<Baihat>> ds = dataService.laybh();
-
-            ds.enqueue(new Callback<List<Baihat>>() {
+            Call<List<Baihat>> dsTimKiem = dataService.timkiembaihat(query);
+            dsTimKiem.enqueue(new Callback<List<Baihat>>() {
                 @Override
                 public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
-                    if (response.isSuccessful()) {
-                        bhall = (ArrayList<Baihat>) response.body();
-//                        if (getContext() != null) {
-//                            adapter = new BXHAdapter(getContext(), dsbh);
-//                            listViewTH.setAdapter(adapter);
-//                        }
-//                    } else {
-//                        Toast.makeText(getContext(), "Không tải được danh sách bài hát", Toast.LENGTH_LONG).show();
+                    if (response.isSuccessful() && response.code() == 200) {
+                        listTimKiem = (ArrayList<Baihat>) response.body();
                    }
                 }
 
@@ -409,55 +590,39 @@ public class BangXepHang extends Fragment {
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Kiểm tra lại kết nối internet", Toast.LENGTH_LONG).show();
         }
-
-        return dsbh;
     }
 
     private void timkiem(){
-        final ArrayList<Baihat> listClone = new ArrayList<>();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        final int[] count = {0};
+        ib_timkiem.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                if(newText.equals("")){
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) bhall);
-                    NavHostFragment.findNavController(BangXepHang.this)
-                            .navigate(R.id.action_item_bxh_to_danhsachbaihatOnline2, bundle);
-
-                    return false;
+            public void onClick(View v) {
+                count[0]++;
+                if (count[0] > 1) {
+                    Toast.makeText(getContext(), "Bạn đang nhấn quá nhanh", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (et_timkiem.getText().toString().equals("")) {
+                        Toast.makeText(getContext(), "Hãy nhập bài hát bạn muốn tìm kiếm", Toast.LENGTH_SHORT).show();
+                    } else {
+                        layBaiHatTimKiem(et_timkiem.getText().toString());
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                khoitaobaihat(listTimKiem);
+                            }
+                        }, 1000);
+                    }
                 }
-                else{
-                    listClone.clear();
-                    for(Baihat bh : bhall)
-                        if(bh.getTenBaiHat().toLowerCase().contains(newText.toLowerCase())){
-                            listClone.add(bh);
-                            khoitaobaihat(listClone);
-
-                        }
-                    if(listClone.isEmpty()) khoitaobaihat(listClone);
-                }
-                return false;
             }
         });
     }
-    private void sapxepgiamdan(){
-        Collections.sort(bhall, new Comparator<Baihat>() {
-            @Override
-            public int compare(Baihat o1, Baihat o2) {
-                return o2.getTenBaiHat().compareTo(o1.getTenBaiHat());
-            }
-        });
-    }
+
     private void khoitaobaihat(ArrayList<Baihat> listBh){
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("listbh", (ArrayList<? extends Parcelable>) listBh);
         NavHostFragment.findNavController(BangXepHang.this)
-                .navigate(R.id.action_item_bxh_to_danhsachbaihatOnline2, bundle);
+                .navigate(R.id.action_item_bxh_to_danhsachbaihatOnline1, bundle);
+
     }
 }

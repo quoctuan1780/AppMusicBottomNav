@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.example.appmusicbotnav.R;
+import com.example.appmusicbotnav.model.BaiHat;
 import com.example.appmusicbotnav.modelOnline.Baihat;
 
 import java.util.ArrayList;
@@ -29,6 +30,11 @@ public class BXHAdapter extends ArrayAdapter<Baihat> {
         this.context = context;
         this.bh =bh;
     }
+
+    public ArrayList<Baihat> layBaihatList(){
+        return bh;
+    }
+
     @Override
     public int getCount() {
         return bh.size();
@@ -58,8 +64,8 @@ public class BXHAdapter extends ArrayAdapter<Baihat> {
         TextView tvSubtitle = listItem.findViewById(R.id.tv_music_subtitlebxh);
         tvTitle.setTextColor(Color.WHITE);
         tvSubtitle.setTextColor(Color.WHITE);
-        ImageView imv = listItem.findViewById(R.id.img_menubxh);
-        taomenu(imv, currentSong);
+//        ImageView imv = listItem.findViewById(R.id.img_menubxh);
+//        taomenu(imv, currentSong);
         tvTitle.setText(currentSong.getTenBaiHat());
         tvSubtitle.setText(currentSong.getTenTacGia());
         return listItem;

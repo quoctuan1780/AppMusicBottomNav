@@ -3,28 +3,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rl_layout_rank"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.BangXepHang">
     <ScrollView
+        android:id="@+id/sc_bangxephang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
+            android:id="@+id/rl_layout_rank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/search_bxh"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tb_bangxephang"
+                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginRight="19dp"
-                android:outlineAmbientShadowColor="@color/black"
-                android:layout_marginLeft="19dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="30dp"
-                android:iconifiedByDefault="false"
-                android:background="@drawable/search"
-                android:queryHint="Tìm kiếm bài bát...">
-            </androidx.appcompat.widget.SearchView>
+                app:title="Bảng xếp hạng"
+                app:titleTextColor="@color/white">
+            </androidx.appcompat.widget.Toolbar>
+            <LinearLayout
+                android:id="@+id/ll_search_bxh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="100"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/tb_bangxephang"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <EditText
+                    android:id="@+id/et_timkiem_bxh"
+                    android:layout_width="0dp"
+                    android:layout_weight="80"
+                    android:background="@drawable/search"
+                    android:layout_height="wrap_content"
+                    android:hint="Tìm kiếm bài hát">
+                </EditText>
+                <ImageButton
+                    android:id="@+id/ib_timkiem_bxh"
+                    android:layout_width="0dp"
+                    android:layout_weight="8"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/ic_send_black_24dp">
+                </ImageButton>
+            </LinearLayout>
+
 
             <androidx.viewpager.widget.ViewPager
                 android:layout_width="match_parent"
@@ -33,7 +58,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/search_bxh">
+                android:layout_below="@+id/ll_search_bxh">
 
             </androidx.viewpager.widget.ViewPager>
             <TextView

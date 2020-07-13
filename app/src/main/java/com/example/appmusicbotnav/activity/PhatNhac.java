@@ -693,6 +693,8 @@ public class PhatNhac extends AppCompatActivity {
         super.onResume();
         if(listBaihatOnline != null && choinhac != null){
             chuyenbaitudongOn();
+            taiNhac();
+            binhluan();
         }
     }
 
