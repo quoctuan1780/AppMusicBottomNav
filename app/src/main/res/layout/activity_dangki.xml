@@ -8,17 +8,15 @@
     android:background="@color/background">
 
     <ViewFlipper
+        android:layout_marginTop="30dp"
         android:id="@+id/background_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="219dp"
         android:background="@drawable/background"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteY="236dp"></ViewFlipper>
+        app:layout_constraintTop_toTopOf="parent"></ViewFlipper>
 
     <Button
         android:id="@+id/bt_dangki"
@@ -37,7 +35,7 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rd_dieukhoan" />
+        app:layout_constraintTop_toBottomOf="@+id/cb_dieukhoan" />
 
     <TextView
         android:id="@+id/textView"
@@ -56,11 +54,11 @@
         app:layout_constraintVertical_bias="0.055" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/et_tendn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/rectangetextview"
         android:ems="10"
@@ -75,11 +73,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/edEmail"
+        android:id="@+id/et_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/rectangetextview"
         android:ems="10"
@@ -91,14 +89,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/et_tendn" />
 
     <EditText
-        android:id="@+id/ed_matkhau"
+        android:id="@+id/et_matkhau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/rectangetextview"
         android:ems="10"
@@ -110,23 +108,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
-    <RadioButton
-        android:id="@+id/rd_dieukhoan"
+    <EditText
+        android:id="@+id/et_nhaplai_matkhau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rectangetextview"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:hint="Nhập lại mật khẩu"
+        android:inputType="textPassword"
+        android:paddingLeft="25sp"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_matkhau" />
+
+    <CheckBox
+        android:id="@+id/cb_dieukhoan"
         android:layout_width="316dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="82dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="61dp"
         android:fontFamily="sans-serif-light"
         android:text="Đồng ý với điều khoản của chúng tôi ?"
         android:textColor="@color/text_login"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.397"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_matkhau" />
+        app:layout_constraintTop_toBottomOf="@+id/et_nhaplai_matkhau" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
