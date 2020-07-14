@@ -7,7 +7,6 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_chonbaihat_listview_off"
         app:title="Thêm bài hát vào playlist"
-        android:layout_marginTop="30dp"
         app:titleTextColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
