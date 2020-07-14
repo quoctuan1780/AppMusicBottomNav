@@ -92,9 +92,7 @@ public class Karaoke extends Fragment {
             public void onClick(View v) {
                 hideKeyboardFrom(getContext(), v);
                 if(!et_timkiemvideo.getText().toString().equals("")){
-                    if(modelHome == null) {
-                        layDuLieuVideo(et_timkiemvideo.getText().toString());
-                    }
+                    layDuLieuVideo(et_timkiemvideo.getText().toString());
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override

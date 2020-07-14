@@ -101,4 +101,10 @@ public class Youtube extends YouTubeBaseActivity {
             }
         });
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
 }
