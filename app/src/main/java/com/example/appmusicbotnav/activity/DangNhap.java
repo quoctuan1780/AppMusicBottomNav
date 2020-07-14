@@ -90,6 +90,7 @@ public class DangNhap extends AppCompatActivity {
                                     Taikhoan login = new Taikhoan();
                                     login.setTen(et_tendangnhap.getText().toString());
                                     login.setPass(et_matkhau.getText().toString());
+                                    session.setPass(et_matkhau.getText().toString());
                                     DataService dataService1 = APIService.getService();
                                     Call<Authenticate> authenticateCall = dataService1.Dangnhap(login);
                                     authenticateCall.enqueue(new Callback<Authenticate>() {

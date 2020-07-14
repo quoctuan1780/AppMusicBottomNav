@@ -94,12 +94,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/item"
+            android:textSize="24dp"
             android:paddingRight="10dp"
             android:text="Developer By:"></TextView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/item"
+            android:textSize="24dp"
+            android:paddingRight="10dp"
             android:paddingLeft="10dp"
             android:text="Team HTTT"></TextView>
     </LinearLayout>

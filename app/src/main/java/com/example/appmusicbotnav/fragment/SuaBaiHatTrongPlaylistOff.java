@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,18 +47,15 @@ public class SuaBaiHatTrongPlaylistOff extends Fragment {
     private PlaylistDBOffline playlistDBOffline;
     private final int MY_PERMISSION_REQUEST = 1;
     private View view;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-    }
+    private SearchView searchView;
+    private ArrayList<BaiHat> baiHatArrayList = new ArrayList<>(), listBaihatClone;
 
     @SuppressLint("ResourceAsColor")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_suabaihatplaylist, container, false);
+        searchView = (SearchView) view.findViewById(R.id.sv_timkhiem_bh_suaplaylist_off);
         setHasOptionsMenu(true);
         toolbar = (Toolbar) view.findViewById(R.id.tb_suabaihat_playlist);
         toolbar.setBackgroundColor(R.color.gray_color);
@@ -92,9 +90,11 @@ public class SuaBaiHatTrongPlaylistOff extends Fragment {
         for(BaiHat bh : listBh){
             listPl.add(bh);
         }
+        listBaihatClone = listPl;
         adapter = new ListViewSelectAdapter(getContext(), listPl);
         lv_suabaihat.setAdapter(adapter);
         chonbaihat();
+        khoitaotimkiem();
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -103,12 +103,21 @@ public class SuaBaiHatTrongPlaylistOff extends Fragment {
         lv_suabaihat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BaiHat bh = listPl.get(position);
-                if(bh.getChecked() == false)
-                    bh.setCheckBox(true);
-                else bh.setCheckBox(false);
-                listPl.set(position, bh);
-                adapter.updateAdapter(listPl);
+                if(baiHatArrayList.size() == 0) {
+                    BaiHat bh = listBaihatClone.get(position);
+                    if (bh.getChecked() == false)
+                        bh.setCheckBox(true);
+                    else bh.setCheckBox(false);
+                    listBaihatClone.set(position, bh);
+                    adapter.updateAdapter(listBaihatClone);
+                }else {
+                    BaiHat bh = baiHatArrayList.get(position);
+                    if (bh.getChecked() == false)
+                        bh.setCheckBox(true);
+                    else bh.setCheckBox(false);
+                    baiHatArrayList.set(position, bh);
+                    adapter.updateAdapter(baiHatArrayList);
+                }
             }
         });
     }
@@ -130,6 +139,34 @@ public class SuaBaiHatTrongPlaylistOff extends Fragment {
         }
         songCursor.close();
         return listlocal;
+    }
+
+    private void khoitaotimkiem(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.equals("")) {
+                    baiHatArrayList.clear();
+                    adapter.updateAdapter(listBaihatClone);
+                    return true;
+                }
+                else{
+                    baiHatArrayList.clear();
+                    for(BaiHat bh : listBaihatClone) {
+                        if (bh.getTitle().toLowerCase().contains(newText.toLowerCase())) {
+                            baiHatArrayList.add(bh);
+                        }
+                    }
+                    adapter.updateAdapter(baiHatArrayList);
+                    return true;
+                }
+            }
+        });
     }
 
     @Override

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_doimatkhau">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_doimatkhau"
+        app:title="Đổi mật khẩu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        ></androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/rellay1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grad"
+        android:layout_below="@+id/tb_doimatkhau"
+        android:paddingBottom="20dp">
+        <RelativeLayout
+            android:id="@+id/imgUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/circle_border">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_margin="9dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/circle"
+                android:padding="3dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/tdd" />
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_name_doimatkhau"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgUser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15sp"
+            android:fontFamily="sans-serif-light"
+            android:text="Joey Tribbiani"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
+
+
+        <TextView
+            android:id="@+id/tv_address_doimatkhau"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name_doimatkhau"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:text="Việt Nam"
+            android:textAllCaps="true"
+            android:textColor="@color/address"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_matkhaucu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/rellay1">
+        <EditText
+            android:id="@+id/et_matkhaucu"
+            android:layout_marginTop="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="80"
+            android:layout_height="40dp"
+            android:hint="Mật khẩu cũ"
+            android:password="true"
+            android:background="@drawable/search"
+            ></EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_matkhaumoi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/ll_matkhaucu">
+        <EditText
+            android:id="@+id/et_matkhaumoi"
+            android:layout_marginTop="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="80"
+            android:layout_height="40dp"
+            android:hint="Mật khẩu mới"
+            android:password="true"
+            android:background="@drawable/search"
+            ></EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_nhaplaimatkhau"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/ll_matkhaumoi">
+        <EditText
+            android:id="@+id/et_nhaplaimatkhau"
+            android:layout_marginTop="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="80"
+            android:layout_height="40dp"
+            android:password="true"
+            android:hint="Nhập lại mật khẩu"
+            android:background="@drawable/search"
+            ></EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bt_doimatkhau"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/ll_nhaplaimatkhau">
+        <Button
+            android:id="@+id/bt_doimatkhau"
+            android:layout_marginTop="30dp"
+            android:layout_width="0dp"
+            android:layout_weight="80"
+            android:layout_height="40dp"
+            android:text="Đổi mật khẩu"
+            android:background="@drawable/button"
+            ></Button>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -204,7 +204,15 @@
     <fragment
         android:id="@+id/item_taikhoan"
         android:name="com.example.appmusicbotnav.fragment.TaiKhoan"
-        android:label="TaiKhoan" />
+        android:label="TaiKhoan" >
+        <action
+            android:id="@+id/action_item_taikhoan_to_doiMatKhau"
+            app:destination="@id/doiMatKhau"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
     <fragment
         android:id="@+id/danhSachPlayListOnline"
         android:name="com.example.appmusicbotnav.fragment.DanhSachPlayListOnline"
@@ -232,4 +240,8 @@
         android:id="@+id/baiHatDaTaiXuong"
         android:name="com.example.appmusicbotnav.fragment.DanhSachBaiHatDaTaiXuong"
         android:label="BaiHatDaTaiXuong" />
+    <fragment
+        android:id="@+id/doiMatKhau"
+        android:name="com.example.appmusicbotnav.fragment.DoiMatKhau"
+        android:label="DoiMatKhau" />
 </navigation>
