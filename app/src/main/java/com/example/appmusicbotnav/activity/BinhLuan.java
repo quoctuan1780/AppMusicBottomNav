@@ -81,7 +81,12 @@ public class BinhLuan extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 hideKeyboardFrom(BinhLuan.this, v);
-                linearLayout.setTranslationY(0f);
+                new HeightProvider(BinhLuan.this).init().setHeightListener(new HeightProvider.HeightListener() {
+                    @Override
+                    public void onHeightChanged(int height) {
+                        linearLayout.setTranslationY(height);
+                    }
+                });
                 return false;
             }
         });
@@ -175,13 +180,13 @@ public class BinhLuan extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+//        View decorView = getWindow().getDecorView();
+//        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
     @Override

@@ -9,7 +9,6 @@
         android:id="@+id/tb_baihat_dataixuong"
         android:layout_width="match_parent"
         app:title="Danh sách bài hát đã tải xuống"
-        android:layout_marginTop="30dp"
         app:titleTextColor="@color/white"
         android:layout_height="wrap_content">
     </androidx.appcompat.widget.Toolbar>
