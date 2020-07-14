@@ -40,6 +40,7 @@ public class LoadApp extends AppCompatActivity {
                 public void run() {
                     Intent intent = new Intent(LoadApp.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }, 3000);
         }else {
@@ -87,6 +88,7 @@ public class LoadApp extends AppCompatActivity {
                     public void run() {
                         Intent intent = new Intent(LoadApp.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 }, 3000);
             }else{
