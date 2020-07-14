@@ -94,4 +94,7 @@ public interface DataService {
 
     @POST("nguoidung/add-nguoidung")
     Call<Thongtintaikhoan> dangki(@Body Thongtintaikhoan Thongtin);
+
+    @PUT("nguoidung/update-nguoidung")
+    Call<Thongtintaikhoan> doimatkhau(@Body Thongtintaikhoan thongtintaikhoan);
 }

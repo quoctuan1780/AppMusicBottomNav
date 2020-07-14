@@ -47,6 +47,15 @@ public class Session {
         pref.edit().putInt("id", id).commit();
     }
 
+    public void setPass(String pass){
+        pref.edit().putString("pass", pass).commit();
+    }
+
+    public String getPass(){
+        String pass = pref.getString("pass", "");
+        return pass;
+    }
+
     public void clearSession(){
         pref.edit().clear().commit();
     }

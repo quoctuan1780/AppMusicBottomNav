@@ -13,16 +13,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import com.example.appmusicbotnav.R;
 import com.example.appmusicbotnav.activity.DangNhap;
 import com.example.appmusicbotnav.session.Session;
 
 public class TaiKhoan extends Fragment {
-    private View view;
+    private View view, noidungView;
     private RelativeLayout rl_noidung;
     private Button bt_dangnhapngay;
     private LinearLayout ll_doimatkhau, ll_danguxat;
     private TextView tv_name, tv_email;
+    private LayoutInflater inflater;
 
     @Nullable
     @Override
@@ -41,17 +43,24 @@ public class TaiKhoan extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View noidungView;
+        inflater = LayoutInflater.from(getContext());
         final Session session = new Session(getContext());
         if(session.getToken() != "") {
             noidungView = inflater.inflate(R.layout.item_thongtintaikhoan, null);
             ll_danguxat = (LinearLayout) noidungView.findViewById(R.id.ll_dangxuat);
             tv_name = (TextView) noidungView.findViewById(R.id.tv_name);
             tv_email = (TextView) noidungView.findViewById(R.id.tv_email);
+            ll_doimatkhau = (LinearLayout) noidungView.findViewById(R.id.ll_doimatkhau);
             tv_name.setText(session.getTen());
             tv_email.setText(session.getEmail());
             rl_noidung.addView(noidungView);
+            ll_doimatkhau.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NavHostFragment.findNavController(getParentFragment())
+                            .navigate(R.id.action_item_taikhoan_to_doiMatKhau);
+                }
+            });
             ll_danguxat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -61,6 +70,7 @@ public class TaiKhoan extends Fragment {
                         DanhSachPlayListOnline.playlistArrayList.clear();
                     }
                     Toast.makeText(getContext(), "Bạn đã đăng xuất", Toast.LENGTH_LONG).show();
+                    getViewDangNhap();
                 }
             });
         }
@@ -76,5 +86,19 @@ public class TaiKhoan extends Fragment {
                 }
             });
         }
+    }
+
+    public void getViewDangNhap(){
+        rl_noidung.removeAllViews();
+        noidungView = inflater.inflate(R.layout.item_dangnhap, null);
+        bt_dangnhapngay = (Button) noidungView.findViewById(R.id.bt_dangnhapngay);
+        rl_noidung.addView(noidungView);
+        bt_dangnhapngay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DangNhap.class);
+                startActivity(intent);
+            }
+        });
     }
 }

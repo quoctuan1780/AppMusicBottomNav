@@ -18,13 +18,16 @@
         android:padding="10dp"
         android:layout_below="@id/tb_suabaihat_playlist"
         >
-        <androidx.appcompat.widget.SearchView
+        <SearchView
             android:id="@+id/sv_timkhiem_bh_suaplaylist_off"
             android:layout_width="match_parent"
-            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/search"
-            android:layout_height="wrap_content">
-        </androidx.appcompat.widget.SearchView>
+            android:iconifiedByDefault="false"
+            android:queryHint="Tìm kiếm bài hát...">
+        </SearchView>
     </LinearLayout>
     <ListView
         android:id="@+id/lv_chonbaihat_suaplaylist_off"
