@@ -294,7 +294,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/playfair_display_bold"
-                            android:text="Bài hát đã tài xuống"
+                            android:text="Bài hát đã tải xuống"
                             android:textColor="@color/black"></TextView>
 
                         <TextView

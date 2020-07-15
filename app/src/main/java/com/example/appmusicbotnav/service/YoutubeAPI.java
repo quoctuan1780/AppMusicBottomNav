@@ -8,8 +8,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Url;
 
 public class YoutubeAPI {
+    //AIzaSyCpcb5--BX5ht-gbCUWZLi3tBA0RFc7thA
+    //AIzaSyBYPxgLAOlVBejSLLMUrC_ZDHWDApzBBc0
     public static final String BASE_URL="https://www.googleapis.com/youtube/v3/";
-    public static final String KEY="AIzaSyBYPxgLAOlVBejSLLMUrC_ZDHWDApzBBc0";
+    public static final String KEY="AIzaSyCpcb5--BX5ht-gbCUWZLi3tBA0RFc7thA";
     public static final String sch="search?key=";
     public static final String mx="&maxResults=10";
     public static final String part="&part=snippet";

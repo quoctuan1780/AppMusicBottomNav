@@ -34,6 +34,9 @@ import com.example.appmusicbotnav.modelOnline.Taikhoan;
 import com.example.appmusicbotnav.service.APIService;
 import com.example.appmusicbotnav.service.DataService;
 import com.example.appmusicbotnav.session.Session;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -150,7 +153,7 @@ public class BinhLuan extends AppCompatActivity {
                 comment.setIdNguoiDung(session.getId());
                 comment.setNoiDung(et_noidung.getText().toString());
                 android.text.format.DateFormat df = new android.text.format.DateFormat();
-                String date = df.format("yyyy-MM-dd", Calendar.getInstance().getTime()).toString();
+                String date = df.format("yyyy-MM-dd'T'HH:mm:ss", Calendar.getInstance().getTime()).toString();
                 comment.setThoiDiemBinhLuan(date);
                 String token = session.getToken();
                 String content = "Bearer " + token;

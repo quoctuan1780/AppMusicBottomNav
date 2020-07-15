@@ -68,7 +68,7 @@ public class BinhLuanAdapter extends RecyclerView.Adapter<BinhLuanAdapter.BinhLu
         try {
             java.util.Date dutyDay = (java.util.Date) simpleDateFormat.parse(date);
             android.text.format.DateFormat df = new android.text.format.DateFormat();
-            return df.format("dd-MM-yyyy", dutyDay).toString();
+            return df.format("yyyy-MM-dd", dutyDay).toString();
         } catch (ParseException e) {
             e.printStackTrace();
         }
